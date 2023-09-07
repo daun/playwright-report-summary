@@ -143,13 +143,9 @@ export async function run(): Promise<void> {
 }
 
 if (process.env.GITHUB_ACTIONS === 'true') {
-	;(async () => {
-		try {
-			await run()
-		} catch (error) {
-			if (error instanceof Error) {
-				setFailed(error.message)
-			}
+	run().catch((error) => {
+		if (error instanceof Error) {
+			setFailed(error.message)
 		}
-	})()
+	})
 }

@@ -191,7 +191,7 @@ export function renderReportSummary(
 	{ commit, message, title, reportUrl, iconStyle }: ReportRenderOptions = {}
 ): string {
 	const { duration, failed, passed, flaky, skipped } = report
-	const icon = (symbol: string) => renderIcon(symbol, { iconStyle })
+	const icon = (symbol: string): string => renderIcon(symbol, { iconStyle })
 	const paragraphs = []
 
 	// Title

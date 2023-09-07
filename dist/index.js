@@ -9644,7 +9644,7 @@ function renderMarkdownTable(rows, headers = []) {
     }
     const align = [':---', ':---:', ':---:', ':---:'].slice(0, rows[0].length);
     const lines = [headers, align, ...rows].filter(Boolean);
-    return lines.map(columns => `| ${columns.join(' | ')} |`).join('\n');
+    return lines.map((columns) => `| ${columns.join(' | ')} |`).join('\n');
 }
 exports.renderMarkdownTable = renderMarkdownTable;
 function formatDuration(milliseconds) {
@@ -9674,8 +9674,8 @@ function upperCaseFirst(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 exports.upperCaseFirst = upperCaseFirst;
-function n(str, n) {
-    return n === 1 ? str : `${str}s`;
+function n(str, count) {
+    return count === 1 ? str : `${str}s`;
 }
 exports.n = n;
 
@@ -9800,21 +9800,17 @@ async function run() {
     const iconStyle = (0, core_1.getInput)('icon-style');
     const { eventName, repo, payload } = github_1.context;
     const { owner, number: pull_number } = github_1.context.issue;
-    try {
-        (0, core_1.debug)('pull request ' + JSON.stringify(payload, null, 2));
-    }
-    catch (e) { }
     const base = {};
     const head = {};
-    if (eventName == 'push') {
+    if (eventName === 'push') {
         base.ref = payload.ref;
         base.sha = payload.before;
         head.ref = payload.ref;
         head.sha = payload.after;
         console.log(`Commit pushed onto ${base.ref} (${head.sha})`);
     }
-    else if (eventName == 'pull_request' ||
-        eventName == 'pull_request_target') {
+    else if (eventName === 'pull_request' ||
+        eventName === 'pull_request_target') {
         base.ref = payload.pull_request?.base?.ref;
         base.sha = payload.pull_request?.base?.sha;
         head.ref = payload.pull_request?.head?.ref;
@@ -9850,7 +9846,7 @@ async function run() {
                 ...repo,
                 issue_number: pull_number
             });
-            const existingComment = comments.findLast(c => c.user?.type === 'Bot' && c.body?.includes(prefix));
+            const existingComment = comments.findLast((c) => c.user?.type === 'Bot' && c.body?.includes(prefix));
             commentId = existingComment?.id || null;
         }
         catch (error) {
@@ -9910,7 +9906,7 @@ async function run() {
 }
 exports.run = run;
 if (process.env.GITHUB_ACTIONS === 'true') {
-    run().catch(error => {
+    run().catch((error) => {
         if (error instanceof Error) {
             (0, core_1.setFailed)(error.message);
         }
@@ -9947,26 +9943,26 @@ function parseReport(data) {
     const duration = report.config.metadata.totalTime || 0;
     const workers = report.config.metadata.actualWorkers || report.config.workers || 1;
     const shards = report.config.shard?.total || 0;
-    const projects = report.config.projects.map(project => project.name);
-    const files = report.suites.map(file => file.title);
-    const suites = report.suites.flatMap(file => file.suites.length
-        ? [...file.suites.map(suite => `${file.title} > ${suite.title}`)]
+    const projects = report.config.projects.map((project) => project.name);
+    const files = report.suites.map((file) => file.title);
+    const suites = report.suites.flatMap((file) => file.suites.length
+        ? [...file.suites.map((suite) => `${file.title} > ${suite.title}`)]
         : [file.title]);
     const specs = report.suites.reduce((all, file) => {
-        file.specs.forEach(spec => {
+        for (const spec of file.specs) {
             all.push(parseSpec(spec, [file]));
-        });
-        file.suites.forEach(suite => {
-            suite.specs.forEach(spec => {
+        }
+        for (const suite of file.suites) {
+            for (const spec of suite.specs) {
                 all.push(parseSpec(spec, [file, suite]));
-            });
-        });
+            }
+        }
         return all;
     }, []);
-    const failed = specs.filter(spec => spec.failed);
-    const passed = specs.filter(spec => spec.passed);
-    const flaky = specs.filter(spec => spec.flaky);
-    const skipped = specs.filter(spec => spec.skipped);
+    const failed = specs.filter((spec) => spec.failed);
+    const passed = specs.filter((spec) => spec.passed);
+    const flaky = specs.filter((spec) => spec.flaky);
+    const skipped = specs.filter((spec) => spec.skipped);
     return {
         version,
         duration,
@@ -9988,7 +9984,7 @@ function parseSpec(spec, parents = []) {
     const test = spec.tests[0];
     const status = test.status;
     const project = test.projectName;
-    const path = [project, ...parents.map(p => p.title), spec.title].filter(Boolean);
+    const path = [project, ...parents.map((p) => p.title), spec.title].filter(Boolean);
     const title = path.join(' → ');
     const flaky = status === 'flaky';
     const skipped = status === 'skipped';
@@ -10024,22 +10020,22 @@ function renderReportSummary(report, { commit, message, title, reportUrl, iconSt
     paragraphs.push(stats.filter(Boolean).join('  \n'));
     // Lists of failed/skipped tests
     const listStatuses = ['failed', 'flaky', 'skipped'];
-    const details = listStatuses.map(status => {
+    const details = listStatuses.map((status) => {
         const tests = report[status];
         if (tests.length) {
             return `
 				<details ${status === 'failed' ? 'open' : ''}>
 					<summary><strong>${(0, formatting_1.upperCaseFirst)(status)} tests</strong></summary>
-					<ul>${tests.map(test => `<li>${test.title}</li>`).join('\n')}</ul>
+					<ul>${tests.map((test) => `<li>${test.title}</li>`).join('\n')}</ul>
 				</details>`;
         }
     });
     paragraphs.push(details
         .filter(Boolean)
-        .map(md => md.trim())
+        .map((md) => md.trim())
         .join('\n'));
     return paragraphs
-        .map(p => p.trim())
+        .map((p) => p.trim())
         .filter(Boolean)
         .join('\n\n');
 }

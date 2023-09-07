@@ -28,15 +28,15 @@ export async function run(): Promise<void> {
 
   const base: { ref?: string; sha?: string } = {}
   const head: { ref?: string; sha?: string } = {}
-  if (eventName == 'push') {
+  if (eventName === 'push') {
     base.ref = payload.ref
     base.sha = payload.before
     head.ref = payload.ref
     head.sha = payload.after
     console.log(`Commit pushed onto ${base.ref} (${head.sha})`)
   } else if (
-    eventName == 'pull_request' ||
-    eventName == 'pull_request_target'
+    eventName === 'pull_request' ||
+    eventName === 'pull_request_target'
   ) {
     base.ref = payload.pull_request?.base?.ref
     base.sha = payload.pull_request?.base?.sha
@@ -143,9 +143,13 @@ export async function run(): Promise<void> {
 }
 
 if (process.env.GITHUB_ACTIONS === 'true') {
-  run().catch(error => {
-    if (error instanceof Error) {
-      setFailed(error.message)
-    }
-  })
+	(async () => {
+		try {
+			await run()
+		} catch (error) {
+			if (error instanceof Error) {
+				setFailed(error.message)
+			}
+		}
+	})()
 }

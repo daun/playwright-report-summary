@@ -43,6 +43,6 @@ export function upperCaseFirst(str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-export function n(str: string, n: number): string {
-  return n === 1 ? str : `${str}s`
+export function n(str: string, count: number): string {
+  return count === 1 ? str : `${str}s`
 }

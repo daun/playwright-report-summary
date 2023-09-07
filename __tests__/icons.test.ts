@@ -6,7 +6,7 @@ import { expect } from '@jest/globals'
 import { renderIcon } from '../src/icons'
 
 describe('icons.ts', () => {
-  it('returns a string', async () => {
-    expect(renderIcon('something')).toBe('')
-  })
+	it('returns a string', async () => {
+		expect(renderIcon('something')).toBe('')
+	})
 })

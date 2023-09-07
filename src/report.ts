@@ -126,12 +126,14 @@ export function parseReport(data: string): ReportSummary {
 	const workers: number =
 		report.config.metadata.actualWorkers || report.config.workers || 1
 	const shards: number = report.config.shard?.total || 0
-	const projects: string[] = report.config.projects.map(project => project.name)
+	const projects: string[] = report.config.projects.map(
+		(project) => project.name
+	)
 
-	const files: string[] = report.suites.map(file => file.title)
-	const suites: string[] = report.suites.flatMap(file =>
+	const files: string[] = report.suites.map((file) => file.title)
+	const suites: string[] = report.suites.flatMap((file) =>
 		file.suites.length
-			? [...file.suites.map(suite => `${file.title} > ${suite.title}`)]
+			? [...file.suites.map((suite) => `${file.title} > ${suite.title}`)]
 			: [file.title]
 	)
 	const specs: SpecSummary[] = report.suites.reduce((all, file) => {
@@ -145,10 +147,10 @@ export function parseReport(data: string): ReportSummary {
 		}
 		return all
 	}, [] as SpecSummary[])
-	const failed = specs.filter(spec => spec.failed)
-	const passed = specs.filter(spec => spec.passed)
-	const flaky = specs.filter(spec => spec.flaky)
-	const skipped = specs.filter(spec => spec.skipped)
+	const failed = specs.filter((spec) => spec.failed)
+	const passed = specs.filter((spec) => spec.passed)
+	const flaky = specs.filter((spec) => spec.flaky)
+	const skipped = specs.filter((spec) => spec.skipped)
 
 	return {
 		version,
@@ -172,7 +174,7 @@ function parseSpec(spec: Spec, parents: Suite[] = []): SpecSummary {
 	const status = test.status
 	const project = test.projectName
 
-	const path = [project, ...parents.map(p => p.title), spec.title].filter(
+	const path = [project, ...parents.map((p) => p.title), spec.title].filter(
 		Boolean
 	)
 	const title = path.join(' → ')
@@ -227,25 +229,25 @@ export function renderReportSummary(
 	// Lists of failed/skipped tests
 
 	const listStatuses = ['failed', 'flaky', 'skipped'] as const
-	const details = listStatuses.map(status => {
+	const details = listStatuses.map((status) => {
 		const tests = report[status]
 		if (tests.length) {
 			return `
 				<details ${status === 'failed' ? 'open' : ''}>
 					<summary><strong>${upperCaseFirst(status)} tests</strong></summary>
-					<ul>${tests.map(test => `<li>${test.title}</li>`).join('\n')}</ul>
+					<ul>${tests.map((test) => `<li>${test.title}</li>`).join('\n')}</ul>
 				</details>`
 		}
 	})
 	paragraphs.push(
 		details
 			.filter(Boolean)
-			.map(md => (md as string).trim())
+			.map((md) => (md as string).trim())
 			.join('\n')
 	)
 
 	return paragraphs
-		.map(p => p.trim())
+		.map((p) => p.trim())
 		.filter(Boolean)
 		.join('\n\n')
 }

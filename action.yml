@@ -1,0 +1,19 @@
+name: 'The name of your action here'
+description: 'Provide a description here'
+author: 'Your name or organization here'
+
+# Define your inputs here.
+inputs:
+  milliseconds:
+    description: 'Your input description here'
+    required: true
+    default: '1000'
+
+# Define your outputs here.
+outputs:
+  time:
+    description: 'Your output description here'
+
+runs:
+  using: node16
+  main: dist/index.js

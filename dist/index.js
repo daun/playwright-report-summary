@@ -9719,6 +9719,7 @@ exports.readFile = readFile;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.renderIcon = exports.icons = void 0;
 const iconSize = 14;
+const defaultIconStyle = 'octicons';
 exports.icons = {
     octicons: {
         failed: 'stop',
@@ -9750,7 +9751,7 @@ const iconColors = {
     skipped: '0967d9',
     icon: 'abb4bf'
 };
-function renderIcon(status, { iconStyle }) {
+function renderIcon(status, { iconStyle = defaultIconStyle } = {}) {
     if (iconStyle === 'emojis') {
         return exports.icons.emojis[status] || '';
     }

@@ -46,6 +46,7 @@ rules:
     'prettier/prettier': 'error',
     'semi': 'off',
     'no-shadow': 'off',
+    'github/no-then': 'off',
     'no-irregular-whitespace': 'off',
     '@typescript-eslint/array-type': 'error',
     '@typescript-eslint/await-thenable': 'error',

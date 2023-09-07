@@ -1,19 +1,35 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Playwright report comment'
+description: 'Report Playwright test results as pull request comments'
+author: 'Philipp Daun <daun@daun.ltd>'
 
-# Define your inputs here.
+branding:
+  icon: 'message-circle'
+  color: 'purple'
+
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  github-token:
+    description: 'The GitHub access token'
+    required: false
+    default: ${{ github.token }}
+  report-file:
+    description: 'Path to the generated json report file'
     required: true
-    default: '1000'
+  report-url:
+    description: 'URL to the generated html report, if uploaded'
+    required: false
+  comment-title:
+    description: 'Customize the title of the pull request comment'
+    required: false
+    default: 'Playwright test results'
+  icon-style:
+    description: 'The icons to use: octicons or emoji'
+    required: false
+    default: 'octicons'
 
-# Define your outputs here.
 outputs:
-  time:
-    description: 'Your output description here'
+  comment-id:
+    description: 'The ID of the comment that was created or updated'
 
 runs:
-  using: node16
+  using: node20
   main: dist/index.js

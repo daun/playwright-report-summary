@@ -6,7 +6,8 @@
 #
 # This workflow will fail if the checked-in `dist/index.js` file does not match
 # what is expected from the build.
-name: Check dist/
+
+name: Check dist
 
 on:
   push:

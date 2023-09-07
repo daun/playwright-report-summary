@@ -40,7 +40,7 @@ const iconColors: IconColors = {
 export function renderIcon(
   status: string,
   { iconStyle = defaultIconStyle }: { iconStyle?: keyof typeof icons } = {}
-) {
+): string {
   if (iconStyle === 'emojis') {
     return icons.emojis[status] || ''
   } else {
@@ -52,7 +52,7 @@ export function renderIcon(
 function createOcticonUrl(
   icon: string,
   { label = 'icon', color = iconColors.icon, size = iconSize } = {}
-) {
+): string {
   if (icon) {
     return `![${label}](https://icongr.am/octicons/${icon}.svg?size=${size}&color=${color})`
   } else {

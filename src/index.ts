@@ -26,10 +26,6 @@ export async function run(): Promise<void> {
   const { eventName, repo, payload } = context
   const { owner, number: pull_number } = context.issue
 
-  try {
-    debug('pull request ' + JSON.stringify(payload, null, 2))
-  } catch (e) {}
-
   const base: { ref?: string; sha?: string } = {}
   const head: { ref?: string; sha?: string } = {}
   if (eventName == 'push') {

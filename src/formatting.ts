@@ -1,4 +1,4 @@
-export function renderMarkdownTable(rows: string[][], headers: string[] = []) {
+export function renderMarkdownTable(rows: string[][], headers: string[] = []): string {
   if (!rows.length) {
     return ''
   }

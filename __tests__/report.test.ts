@@ -4,7 +4,7 @@
 
 import { expect } from '@jest/globals'
 import { readFile } from '../src/fs'
-import { isValidReport, parseReport,  } from '../src/report'
+import { isValidReport, parseReport } from '../src/report'
 
 async function getReport() {
 	return await readFile('__tests__/fixtures/report-valid.json')
@@ -22,7 +22,7 @@ describe('isValidReport', () => {
 	it('detects invalid reports', async () => {
 		const report = await getInvalidReport()
 		expect(isValidReport([])).toBe(false)
-		expect(isValidReport("")).toBe(false)
+		expect(isValidReport('')).toBe(false)
 		expect(isValidReport(JSON.parse(report))).toBe(false)
 	})
 })

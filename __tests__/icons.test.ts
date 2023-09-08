@@ -7,7 +7,10 @@ import { renderIcon } from '../src/icons'
 
 describe('renderIcon', () => {
 	it('returns a string', async () => {
-		expect(renderIcon('something')).toBe('')
+		expect(typeof renderIcon('passed') === 'string').toBe(true)
+	})
+	it('returns an empty string for undefined icons', async () => {
+		expect(renderIcon('no-such-icon')).toBe('')
 	})
 	it('renders markdown images', async () => {
 		expect(renderIcon('passed')).toMatch(/^[!]\[([\w\s\d]+)\]\((https?:\/\/[\w\d./?&=_-]+)\)$/i)

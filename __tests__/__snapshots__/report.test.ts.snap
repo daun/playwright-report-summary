@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renderReportSummary matches snapshot 1`] = `
+"### Test Report
+
+![failed](https://icongr.am/octicons/stop.svg?size=14&color=da3633)  **2 failed**  
+![passed](https://icongr.am/octicons/check-circle.svg?size=14&color=3fb950)  **10 passed**    
+![flaky](https://icongr.am/octicons/alert.svg?size=14&color=d29922)  **1 flaky**    
+![skipped](https://icongr.am/octicons/skip.svg?size=14&color=0967d9)  **1 skipped**
+
+#### Details
+
+![report](https://icongr.am/octicons/package.svg?size=14&color=abb4bf)  [Open report ↗︎](https://example.com/report)  
+![stats](https://icongr.am/octicons/pulse.svg?size=14&color=abb4bf)  14 tests across 4 suites  
+![duration](https://icongr.am/octicons/clock.svg?size=14&color=abb4bf)  1.1 seconds  
+![commit](https://icongr.am/octicons/git-pull-request.svg?size=14&color=abb4bf)  1234567
+
+<details open><summary><strong>Failed tests</strong></summary>
+
+chromium → add.spec.ts → add → adds
+  firefox → add.spec.ts → add → adds
+
+</details>
+<details ><summary><strong>Flaky tests</strong></summary>
+
+chromium → multiply.spec.ts → multiply → multiplies
+
+</details>
+<details ><summary><strong>Skipped tests</strong></summary>
+
+chromium → multiply.spec.ts → multiply → skips
+
+</details>"
+`;

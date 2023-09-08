@@ -9637,7 +9637,7 @@ function wrappy (fn, cb) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.n = exports.upperCaseFirst = exports.formatDuration = exports.renderMarkdownTable = void 0;
+exports.n = exports.upperCaseFirst = exports.formatDuration = exports.renderAccordion = exports.renderMarkdownTable = void 0;
 function renderMarkdownTable(rows, headers = []) {
     if (!rows.length) {
         return '';
@@ -9647,6 +9647,12 @@ function renderMarkdownTable(rows, headers = []) {
     return lines.map((columns) => `| ${columns.join(' | ')} |`).join('\n');
 }
 exports.renderMarkdownTable = renderMarkdownTable;
+function renderAccordion(summary, content, { open = false } = {}) {
+    summary = `<summary><strong>${summary}</strong></summary>`;
+    content = `\n\n${content.trim()}\n\n`;
+    return `<details ${open ? 'open' : ''}>${summary}\n\n${content.trim()}\n\n</details>`;
+}
+exports.renderAccordion = renderAccordion;
 function formatDuration(milliseconds) {
     const SECOND = 1000;
     const MINUTE = 60 * SECOND;
@@ -10031,11 +10037,10 @@ function renderReportSummary(report, { commit, message, title, reportUrl, iconSt
     const details = listStatuses.map((status) => {
         const tests = report[status];
         if (tests.length) {
-            return `
-				<details ${status === 'failed' ? 'open' : ''}>
-					<summary><strong>${(0, formatting_1.upperCaseFirst)(status)} tests</strong></summary>
-					<ul>${tests.map((test) => `<li>${test.title}</li>`).join('\n')}</ul>
-				</details>`;
+            const summary = `${(0, formatting_1.upperCaseFirst)(status)} tests`;
+            const list = tests.map((test) => test.title).join('\n  ');
+            const open = status === 'failed';
+            return (0, formatting_1.renderAccordion)(summary, list, { open });
         }
     });
     paragraphs.push(details

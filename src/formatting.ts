@@ -10,6 +10,18 @@ export function renderMarkdownTable(
 	return lines.map((columns) => `| ${columns.join(' | ')} |`).join('\n')
 }
 
+export function renderAccordion(
+	summary: string,
+	content: string,
+	{ open = false }: { open?: boolean } = {}
+): string {
+	summary = `<summary><strong>${summary}</strong></summary>`
+	content = `\n\n${content.trim()}\n\n`
+	return `<details ${
+		open ? 'open' : ''
+	}>${summary}\n\n${content.trim()}\n\n</details>`
+}
+
 export function formatDuration(milliseconds: number): string {
 	const SECOND = 1000
 	const MINUTE = 60 * SECOND

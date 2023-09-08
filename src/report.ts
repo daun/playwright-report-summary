@@ -1,5 +1,10 @@
 import { debug } from '@actions/core'
-import { formatDuration, n, upperCaseFirst } from './formatting'
+import {
+	formatDuration,
+	n,
+	renderAccordion,
+	upperCaseFirst
+} from './formatting'
 import { icons, renderIcon } from './icons'
 
 interface Report {
@@ -239,11 +244,10 @@ export function renderReportSummary(
 	const details = listStatuses.map((status) => {
 		const tests = report[status]
 		if (tests.length) {
-			return `
-				<details ${status === 'failed' ? 'open' : ''}>
-					<summary><strong>${upperCaseFirst(status)} tests</strong></summary>
-					<ul>${tests.map((test) => `<li>${test.title}</li>`).join('\n')}</ul>
-				</details>`
+			const summary = `${upperCaseFirst(status)} tests`
+			const list = tests.map((test) => test.title).join('\n  ')
+			const open = status === 'failed'
+			return renderAccordion(summary, list, { open })
 		}
 	})
 	paragraphs.push(

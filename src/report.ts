@@ -104,11 +104,12 @@ interface ReportRenderOptions {
 	iconStyle?: keyof typeof icons
 }
 
-function isValidReport(report: unknown): report is Report {
+export function isValidReport(report: unknown): report is Report {
 	return (
-		typeof report === 'object' &&
 		report !== null &&
+		typeof report === 'object' &&
 		'config' in report &&
+		'errors' in report &&
 		'suites' in report
 	)
 }

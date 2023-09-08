@@ -1,0 +1,221 @@
+{
+  "settings": {
+    "configFile": "/project/tests/config/playwright.config.ts",
+    "rootDir": "/project/tests/functional",
+    "metadata": {
+      "actualWorkers": 5,
+      "totalTime": 611.735
+    }
+  },
+  "tests": [
+    {
+      "title": "add.spec.ts",
+      "file": "add.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "add",
+          "file": "add.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 12,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-08T11:41:22.242Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2f4bb8d916741bacc6cb-23c1b2167130e38ec767",
+              "file": "add.spec.ts",
+              "line": 6,
+              "column": 2
+            },
+            {
+              "title": "adds",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 14,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-08T11:41:22.240Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2f4bb8d916741bacc6cb-328ccc869357d9515391",
+              "file": "add.spec.ts",
+              "line": 9,
+              "column": 2
+            },
+            {
+              "title": "returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "status": "passed",
+                      "duration": 12,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-08T11:41:22.441Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2f4bb8d916741bacc6cb-acf8e9042a34b90fed6a",
+              "file": "add.spec.ts",
+              "line": 6,
+              "column": 2
+            },
+            {
+              "title": "adds",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "status": "passed",
+                      "duration": 13,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-08T11:41:22.437Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2f4bb8d916741bacc6cb-ab12f000ed9a4eea5a16",
+              "file": "add.spec.ts",
+              "line": 9,
+              "column": 2
+            },
+            {
+              "title": "returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 10,
+                      "status": "passed",
+                      "duration": 15,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-08T11:41:22.644Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2f4bb8d916741bacc6cb-1072f29bbb9cb3f8bbc9",
+              "file": "add.spec.ts",
+              "line": 6,
+              "column": 2
+            },
+            {
+              "title": "adds",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 12,
+                      "status": "passed",
+                      "duration": 12,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-08T11:41:22.651Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2f4bb8d916741bacc6cb-fd19a15b8b57bf62098b",
+              "file": "add.spec.ts",
+              "line": 9,
+              "column": 2
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

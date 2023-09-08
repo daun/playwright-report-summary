@@ -7,6 +7,7 @@
  */
 
 import * as core from '@actions/core'
+import * as github from '@actions/github'
 import * as index from '../src/index'
 
 // Mock the GitHub Actions core library
@@ -15,23 +16,29 @@ const getInputMock = jest.spyOn(core, 'getInput')
 const setFailedMock = jest.spyOn(core, 'setFailed')
 const setOutputMock = jest.spyOn(core, 'setOutput')
 
+// Mock the GitHub Actions context library
+// const getOctokitMock = jest.spyOn(github, 'getOctokit')
+// const contextMock = jest.spyOn(github, 'context')
+
 // Mock the action's entrypoint
 const runMock = jest.spyOn(index, 'run')
 
-// Other utilities
-const timeRegex = /^\d{2}:\d{2}:\d{2}/
+// Mark as GitHub action environment
+// process.env.GITHUB_ACTIONS = 'true'
 
 describe('action', () => {
 	beforeEach(() => {
 		jest.clearAllMocks()
 	})
 
-	it('sets the time output', async () => {
+	it('sets the comment id output', async () => {
 		// Set the action's inputs as return values from core.getInput()
 		getInputMock.mockImplementation((name: string): string => {
 			switch (name) {
-				case 'milliseconds':
-					return '500'
+				case 'report-file':
+					return '__tests__/__fixtures__/report-valid.json'
+				case 'comment-title':
+					return 'Custom comment title'
 				default:
 					return ''
 			}
@@ -41,28 +48,17 @@ describe('action', () => {
 		expect(runMock).toHaveReturned()
 
 		// Verify that all of the core library functions were called correctly
-		expect(debugMock).toHaveBeenNthCalledWith(1, 'Waiting 500 milliseconds ...')
-		expect(debugMock).toHaveBeenNthCalledWith(
-			2,
-			expect.stringMatching(timeRegex)
-		)
-		expect(debugMock).toHaveBeenNthCalledWith(
-			3,
-			expect.stringMatching(timeRegex)
-		)
-		expect(setOutputMock).toHaveBeenNthCalledWith(
-			1,
-			'time',
-			expect.stringMatching(timeRegex)
-		)
+		expect(debugMock).toHaveBeenNthCalledWith(1, 'Report file: __tests__/__fixtures__/report-valid.json')
+		expect(debugMock).toHaveBeenNthCalledWith(2, 'Comment title: Custom comment title')
+		expect(setOutputMock).toHaveBeenNthCalledWith(1, 'comment-id', expect.anything())
 	})
 
 	it('sets a failed status', async () => {
 		// Set the action's inputs as return values from core.getInput()
 		getInputMock.mockImplementation((name: string): string => {
 			switch (name) {
-				case 'milliseconds':
-					return 'this is not a number'
+				case 'report-file':
+					return 'file-does-not-exist.json'
 				default:
 					return ''
 			}
@@ -74,7 +70,7 @@ describe('action', () => {
 		// Verify that all of the core library functions were called correctly
 		expect(setFailedMock).toHaveBeenNthCalledWith(
 			1,
-			'milliseconds not a number'
+			'Failed to find report file at path file-does-not-exist.json'
 		)
 	})
 })

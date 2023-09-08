@@ -15,13 +15,28 @@ import { parseReport, renderReportSummary } from './report'
  * The main function for the action.
  */
 export async function run(): Promise<void> {
-	const cwd = process.cwd()
-	const token = getInput('github-token')
-	const octokit = getOctokit(token)
+  try {
+		await report()
+  } catch (error) {
+    if (error instanceof Error) {
+			setFailed(error.message)
+		}
+  }
+}
 
+/**
+ * Parse the Playwright report and post a comment on the PR.
+ */
+export async function report(): Promise<void> {
+	const cwd = process.cwd()
+
+	const token = getInput('github-token')
 	const reportFile = getInput('report-file')
-	const commentTitle = getInput('comment-title')
-	const iconStyle = getInput('icon-style')
+	const commentTitle = getInput('comment-title') || 'Playwright test results'
+	const iconStyle = getInput('icon-style') || 'octicons'
+
+	debug(`Report file: ${reportFile}`)
+	debug(`Comment title: ${commentTitle}`)
 
 	const { eventName, repo, payload } = context
 	const { owner, number: pull_number } = context.issue
@@ -69,6 +84,8 @@ export async function run(): Promise<void> {
 	const prefix = '<!-- playwright-report-github-action -->'
 	const body = `${prefix}\n\n${summary}`
 	let commentId = null
+
+	const octokit = getOctokit(token)
 
 	if (eventName !== 'pull_request' && eventName !== 'pull_request_target') {
 		console.log(
@@ -143,9 +160,6 @@ export async function run(): Promise<void> {
 }
 
 if (process.env.GITHUB_ACTIONS === 'true') {
-	run().catch((error) => {
-		if (error instanceof Error) {
-			setFailed(error.message)
-		}
-	})
+	// eslint-disable-next-line @typescript-eslint/no-floating-promises
+	run()
 }

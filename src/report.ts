@@ -16,7 +16,8 @@ interface Report {
 			totalTime: number
 		}
 		projects: Project[]
-		shard: {
+		shard?: {
+			current: number
 			total: number
 		}
 		version: string

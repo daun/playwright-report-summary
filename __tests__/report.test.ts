@@ -44,6 +44,10 @@ describe('parseReport', () => {
 		const parsed = parseReport(await getReport())
 		expect(parsed.workers).toBe(5)
 	})
+	it('returns shards', async () => {
+		const parsed = parseReport(await getReport())
+		expect(parsed.shards).toBe(2)
+	})
 	it('returns files', async () => {
 		const parsed = parseReport(await getReport())
 		expect(parsed.files.length).toBe(4)

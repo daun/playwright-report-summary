@@ -38,7 +38,7 @@ describe('parseReport', () => {
 	})
 	it('returns total duration', async () => {
 		const parsed = parseReport(await getReport())
-		expect(parsed.duration).toBe(611.735)
+		expect(parsed.duration).toBe(1118.34)
 	})
 	it('returns workers', async () => {
 		const parsed = parseReport(await getReport())

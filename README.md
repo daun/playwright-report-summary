@@ -12,9 +12,9 @@ A GitHub action to report Playwright test results as pull request comments.
 
 ## Examples
 
-![passed test](assets/comment-passed.png)
+<img src="assets/comment-passed.png" width="701">
 
-![failed test](assets/comment-failed.png)
+<img src="assets/comment-failed.png" width="701">
 
 ## Usage
 

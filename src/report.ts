@@ -115,11 +115,16 @@ export function isValidReport(report: unknown): report is Report {
 }
 
 export function parseReport(data: string): ReportSummary {
-	const report: Report = JSON.parse(data)
-	if (!isValidReport(report)) {
-		debug('Invalid report file')
-		debug(data)
-		throw new Error('Invalid report file')
+	let report: Report
+	try {
+		report = JSON.parse(data)
+		if (!isValidReport(report)) {
+			debug('Invalid report file')
+			debug(data)
+			throw new Error('Invalid JSON report file')
+		}
+	} catch (error) {
+		throw error
 	}
 
 	const version: string = report.config.version

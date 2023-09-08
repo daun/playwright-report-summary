@@ -189,7 +189,7 @@ function parseSpec(spec: Spec, parents: Suite[] = []): SpecSummary {
 	const flaky = status === 'flaky'
 	const skipped = status === 'skipped'
 	const failed = !ok || status === 'unexpected'
-	const passed = ok && !skipped && !failed
+	const passed = ok && !skipped && !failed && !flaky
 	return { passed, failed, flaky, skipped, title, path, line, column }
 }
 

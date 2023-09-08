@@ -9922,22 +9922,30 @@ if (process.env.GITHUB_ACTIONS === 'true') {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.renderReportSummary = exports.parseReport = void 0;
+exports.renderReportSummary = exports.parseReport = exports.isValidReport = void 0;
 const core_1 = __nccwpck_require__(2186);
 const formatting_1 = __nccwpck_require__(9598);
 const icons_1 = __nccwpck_require__(6975);
 function isValidReport(report) {
-    return (typeof report === 'object' &&
-        report !== null &&
+    return (report !== null &&
+        typeof report === 'object' &&
         'config' in report &&
+        'errors' in report &&
         'suites' in report);
 }
+exports.isValidReport = isValidReport;
 function parseReport(data) {
-    const report = JSON.parse(data);
-    if (!isValidReport(report)) {
-        (0, core_1.debug)('Invalid report file');
-        (0, core_1.debug)(data);
-        throw new Error('Invalid report file');
+    let report;
+    try {
+        report = JSON.parse(data);
+        if (!isValidReport(report)) {
+            (0, core_1.debug)('Invalid report file');
+            (0, core_1.debug)(data);
+            throw new Error('Invalid JSON report file');
+        }
+    }
+    catch (error) {
+        throw error;
     }
     const version = report.config.version;
     const duration = report.config.metadata.totalTime || 0;
@@ -9989,7 +9997,7 @@ function parseSpec(spec, parents = []) {
     const flaky = status === 'flaky';
     const skipped = status === 'skipped';
     const failed = !ok || status === 'unexpected';
-    const passed = ok && !skipped && !failed;
+    const passed = ok && !skipped && !failed && !flaky;
     return { passed, failed, flaky, skipped, title, path, line, column };
 }
 function renderReportSummary(report, { commit, message, title, reportUrl, iconStyle } = {}) {

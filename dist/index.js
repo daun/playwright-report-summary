@@ -9788,7 +9788,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.run = void 0;
+exports.report = exports.run = void 0;
 const path_1 = __importDefault(__nccwpck_require__(1017));
 const core_1 = __nccwpck_require__(2186);
 const github_1 = __nccwpck_require__(5438);
@@ -9798,12 +9798,27 @@ const report_1 = __nccwpck_require__(2396);
  * The main function for the action.
  */
 async function run() {
+    try {
+        await report();
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            (0, core_1.setFailed)(error.message);
+        }
+    }
+}
+exports.run = run;
+/**
+ * Parse the Playwright report and post a comment on the PR.
+ */
+async function report() {
     const cwd = process.cwd();
     const token = (0, core_1.getInput)('github-token');
-    const octokit = (0, github_1.getOctokit)(token);
     const reportFile = (0, core_1.getInput)('report-file');
-    const commentTitle = (0, core_1.getInput)('comment-title');
-    const iconStyle = (0, core_1.getInput)('icon-style');
+    const commentTitle = (0, core_1.getInput)('comment-title') || 'Playwright test results';
+    const iconStyle = (0, core_1.getInput)('icon-style') || 'octicons';
+    (0, core_1.debug)(`Report file: ${reportFile}`);
+    (0, core_1.debug)(`Comment title: ${commentTitle}`);
     const { eventName, repo, payload } = github_1.context;
     const { owner, number: pull_number } = github_1.context.issue;
     const base = {};
@@ -9842,6 +9857,7 @@ async function run() {
     const prefix = '<!-- playwright-report-github-action -->';
     const body = `${prefix}\n\n${summary}`;
     let commentId = null;
+    const octokit = (0, github_1.getOctokit)(token);
     if (eventName !== 'pull_request' && eventName !== 'pull_request_target') {
         console.log('No PR associated with this action run. Not posting a check or comment.');
     }
@@ -9910,13 +9926,10 @@ async function run() {
     }
     (0, core_1.setOutput)('comment-id', commentId);
 }
-exports.run = run;
+exports.report = report;
 if (process.env.GITHUB_ACTIONS === 'true') {
-    run().catch((error) => {
-        if (error instanceof Error) {
-            (0, core_1.setFailed)(error.message);
-        }
-    });
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    run();
 }
 
 

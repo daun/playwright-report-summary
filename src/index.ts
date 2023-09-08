@@ -15,13 +15,13 @@ import { parseReport, renderReportSummary } from './report'
  * The main function for the action.
  */
 export async function run(): Promise<void> {
-  try {
+	try {
 		await report()
-  } catch (error) {
-    if (error instanceof Error) {
+	} catch (error) {
+		if (error instanceof Error) {
 			setFailed(error.message)
 		}
-  }
+	}
 }
 
 /**

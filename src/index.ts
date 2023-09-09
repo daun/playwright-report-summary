@@ -32,10 +32,12 @@ export async function report(): Promise<void> {
 
 	const token = getInput('github-token')
 	const reportFile = getInput('report-file')
+	const reportUrl = getInput('report-url')
 	const commentTitle = getInput('comment-title') || 'Playwright test results'
 	const iconStyle = getInput('icon-style') || 'octicons'
 
 	debug(`Report file: ${reportFile}`)
+	debug(`Report URL: ${reportUrl}`)
 	debug(`Comment title: ${commentTitle}`)
 
 	const { eventName, repo, payload } = context
@@ -78,6 +80,7 @@ export async function report(): Promise<void> {
 	const summary = renderReportSummary(report, {
 		commit: head.sha,
 		title: commentTitle,
+		reportUrl,
 		iconStyle
 	})
 

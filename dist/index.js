@@ -9815,9 +9815,11 @@ async function report() {
     const cwd = process.cwd();
     const token = (0, core_1.getInput)('github-token');
     const reportFile = (0, core_1.getInput)('report-file');
+    const reportUrl = (0, core_1.getInput)('report-url');
     const commentTitle = (0, core_1.getInput)('comment-title') || 'Playwright test results';
     const iconStyle = (0, core_1.getInput)('icon-style') || 'octicons';
     (0, core_1.debug)(`Report file: ${reportFile}`);
+    (0, core_1.debug)(`Report URL: ${reportUrl}`);
     (0, core_1.debug)(`Comment title: ${commentTitle}`);
     const { eventName, repo, payload } = github_1.context;
     const { owner, number: pull_number } = github_1.context.issue;
@@ -9852,6 +9854,7 @@ async function report() {
     const summary = (0, report_1.renderReportSummary)(report, {
         commit: head.sha,
         title: commentTitle,
+        reportUrl,
         iconStyle
     });
     const prefix = '<!-- playwright-report-github-action -->';

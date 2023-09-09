@@ -1,7 +1,7 @@
 {
   "name": "playwright-report-comment",
   "description": "A GitHub action to report Playwright test results as pull request comments",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": "",
   "private": true,
   "homepage": "https://github.com/actions/typescript-action",

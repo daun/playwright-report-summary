@@ -9927,6 +9927,7 @@ async function report() {
         const intro = `Unable to comment on your PR — this can happen for PR's originating from a fork without write permissions. You can copy the test results directly into a comment using the markdown summary below:`;
         console.log(`${intro}\n\n${body}`);
     }
+    (0, core_1.setOutput)('summary', summary);
     (0, core_1.setOutput)('comment-id', commentId);
 }
 exports.report = report;

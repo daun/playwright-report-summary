@@ -27,6 +27,8 @@ inputs:
     default: 'octicons'
 
 outputs:
+  summary:
+    description: 'The rendered markdown summary of the test report'
   comment-id:
     description: 'The ID of the comment that was created or updated'
 

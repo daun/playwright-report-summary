@@ -64,3 +64,15 @@ jobs:
     # Default: octicons
     icon-style: 'emojis'
 ```
+
+## Output
+
+The action creates two output variables:
+
+### summary
+
+The rendered markdown summary of the test report.
+
+### comment-id
+
+The ID of the comment that was created or updated

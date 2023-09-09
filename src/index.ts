@@ -159,6 +159,7 @@ export async function report(): Promise<void> {
 		console.log(`${intro}\n\n${body}`)
 	}
 
+	setOutput('summary', summary)
 	setOutput('comment-id', commentId)
 }
 

@@ -1,11 +1,15 @@
 import path from 'path'
 import {
 	getInput,
+	getBooleanInput,
 	setOutput,
 	setFailed,
 	startGroup,
 	endGroup,
-	debug
+	debug,
+	notice,
+	warning,
+	summary as setSummary
 } from '@actions/core'
 import { context, getOctokit } from '@actions/github'
 import { fileExists, readFile } from './fs'
@@ -31,10 +35,11 @@ export async function report(): Promise<void> {
 	const cwd = process.cwd()
 
 	const token = getInput('github-token')
-	const reportFile = getInput('report-file')
+	const reportFile = getInput('report-file', { required: true })
 	const reportUrl = getInput('report-url')
 	const commentTitle = getInput('comment-title') || 'Playwright test results'
 	const iconStyle = getInput('icon-style') || 'octicons'
+	const jobSummary = getBooleanInput('job-summary')
 
 	debug(`Report file: ${reportFile}`)
 	debug(`Report URL: ${reportUrl}`)
@@ -156,7 +161,11 @@ export async function report(): Promise<void> {
 
 	if (!commentId) {
 		const intro = `Unable to comment on your PR — this can happen for PR's originating from a fork without write permissions. You can copy the test results directly into a comment using the markdown summary below:`
-		console.log(`${intro}\n\n${body}`)
+		warning(`${intro}\n\n${body}`, { title: 'Unable to comment on PR' })
+	}
+
+	if (jobSummary) {
+		setSummary.addRaw(summary).write()
 	}
 
 	setOutput('summary', summary)

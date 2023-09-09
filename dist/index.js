@@ -9814,10 +9814,11 @@ exports.run = run;
 async function report() {
     const cwd = process.cwd();
     const token = (0, core_1.getInput)('github-token');
-    const reportFile = (0, core_1.getInput)('report-file');
+    const reportFile = (0, core_1.getInput)('report-file', { required: true });
     const reportUrl = (0, core_1.getInput)('report-url');
     const commentTitle = (0, core_1.getInput)('comment-title') || 'Playwright test results';
     const iconStyle = (0, core_1.getInput)('icon-style') || 'octicons';
+    const jobSummary = (0, core_1.getBooleanInput)('job-summary');
     (0, core_1.debug)(`Report file: ${reportFile}`);
     (0, core_1.debug)(`Report URL: ${reportUrl}`);
     (0, core_1.debug)(`Comment title: ${commentTitle}`);
@@ -9925,7 +9926,10 @@ async function report() {
     }
     if (!commentId) {
         const intro = `Unable to comment on your PR — this can happen for PR's originating from a fork without write permissions. You can copy the test results directly into a comment using the markdown summary below:`;
-        console.log(`${intro}\n\n${body}`);
+        (0, core_1.warning)(`${intro}\n\n${body}`, { title: 'Unable to comment on PR' });
+    }
+    if (jobSummary) {
+        core_1.summary.addRaw(summary).write();
     }
     (0, core_1.setOutput)('summary', summary);
     (0, core_1.setOutput)('comment-id', commentId);

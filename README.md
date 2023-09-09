@@ -60,7 +60,11 @@ jobs:
     # Default: Playwright test results
     comment-title: 'Results'
 
-    # The icon style to use for displaying test reports and stats: octicons | emojis
+    # Create a job summary comment for the workflow run
+    # Default: false
+    job-summary: true
+
+    # Icon style to use: octicons | emojis
     # Default: octicons
     icon-style: 'emojis'
 ```

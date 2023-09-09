@@ -36,7 +36,7 @@ jobs:
 
       - run: PLAYWRIGHT_JSON_OUTPUT_NAME=results.json npx playwright test --reporter json
 
-      - uses: daun/playwright-report-summary@v1
+      - uses: daun/playwright-report-summary@v2
         with:
           report-file: results.json
 ```
@@ -44,7 +44,7 @@ jobs:
 ### With all options
 
 ```yaml
-- uses: daun/playwright-report-summary@v1
+- uses: daun/playwright-report-summary@v2
   with:
     # The GitHub access token to use for API requests. Defaults to the standard GITHUB_TOKEN.
     github-token: ''

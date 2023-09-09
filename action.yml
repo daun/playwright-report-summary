@@ -21,6 +21,9 @@ inputs:
     description: 'Customize the title of the pull request comment'
     required: false
     default: 'Playwright test results'
+  job-summary:
+    description: 'Create a job summary comment for the workflow run'
+    required: false
   icon-style:
     description: 'The icons to use: octicons or emoji'
     required: false

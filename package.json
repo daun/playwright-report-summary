@@ -1,5 +1,5 @@
 {
-  "name": "playwright-report-comment",
+  "name": "playwright-report-summary",
   "description": "A GitHub action to report Playwright test results as pull request comments",
   "version": "1.1.2",
   "author": "",

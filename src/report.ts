@@ -41,10 +41,11 @@ interface ReportSummary {
 	files: string[]
 	suites: string[]
 	specs: SpecSummary[]
-	failed: SpecSummary[]
-	passed: SpecSummary[]
-	flaky: SpecSummary[]
-	skipped: SpecSummary[]
+	tests: TestSummary[]
+	failed: TestSummary[]
+	passed: TestSummary[]
+	flaky: TestSummary[]
+	skipped: TestSummary[]
 }
 
 interface Project {
@@ -92,14 +93,25 @@ interface TestResult {
 }
 
 interface SpecSummary {
+	ok: boolean
+	file: string
+	line: number
+	column: number
+	path: string[]
+	title: string
+	tests: TestSummary[]
+}
+
+interface TestSummary {
 	passed: boolean
 	failed: boolean
 	flaky: boolean
 	skipped: boolean
-	title: string
-	path: string[]
+	file: string
 	line: number
 	column: number
+	path: string[]
+	title: string
 }
 
 interface ReportRenderOptions {
@@ -159,10 +171,11 @@ export function parseReport(data: string): ReportSummary {
 		}
 		return all
 	}, [] as SpecSummary[])
-	const failed = specs.filter((spec) => spec.failed)
-	const passed = specs.filter((spec) => spec.passed)
-	const flaky = specs.filter((spec) => spec.flaky)
-	const skipped = specs.filter((spec) => spec.skipped)
+	const tests = specs.flatMap((spec) => spec.tests)
+	const failed = tests.filter((test) => test.failed)
+	const passed = tests.filter((test) => test.passed)
+	const flaky = tests.filter((test) => test.flaky)
+	const skipped = tests.filter((test) => test.skipped)
 
 	return {
 		version,
@@ -173,6 +186,7 @@ export function parseReport(data: string): ReportSummary {
 		files,
 		suites,
 		specs,
+		tests,
 		failed,
 		passed,
 		flaky,
@@ -181,21 +195,31 @@ export function parseReport(data: string): ReportSummary {
 }
 
 function parseSpec(spec: Spec, parents: Suite[] = []): SpecSummary {
-	const { ok, line, column } = spec
-	const test = spec.tests[0]
-	const status = test.status
-	const project = test.projectName
+	const { ok, file, line, column } = spec
+	const { title, path } = buildTitle(...parents.map((p) => p.title), spec.title)
+	const tests = spec.tests.map((test) => parseTest(test, spec, parents))
+	return { ok, file, line, column, path, title, tests }
+}
 
-	const path = [project, ...parents.map((p) => p.title), spec.title].filter(
-		Boolean
+function parseTest(test: Test, spec: Spec, parents: Suite[] = []): TestSummary {
+	const { file, line, column } = spec
+	const { status, projectName: project } = test
+	const { title, path } = buildTitle(
+		project,
+		...parents.map((p) => p.title),
+		spec.title
 	)
-	const title = path.join(' → ')
-
-	const flaky = status === 'flaky'
+	const passed = status === 'expected'
+	const failed = status === 'unexpected'
 	const skipped = status === 'skipped'
-	const failed = !ok || status === 'unexpected'
-	const passed = ok && !skipped && !failed && !flaky
-	return { passed, failed, flaky, skipped, title, path, line, column }
+	const flaky = status === 'flaky'
+	return { passed, failed, flaky, skipped, title, path, file, line, column }
+}
+
+function buildTitle(...paths: string[]): { title: string; path: string[] } {
+	const path = paths.filter(Boolean)
+	const title = path.join(' → ')
+	return { title, path }
 }
 
 export function renderReportSummary(
@@ -226,9 +250,9 @@ export function renderReportSummary(
 
 	const stats = [
 		reportUrl ? `${icon('report')}  [Open report ↗︎](${reportUrl})` : '',
-		`${icon('stats')}  ${report.specs.length} ${n(
+		`${icon('stats')}  ${report.tests.length} ${n(
 			'test',
-			report.specs.length
+			report.tests.length
 		)} across ${report.suites.length} ${n('suite', report.suites.length)}`,
 		`${icon('duration')}  ${formatDuration(duration)}`,
 		commit && message

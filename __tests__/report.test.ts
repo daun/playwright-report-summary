@@ -6,12 +6,16 @@ import { expect } from '@jest/globals'
 import { readFile } from '../src/fs'
 import { isValidReport, parseReport, renderReportSummary } from '../src/report'
 
-async function getReport() {
-	return await readFile('__tests__/__fixtures__/report-valid.json')
+async function getReport(file = 'report-valid.json') {
+	return await readFile(`__tests__/__fixtures__/${file}`)
+}
+
+async function getShardedReport() {
+	return await getReport('report-sharded.json')
 }
 
 async function getInvalidReport() {
-	return await readFile('__tests__/__fixtures__/report-invalid.json')
+	return await getReport('report-invalid.json')
 }
 
 describe('isValidReport', () => {
@@ -29,6 +33,8 @@ describe('isValidReport', () => {
 
 describe('parseReport', () => {
 	const getParsedReport = async () => parseReport(await getReport())
+	const getParsedShardedReport = async () =>
+		parseReport(await getShardedReport())
 	it('returns an object', async () => {
 		const parsed = await getParsedReport()
 		expect(typeof parsed === 'object').toBe(true)
@@ -60,10 +66,22 @@ describe('parseReport', () => {
 	it('returns specs', async () => {
 		const parsed = await getParsedReport()
 		expect(parsed.specs.length).toBe(14)
+	})
+	it('counts tests', async () => {
+		const parsed = await getParsedReport()
+		expect(parsed.tests.length).toBe(14)
 		expect(parsed.failed.length).toBe(2)
 		expect(parsed.passed.length).toBe(10)
 		expect(parsed.flaky.length).toBe(1)
 		expect(parsed.skipped.length).toBe(1)
+	})
+	it('counts sharded tests', async () => {
+		const parsed = await getParsedShardedReport()
+		expect(parsed.tests.length).toBe(27)
+		expect(parsed.failed.length).toBe(1)
+		expect(parsed.passed.length).toBe(22)
+		expect(parsed.flaky.length).toBe(1)
+		expect(parsed.skipped.length).toBe(3)
 	})
 })
 

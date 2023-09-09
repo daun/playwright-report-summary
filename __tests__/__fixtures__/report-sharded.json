@@ -1,0 +1,995 @@
+{
+  "config": {
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "totalTime": 5003.32,
+      "actualWorkers": 20
+    },
+    "preserveOutput": "always",
+    "projects": [],
+    "reporter": [
+      [
+        "list"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 15000
+    },
+    "rootDir": "/project",
+    "quiet": false,
+    "shard": null,
+    "updateSnapshots": "missing",
+    "version": "1.37.1",
+    "workers": 20,
+    "webServer": null,
+    "listOnly": false
+  },
+  "suites": [
+    {
+      "title": "add.spec.ts",
+      "file": "add.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "add",
+          "file": "add.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium038c2392796d4a22",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 35,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:45:05.447Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox1eb99aebfb39e9e7",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "status": "passed",
+                      "duration": 33,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:45:16.110Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit6128e7aebeb94118",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "status": "passed",
+                      "duration": 38,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:45:54.243Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2f4bb8d916741bacc6cb-23c1b2167130e38ec767038c2392796d4a22",
+              "file": "add.spec.ts",
+              "line": 6,
+              "column": 2
+            },
+            {
+              "title": "adds",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium038c2392796d4a22",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 40,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:45:05.444Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox1eb99aebfb39e9e7",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "status": "passed",
+                      "duration": 39,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:45:16.105Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit6128e7aebeb94118",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "status": "passed",
+                      "duration": 19,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:45:54.296Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2f4bb8d916741bacc6cb-328ccc869357d9515391038c2392796d4a22",
+              "file": "add.spec.ts",
+              "line": 9,
+              "column": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "divide.spec.ts",
+      "file": "divide.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "divide",
+          "file": "divide.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium038c2392796d4a22",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "status": "passed",
+                      "duration": 35,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:45:05.443Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox1eb99aebfb39e9e7",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "status": "passed",
+                      "duration": 37,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:45:16.110Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit6128e7aebeb94118",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "status": "passed",
+                      "duration": 32,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:45:54.745Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "abd65a3ec2f3a35a080f-6441d08247ddeb3814bf038c2392796d4a22",
+              "file": "divide.spec.ts",
+              "line": 6,
+              "column": 2
+            },
+            {
+              "title": "divides",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium038c2392796d4a22",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "status": "passed",
+                      "duration": 39,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:45:05.444Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox1eb99aebfb39e9e7",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "status": "passed",
+                      "duration": 18,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:45:16.156Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkitbd6f400eea527a0b",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 39,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:46:14.314Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "abd65a3ec2f3a35a080f-acf768063c5e76dcf174038c2392796d4a22",
+              "file": "divide.spec.ts",
+              "line": 9,
+              "column": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "multiply.spec.ts",
+      "file": "multiply.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "multiply",
+          "file": "multiply.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium038c2392796d4a22",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "status": "passed",
+                      "duration": 41,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:45:05.443Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox1eb99aebfb39e9e7",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 5,
+                      "status": "passed",
+                      "duration": 36,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:45:16.577Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkitbd6f400eea527a0b",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 42,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:46:14.319Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "e7c88bf2960b23764a9d-a054f04aedfc95a37bb3038c2392796d4a22",
+              "file": "multiply.spec.ts",
+              "line": 6,
+              "column": 2
+            },
+            {
+              "title": "multiplies",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium038c2392796d4a22",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "status": "passed",
+                      "duration": 20,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:45:05.496Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox6128e7aebeb94118",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "failed",
+                      "duration": 41,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m7\u001b[39m\nReceived: \u001b[31m6\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m7\u001b[39m\nReceived: \u001b[31m6\u001b[39m\n    at /project/tests/functional/multiply.spec.ts:10:26",
+                        "location": {
+                          "file": "/project/tests/functional/multiply.spec.ts",
+                          "column": 26,
+                          "line": 10
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'multiplies'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m \t\texpect(multiply(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[33mMath\u001b[39m\u001b[33m.\u001b[39mrandom() \u001b[33m>\u001b[39m \u001b[35m0.5\u001b[39m \u001b[33m?\u001b[39m \u001b[35m6\u001b[39m \u001b[33m:\u001b[39m \u001b[35m7\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t\t                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 12 |\u001b[39m \ttest(\u001b[32m'skips'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 13 |\u001b[39m \t\ttest\u001b[33m.\u001b[39mskip()\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/multiply.spec.ts",
+                            "column": 26,
+                            "line": 10
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m7\u001b[39m\nReceived: \u001b[31m6\u001b[39m\n\n\u001b[0m \u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'multiplies'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m \t\texpect(multiply(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[33mMath\u001b[39m\u001b[33m.\u001b[39mrandom() \u001b[33m>\u001b[39m \u001b[35m0.5\u001b[39m \u001b[33m?\u001b[39m \u001b[35m6\u001b[39m \u001b[33m:\u001b[39m \u001b[35m7\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t\t                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 12 |\u001b[39m \ttest(\u001b[32m'skips'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 13 |\u001b[39m \t\ttest\u001b[33m.\u001b[39mskip()\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/multiply.spec.ts:10:26\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:45:54.241Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/multiply.spec.ts",
+                        "column": 26,
+                        "line": 10
+                      }
+                    },
+                    {
+                      "workerIndex": 6,
+                      "status": "passed",
+                      "duration": 44,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2023-09-09T10:45:54.747Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/project/blobs/resources/d9fd85ea0eba4d32a4c0e9a0390bb889582f5139.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "flaky"
+                },
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkitbd6f400eea527a0b",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "status": "passed",
+                      "duration": 36,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:46:14.324Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "e7c88bf2960b23764a9d-a5e9ce9b2e8260f09823038c2392796d4a22",
+              "file": "multiply.spec.ts",
+              "line": 9,
+              "column": 2
+            },
+            {
+              "title": "skips",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [
+                    {
+                      "type": "skip"
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "chromium038c2392796d4a22",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "skipped",
+                      "duration": 20,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:45:05.501Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                },
+                {
+                  "timeout": 5000,
+                  "annotations": [
+                    {
+                      "type": "skip"
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "firefox6128e7aebeb94118",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "skipped",
+                      "duration": 36,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:45:54.243Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                },
+                {
+                  "timeout": 5000,
+                  "annotations": [
+                    {
+                      "type": "skip"
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "webkitbd6f400eea527a0b",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "status": "skipped",
+                      "duration": 36,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:46:14.308Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "e7c88bf2960b23764a9d-669ef72c0b906305e786038c2392796d4a22",
+              "file": "multiply.spec.ts",
+              "line": 12,
+              "column": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "subtract.spec.ts",
+      "file": "subtract.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "subtract",
+          "file": "subtract.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium1eb99aebfb39e9e7",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 38,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:45:16.111Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox6128e7aebeb94118",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "status": "passed",
+                      "duration": 39,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:45:54.245Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkitbd6f400eea527a0b",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "status": "passed",
+                      "duration": 39,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:46:14.314Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6ac0882294147c5cf865-ce417e4a0eefba5d5d531eb99aebfb39e9e7",
+              "file": "subtract.spec.ts",
+              "line": 6,
+              "column": 2
+            },
+            {
+              "title": "subtracts",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium1eb99aebfb39e9e7",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 35,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:45:16.111Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox6128e7aebeb94118",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "status": "passed",
+                      "duration": 38,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:45:54.243Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                },
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkitbd6f400eea527a0b",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "status": "failed",
+                      "duration": 26,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n    at /project/tests/functional/subtract.spec.ts:10:26",
+                        "location": {
+                          "file": "/project/tests/functional/subtract.spec.ts",
+                          "column": 26,
+                          "line": 10
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t\t                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 12 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 13 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/subtract.spec.ts",
+                            "column": 26,
+                            "line": 10
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n\u001b[0m \u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t\t                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 12 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 13 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/subtract.spec.ts:10:26\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2023-09-09T10:46:14.361Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/subtract.spec.ts",
+                        "column": 26,
+                        "line": 10
+                      }
+                    },
+                    {
+                      "workerIndex": 5,
+                      "status": "failed",
+                      "duration": 49,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n    at /project/tests/functional/subtract.spec.ts:10:26",
+                        "location": {
+                          "file": "/project/tests/functional/subtract.spec.ts",
+                          "column": 26,
+                          "line": 10
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t\t                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 12 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 13 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/subtract.spec.ts",
+                            "column": 26,
+                            "line": 10
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n\u001b[0m \u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t\t                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 12 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 13 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/subtract.spec.ts:10:26\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2023-09-09T10:46:14.818Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/project/blobs/resources/f2597886a6d84319818a588535d5abc864ee9cbf.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/subtract.spec.ts",
+                        "column": 26,
+                        "line": 10
+                      }
+                    },
+                    {
+                      "workerIndex": 6,
+                      "status": "failed",
+                      "duration": 36,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n    at /project/tests/functional/subtract.spec.ts:10:26",
+                        "location": {
+                          "file": "/project/tests/functional/subtract.spec.ts",
+                          "column": 26,
+                          "line": 10
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t\t                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 12 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 13 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/subtract.spec.ts",
+                            "column": 26,
+                            "line": 10
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n\u001b[0m \u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t\t                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 12 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 13 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/subtract.spec.ts:10:26\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 2,
+                      "startTime": "2023-09-09T10:46:15.294Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/subtract.spec.ts",
+                        "column": 26,
+                        "line": 10
+                      }
+                    },
+                    {
+                      "workerIndex": 7,
+                      "status": "failed",
+                      "duration": 36,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n    at /project/tests/functional/subtract.spec.ts:10:26",
+                        "location": {
+                          "file": "/project/tests/functional/subtract.spec.ts",
+                          "column": 26,
+                          "line": 10
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t\t                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 12 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 13 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/subtract.spec.ts",
+                            "column": 26,
+                            "line": 10
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n\u001b[0m \u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t\t                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 12 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 13 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/subtract.spec.ts:10:26\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 3,
+                      "startTime": "2023-09-09T10:46:15.766Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/subtract.spec.ts",
+                        "column": 26,
+                        "line": 10
+                      }
+                    },
+                    {
+                      "workerIndex": 8,
+                      "status": "failed",
+                      "duration": 35,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n    at /project/tests/functional/subtract.spec.ts:10:26",
+                        "location": {
+                          "file": "/project/tests/functional/subtract.spec.ts",
+                          "column": 26,
+                          "line": 10
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t\t                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 12 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 13 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/subtract.spec.ts",
+                            "column": 26,
+                            "line": 10
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n\u001b[0m \u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t\t                       \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 12 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 13 |\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/subtract.spec.ts:10:26\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 4,
+                      "startTime": "2023-09-09T10:46:16.234Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/subtract.spec.ts",
+                        "column": 26,
+                        "line": 10
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "6ac0882294147c5cf865-17a50ac4c8699683fcf21eb99aebfb39e9e7",
+              "file": "subtract.spec.ts",
+              "line": 9,
+              "column": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

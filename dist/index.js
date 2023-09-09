@@ -9986,10 +9986,11 @@ function parseReport(data) {
         }
         return all;
     }, []);
-    const failed = specs.filter((spec) => spec.failed);
-    const passed = specs.filter((spec) => spec.passed);
-    const flaky = specs.filter((spec) => spec.flaky);
-    const skipped = specs.filter((spec) => spec.skipped);
+    const tests = specs.flatMap((spec) => spec.tests);
+    const failed = tests.filter((test) => test.failed);
+    const passed = tests.filter((test) => test.passed);
+    const flaky = tests.filter((test) => test.flaky);
+    const skipped = tests.filter((test) => test.skipped);
     return {
         version,
         duration,
@@ -9999,6 +10000,7 @@ function parseReport(data) {
         files,
         suites,
         specs,
+        tests,
         failed,
         passed,
         flaky,
@@ -10007,17 +10009,25 @@ function parseReport(data) {
 }
 exports.parseReport = parseReport;
 function parseSpec(spec, parents = []) {
-    const { ok, line, column } = spec;
-    const test = spec.tests[0];
-    const status = test.status;
-    const project = test.projectName;
-    const path = [project, ...parents.map((p) => p.title), spec.title].filter(Boolean);
-    const title = path.join(' → ');
-    const flaky = status === 'flaky';
+    const { ok, file, line, column } = spec;
+    const { title, path } = buildTitle(...parents.map((p) => p.title), spec.title);
+    const tests = spec.tests.map((test) => parseTest(test, spec, parents));
+    return { ok, file, line, column, path, title, tests };
+}
+function parseTest(test, spec, parents = []) {
+    const { file, line, column } = spec;
+    const { status, projectName: project } = test;
+    const { title, path } = buildTitle(project, ...parents.map((p) => p.title), spec.title);
+    const passed = status === 'expected';
+    const failed = status === 'unexpected';
     const skipped = status === 'skipped';
-    const failed = !ok || status === 'unexpected';
-    const passed = ok && !skipped && !failed && !flaky;
-    return { passed, failed, flaky, skipped, title, path, line, column };
+    const flaky = status === 'flaky';
+    return { passed, failed, flaky, skipped, title, path, file, line, column };
+}
+function buildTitle(...paths) {
+    const path = paths.filter(Boolean);
+    const title = path.join(' → ');
+    return { title, path };
 }
 function renderReportSummary(report, { commit, message, title, reportUrl, iconStyle } = {}) {
     const { duration, failed, passed, flaky, skipped } = report;
@@ -10037,7 +10047,7 @@ function renderReportSummary(report, { commit, message, title, reportUrl, iconSt
     paragraphs.push(`#### Details`);
     const stats = [
         reportUrl ? `${icon('report')}  [Open report ↗︎](${reportUrl})` : '',
-        `${icon('stats')}  ${report.specs.length} ${(0, formatting_1.n)('test', report.specs.length)} across ${report.suites.length} ${(0, formatting_1.n)('suite', report.suites.length)}`,
+        `${icon('stats')}  ${report.tests.length} ${(0, formatting_1.n)('test', report.tests.length)} across ${report.suites.length} ${(0, formatting_1.n)('suite', report.suites.length)}`,
         `${icon('duration')}  ${(0, formatting_1.formatDuration)(duration)}`,
         commit && message
             ? `${icon('commit')}  ${message} (${commit.slice(0, 7)})`

@@ -558,7 +558,7 @@ class OidcClient {
                 .catch(error => {
                 throw new Error(`Failed to get ID Token. \n 
         Error Code : ${error.statusCode}\n 
-        Error Message: ${error.result.message}`);
+        Error Message: ${error.message}`);
             });
             const id_token = (_a = res.result) === null || _a === void 0 ? void 0 : _a.value;
             if (!id_token) {
@@ -10056,7 +10056,7 @@ function renderReportSummary(report, { commit, message, title, reportUrl, iconSt
     const stats = [
         reportUrl ? `${icon('report')}  [Open report ↗︎](${reportUrl})` : '',
         `${icon('stats')}  ${report.tests.length} ${(0, formatting_1.n)('test', report.tests.length)} across ${report.suites.length} ${(0, formatting_1.n)('suite', report.suites.length)}`,
-        `${icon('duration')}  ${(0, formatting_1.formatDuration)(duration)}`,
+        `${icon('duration')}  ${duration ? (0, formatting_1.formatDuration)(duration) : 'unknown'}`,
         commit && message
             ? `${icon('commit')}  ${message} (${commit.slice(0, 7)})`
             : '',

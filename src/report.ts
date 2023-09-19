@@ -254,7 +254,7 @@ export function renderReportSummary(
 			'test',
 			report.tests.length
 		)} across ${report.suites.length} ${n('suite', report.suites.length)}`,
-		`${icon('duration')}  ${formatDuration(duration)}`,
+		`${icon('duration')}  ${duration ? formatDuration(duration) : 'unknown'}`,
 		commit && message
 			? `${icon('commit')}  ${message} (${commit.slice(0, 7)})`
 			: '',

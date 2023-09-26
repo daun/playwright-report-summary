@@ -30,7 +30,7 @@ export function formatDuration(milliseconds: number): string {
 	const minutes = Math.floor(remaining / MINUTE)
 	remaining %= MINUTE
 
-	const seconds = +(remaining / SECOND).toFixed(1)
+	const seconds = +(remaining / SECOND).toFixed(minutes ? 0 : 1)
 
 	return [
 		days && `${days} ${n('day', days)}`,

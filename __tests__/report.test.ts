@@ -6,16 +6,14 @@ import { expect } from '@jest/globals'
 import { readFile } from '../src/fs'
 import { isValidReport, parseReport, renderReportSummary } from '../src/report'
 
-async function getReport(file = 'report-valid.json') {
+const defaultReport = 'report-valid.json'
+
+async function getReport(file = defaultReport) {
 	return await readFile(`__tests__/__fixtures__/${file}`)
 }
 
-async function getShardedReport() {
-	return await getReport('report-sharded.json')
-}
-
-async function getInvalidReport() {
-	return await getReport('report-invalid.json')
+async function getParsedReport(file = defaultReport) {
+	return await parseReport(await getReport(file))
 }
 
 describe('isValidReport', () => {
@@ -24,7 +22,7 @@ describe('isValidReport', () => {
 		expect(isValidReport(JSON.parse(report))).toBe(true)
 	})
 	it('detects invalid reports', async () => {
-		const report = await getInvalidReport()
+		const report = await getReport('report-invalid.json')
 		expect(isValidReport([])).toBe(false)
 		expect(isValidReport('')).toBe(false)
 		expect(isValidReport(JSON.parse(report))).toBe(false)
@@ -32,9 +30,6 @@ describe('isValidReport', () => {
 })
 
 describe('parseReport', () => {
-	const getParsedReport = async () => parseReport(await getReport())
-	const getParsedShardedReport = async () =>
-		parseReport(await getShardedReport())
 	it('returns an object', async () => {
 		const parsed = await getParsedReport()
 		expect(typeof parsed === 'object').toBe(true)
@@ -46,6 +41,10 @@ describe('parseReport', () => {
 	it('returns total duration', async () => {
 		const parsed = await getParsedReport()
 		expect(parsed.duration).toBe(1118.34)
+	})
+	it('calculates duration if missing', async () => {
+		const parsed = await getParsedReport('report-without-duration.json')
+		expect(parsed.duration).toBe(943)
 	})
 	it('returns workers', async () => {
 		const parsed = await getParsedReport()
@@ -76,7 +75,7 @@ describe('parseReport', () => {
 		expect(parsed.skipped.length).toBe(1)
 	})
 	it('counts sharded tests', async () => {
-		const parsed = await getParsedShardedReport()
+		const parsed = await getParsedReport('report-sharded.json')
 		expect(parsed.tests.length).toBe(27)
 		expect(parsed.failed.length).toBe(1)
 		expect(parsed.passed.length).toBe(22)

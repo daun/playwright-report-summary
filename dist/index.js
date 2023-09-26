@@ -9974,20 +9974,15 @@ function parseReport(data) {
     catch (error) {
         throw error;
     }
-    const version = report.config.version;
-    const duration = report.config.metadata.totalTime || 0;
-    const workers = report.config.metadata.actualWorkers || report.config.workers || 1;
-    const shards = report.config.shard?.total || 0;
-    const projects = report.config.projects.map((project) => project.name);
     const files = report.suites.map((file) => file.title);
-    const suites = report.suites.flatMap((file) => file.suites.length
+    const suites = report.suites.flatMap((file) => file.suites?.length
         ? [...file.suites.map((suite) => `${file.title} > ${suite.title}`)]
         : [file.title]);
     const specs = report.suites.reduce((all, file) => {
         for (const spec of file.specs) {
             all.push(parseSpec(spec, [file]));
         }
-        for (const suite of file.suites) {
+        for (const suite of (file.suites || [])) {
             for (const spec of suite.specs) {
                 all.push(parseSpec(spec, [file, suite]));
             }
@@ -9995,12 +9990,19 @@ function parseReport(data) {
         return all;
     }, []);
     const tests = specs.flatMap((spec) => spec.tests);
+    const results = tests.flatMap((test) => test.results);
     const failed = tests.filter((test) => test.failed);
     const passed = tests.filter((test) => test.passed);
     const flaky = tests.filter((test) => test.flaky);
     const skipped = tests.filter((test) => test.skipped);
+    const { duration, started } = getTotalDuration(report, results);
+    const version = report.config.version;
+    const workers = report.config.metadata.actualWorkers || report.config.workers || 1;
+    const shards = report.config.shard?.total || 0;
+    const projects = report.config.projects.map((p) => p.name);
     return {
         version,
+        started,
         duration,
         workers,
         shards,
@@ -10009,6 +10011,7 @@ function parseReport(data) {
         suites,
         specs,
         tests,
+        results,
         failed,
         passed,
         flaky,
@@ -10016,6 +10019,24 @@ function parseReport(data) {
     };
 }
 exports.parseReport = parseReport;
+function getTotalDuration(report, results) {
+    let duration = 0;
+    let started = new Date();
+    const { totalTime } = report.config.metadata;
+    if (totalTime) {
+        duration = totalTime;
+    }
+    else {
+        const sorted = results.sort((a, b) => a.started.getTime() - b.started.getTime());
+        const first = sorted[0];
+        const last = sorted[sorted.length - 1];
+        if (first && last) {
+            started = first.started;
+            duration = (last.started.getTime() + last.duration) - first.started.getTime();
+        }
+    }
+    return { duration, started };
+}
 function parseSpec(spec, parents = []) {
     const { ok, file, line, column } = spec;
     const { title, path } = buildTitle(...parents.map((p) => p.title), spec.title);
@@ -10026,11 +10047,15 @@ function parseTest(test, spec, parents = []) {
     const { file, line, column } = spec;
     const { status, projectName: project } = test;
     const { title, path } = buildTitle(project, ...parents.map((p) => p.title), spec.title);
+    const results = test.results.map((result) => parseTestResult(result));
     const passed = status === 'expected';
     const failed = status === 'unexpected';
     const skipped = status === 'skipped';
     const flaky = status === 'flaky';
-    return { passed, failed, flaky, skipped, title, path, file, line, column };
+    return { passed, failed, flaky, skipped, results, title, path, file, line, column };
+}
+function parseTestResult({ duration, startTime }) {
+    return { duration, started: new Date(startTime) };
 }
 function buildTitle(...paths) {
     const path = paths.filter(Boolean);

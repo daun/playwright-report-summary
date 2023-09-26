@@ -1,4 +1,6 @@
+import { JSONReport, JSONReportSpec, JSONReportSuite, JSONReportTest, JSONReportTestResult } from '@playwright/test/reporter'
 import { debug } from '@actions/core'
+
 import {
 	formatDuration,
 	n,
@@ -7,33 +9,78 @@ import {
 } from './formatting'
 import { icons, renderIcon } from './icons'
 
-interface Report {
-	config: {
-		configFile: string
-		rootDir: string
-		fullyParallel: boolean
-		globalTimeout: number
-		grep: Record<string, unknown>
-		grepInvert: null
-		maxFailures: number
-		metadata: {
-			actualWorkers: number
-			totalTime: number
-		}
-		projects: Project[]
-		shard?: {
-			current: number
-			total: number
-		}
-		version: string
-		workers: number
-	}
-	suites: Suite[]
-	errors: any[]
-}
+// interface Report {
+// 	config: {
+// 		configFile: string
+// 		rootDir: string
+// 		fullyParallel: boolean
+// 		globalTimeout: number
+// 		grep: Record<string, unknown>
+// 		grepInvert: null
+// 		maxFailures: number
+// 		metadata: {
+// 			actualWorkers: number
+// 			totalTime: number
+// 		}
+// 		projects: Project[]
+// 		shard?: {
+// 			current: number
+// 			total: number
+// 		}
+// 		version: string
+// 		workers: number
+// 	}
+// 	suites: Suite[]
+// 	errors: any[]
+// }
+
+// interface Project {
+// 	id: string
+// 	name: string
+// }
+
+// interface Suite {
+// 	title: string
+// 	file: string
+// 	column: number
+// 	line: number
+// 	specs: Spec[]
+// 	suites: Suite[]
+// }
+
+// interface Spec {
+// 	title: string
+// 	ok: boolean
+// 	tags: string[]
+// 	tests: Test[]
+// 	id: string
+// 	file: string
+// 	line: number
+// 	column: number
+// }
+
+// interface Test {
+// 	timeout: number
+// 	expectedStatus: 'passed' | 'skipped' | 'failed' | 'flaky' | string
+// 	projectId: string
+// 	projectName: string
+// 	results: TestResult[]
+// 	status: 'expected' | 'skipped' | string
+// }
+
+// interface TestResult {
+// 	workerIndex: number
+// 	status: 'passed' | 'failed' | 'skipped' | string
+// 	duration: number
+// 	error?: any
+// 	errors: any[]
+// 	retry: number
+// 	startTime: string
+// }
 
 interface ReportSummary {
 	version: string
+	started: Date
 	duration: number
 	workers: number
 	shards: number
@@ -46,50 +93,7 @@ interface ReportSummary {
 	passed: TestSummary[]
 	flaky: TestSummary[]
 	skipped: TestSummary[]
-}
-
-interface Project {
-	id: string
-	name: string
-}
-
-interface Suite {
-	title: string
-	file: string
-	column: number
-	line: number
-	specs: Spec[]
-	suites: Suite[]
-}
-
-interface Spec {
-	title: string
-	ok: boolean
-	tags: string[]
-	tests: Test[]
-	id: string
-	file: string
-	line: number
-	column: number
-}
-
-interface Test {
-	timeout: number
-	expectedStatus: 'passed' | 'skipped' | 'failed' | 'flaky' | string
-	projectId: string
-	projectName: string
-	results: TestResult[]
-	status: 'expected' | 'skipped' | string
-}
-
-interface TestResult {
-	workerIndex: number
-	status: 'passed' | 'failed' | 'skipped' | string
-	duration: number
-	error?: any
-	errors: any[]
-	retry: number
-	startTime: string
+	results: TestResultSummary[]
 }
 
 interface SpecSummary {
@@ -112,6 +116,12 @@ interface TestSummary {
 	column: number
 	path: string[]
 	title: string
+	results: TestResultSummary[]
+}
+
+interface TestResultSummary {
+	duration: number
+	started: Date
 }
 
 interface ReportRenderOptions {
@@ -122,7 +132,7 @@ interface ReportRenderOptions {
 	iconStyle?: keyof typeof icons
 }
 
-export function isValidReport(report: unknown): report is Report {
+export function isValidReport(report: unknown): report is JSONReport {
 	return (
 		report !== null &&
 		typeof report === 'object' &&
@@ -133,7 +143,7 @@ export function isValidReport(report: unknown): report is Report {
 }
 
 export function parseReport(data: string): ReportSummary {
-	let report: Report
+	let report: JSONReport
 	try {
 		report = JSON.parse(data)
 		if (!isValidReport(report)) {
@@ -145,18 +155,9 @@ export function parseReport(data: string): ReportSummary {
 		throw error
 	}
 
-	const version: string = report.config.version
-	const duration: number = report.config.metadata.totalTime || 0
-	const workers: number =
-		report.config.metadata.actualWorkers || report.config.workers || 1
-	const shards: number = report.config.shard?.total || 0
-	const projects: string[] = report.config.projects.map(
-		(project) => project.name
-	)
-
 	const files: string[] = report.suites.map((file) => file.title)
 	const suites: string[] = report.suites.flatMap((file) =>
-		file.suites.length
+		file.suites?.length
 			? [...file.suites.map((suite) => `${file.title} > ${suite.title}`)]
 			: [file.title]
 	)
@@ -164,7 +165,7 @@ export function parseReport(data: string): ReportSummary {
 		for (const spec of file.specs) {
 			all.push(parseSpec(spec, [file]))
 		}
-		for (const suite of file.suites) {
+		for (const suite of (file.suites || [])) {
 			for (const spec of suite.specs) {
 				all.push(parseSpec(spec, [file, suite]))
 			}
@@ -172,13 +173,22 @@ export function parseReport(data: string): ReportSummary {
 		return all
 	}, [] as SpecSummary[])
 	const tests = specs.flatMap((spec) => spec.tests)
+	const results = tests.flatMap((test) => test.results)
 	const failed = tests.filter((test) => test.failed)
 	const passed = tests.filter((test) => test.passed)
 	const flaky = tests.filter((test) => test.flaky)
 	const skipped = tests.filter((test) => test.skipped)
 
+	const { duration, started } = getTotalDuration(report, results)
+	const version: string = report.config.version
+	const workers: number =
+		report.config.metadata.actualWorkers || report.config.workers || 1
+	const shards: number = report.config.shard?.total || 0
+	const projects: string[] = report.config.projects.map((p) => p.name)
+
 	return {
 		version,
+		started,
 		duration,
 		workers,
 		shards,
@@ -187,6 +197,7 @@ export function parseReport(data: string): ReportSummary {
 		suites,
 		specs,
 		tests,
+		results,
 		failed,
 		passed,
 		flaky,
@@ -194,14 +205,32 @@ export function parseReport(data: string): ReportSummary {
 	}
 }
 
-function parseSpec(spec: Spec, parents: Suite[] = []): SpecSummary {
+function getTotalDuration(report: JSONReport, results: TestResultSummary[]): { duration: number, started: Date } {
+	let duration = 0
+	let started = new Date()
+	const { totalTime } = report.config.metadata
+	if (totalTime) {
+		duration = totalTime
+	} else {
+		const sorted = results.sort((a, b) => a.started.getTime() - b.started.getTime())
+		const first = sorted[0]
+		const last = sorted[sorted.length - 1]
+		if (first && last) {
+			started = first.started
+			duration = (last.started.getTime() + last.duration) - first.started.getTime()
+		}
+	}
+	return { duration, started }
+}
+
+function parseSpec(spec: JSONReportSpec, parents: JSONReportSuite[] = []): SpecSummary {
 	const { ok, file, line, column } = spec
 	const { title, path } = buildTitle(...parents.map((p) => p.title), spec.title)
 	const tests = spec.tests.map((test) => parseTest(test, spec, parents))
 	return { ok, file, line, column, path, title, tests }
 }
 
-function parseTest(test: Test, spec: Spec, parents: Suite[] = []): TestSummary {
+function parseTest(test: JSONReportTest, spec: JSONReportSpec, parents: JSONReportSuite[] = []): TestSummary {
 	const { file, line, column } = spec
 	const { status, projectName: project } = test
 	const { title, path } = buildTitle(
@@ -209,11 +238,16 @@ function parseTest(test: Test, spec: Spec, parents: Suite[] = []): TestSummary {
 		...parents.map((p) => p.title),
 		spec.title
 	)
+	const results = test.results.map((result) => parseTestResult(result))
 	const passed = status === 'expected'
 	const failed = status === 'unexpected'
 	const skipped = status === 'skipped'
 	const flaky = status === 'flaky'
-	return { passed, failed, flaky, skipped, title, path, file, line, column }
+	return { passed, failed, flaky, skipped, results, title, path, file, line, column }
+}
+
+function parseTestResult({ duration, startTime }: JSONReportTestResult): TestResultSummary {
+	return { duration, started: new Date(startTime) }
 }
 
 function buildTitle(...paths: string[]): { title: string; path: string[] } {

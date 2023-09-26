@@ -90,8 +90,7 @@ describe('renderReportSummary', () => {
 		reportUrl: 'https://example.com/report',
 		commit: '1234567'
 	}
-	const getReportSummary = async () =>
-		renderReportSummary(parseReport(await getReport()), renderOptions)
+	const getReportSummary = async () => renderReportSummary(parseReport(await getReport()), renderOptions)
 	it('returns a string', async () => {
 		const summary = await getReportSummary()
 		expect(typeof summary === 'string').toBe(true)

@@ -56,10 +56,7 @@ export async function report(): Promise<void> {
 		head.ref = payload.ref
 		head.sha = payload.after
 		console.log(`Commit pushed onto ${base.ref} (${head.sha})`)
-	} else if (
-		eventName === 'pull_request' ||
-		eventName === 'pull_request_target'
-	) {
+	} else if (eventName === 'pull_request' || eventName === 'pull_request_target') {
 		base.ref = payload.pull_request?.base?.ref
 		base.sha = payload.pull_request?.base?.sha
 		head.ref = payload.pull_request?.head?.ref
@@ -96,9 +93,7 @@ export async function report(): Promise<void> {
 	const octokit = getOctokit(token)
 
 	if (eventName !== 'pull_request' && eventName !== 'pull_request_target') {
-		console.log(
-			'No PR associated with this action run. Not posting a check or comment.'
-		)
+		console.log('No PR associated with this action run. Not posting a check or comment.')
 	} else {
 		startGroup(`Commenting test report on PR`)
 		try {
@@ -106,9 +101,7 @@ export async function report(): Promise<void> {
 				...repo,
 				issue_number: pull_number
 			})
-			const existingComment = comments.findLast(
-				(c) => c.user?.type === 'Bot' && c.body?.includes(prefix)
-			)
+			const existingComment = comments.findLast((c) => c.user?.type === 'Bot' && c.body?.includes(prefix))
 			commentId = existingComment?.id || null
 		} catch (error: any) {
 			console.error(`Error fetching existing comments: ${error.message}`)

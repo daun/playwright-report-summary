@@ -1,12 +1,13 @@
-import { JSONReport, JSONReportSpec, JSONReportSuite, JSONReportTest, JSONReportTestResult } from '@playwright/test/reporter'
+import {
+	JSONReport,
+	JSONReportSpec,
+	JSONReportSuite,
+	JSONReportTest,
+	JSONReportTestResult
+} from '@playwright/test/reporter'
 import { debug } from '@actions/core'
 
-import {
-	formatDuration,
-	n,
-	renderAccordion,
-	upperCaseFirst
-} from './formatting'
+import { formatDuration, n, renderAccordion, upperCaseFirst } from './formatting'
 import { icons, renderIcon } from './icons'
 
 // interface Report {
@@ -133,13 +134,7 @@ interface ReportRenderOptions {
 }
 
 export function isValidReport(report: unknown): report is JSONReport {
-	return (
-		report !== null &&
-		typeof report === 'object' &&
-		'config' in report &&
-		'errors' in report &&
-		'suites' in report
-	)
+	return report !== null && typeof report === 'object' && 'config' in report && 'errors' in report && 'suites' in report
 }
 
 export function parseReport(data: string): ReportSummary {
@@ -157,15 +152,13 @@ export function parseReport(data: string): ReportSummary {
 
 	const files: string[] = report.suites.map((file) => file.title)
 	const suites: string[] = report.suites.flatMap((file) =>
-		file.suites?.length
-			? [...file.suites.map((suite) => `${file.title} > ${suite.title}`)]
-			: [file.title]
+		file.suites?.length ? [...file.suites.map((suite) => `${file.title} > ${suite.title}`)] : [file.title]
 	)
 	const specs: SpecSummary[] = report.suites.reduce((all, file) => {
 		for (const spec of file.specs) {
 			all.push(parseSpec(spec, [file]))
 		}
-		for (const suite of (file.suites || [])) {
+		for (const suite of file.suites || []) {
 			for (const spec of suite.specs) {
 				all.push(parseSpec(spec, [file, suite]))
 			}
@@ -181,8 +174,7 @@ export function parseReport(data: string): ReportSummary {
 
 	const { duration, started } = getTotalDuration(report, results)
 	const version: string = report.config.version
-	const workers: number =
-		report.config.metadata.actualWorkers || report.config.workers || 1
+	const workers: number = report.config.metadata.actualWorkers || report.config.workers || 1
 	const shards: number = report.config.shard?.total || 0
 	const projects: string[] = report.config.projects.map((p) => p.name)
 
@@ -205,7 +197,7 @@ export function parseReport(data: string): ReportSummary {
 	}
 }
 
-function getTotalDuration(report: JSONReport, results: TestResultSummary[]): { duration: number, started: Date } {
+function getTotalDuration(report: JSONReport, results: TestResultSummary[]): { duration: number; started: Date } {
 	let duration = 0
 	let started = new Date()
 	const { totalTime } = report.config.metadata
@@ -217,7 +209,7 @@ function getTotalDuration(report: JSONReport, results: TestResultSummary[]): { d
 		const last = sorted[sorted.length - 1]
 		if (first && last) {
 			started = first.started
-			duration = (last.started.getTime() + last.duration) - first.started.getTime()
+			duration = last.started.getTime() + last.duration - first.started.getTime()
 		}
 	}
 	return { duration, started }
@@ -233,11 +225,7 @@ function parseSpec(spec: JSONReportSpec, parents: JSONReportSuite[] = []): SpecS
 function parseTest(test: JSONReportTest, spec: JSONReportSpec, parents: JSONReportSuite[] = []): TestSummary {
 	const { file, line, column } = spec
 	const { status, projectName: project } = test
-	const { title, path } = buildTitle(
-		project,
-		...parents.map((p) => p.title),
-		spec.title
-	)
+	const { title, path } = buildTitle(project, ...parents.map((p) => p.title), spec.title)
 	const results = test.results.map((result) => parseTestResult(result))
 	const passed = status === 'expected'
 	const failed = status === 'unexpected'
@@ -284,14 +272,12 @@ export function renderReportSummary(
 
 	const stats = [
 		reportUrl ? `${icon('report')}  [Open report ↗︎](${reportUrl})` : '',
-		`${icon('stats')}  ${report.tests.length} ${n(
-			'test',
-			report.tests.length
-		)} across ${report.suites.length} ${n('suite', report.suites.length)}`,
+		`${icon('stats')}  ${report.tests.length} ${n('test', report.tests.length)} across ${report.suites.length} ${n(
+			'suite',
+			report.suites.length
+		)}`,
 		`${icon('duration')}  ${duration ? formatDuration(duration) : 'unknown'}`,
-		commit && message
-			? `${icon('commit')}  ${message} (${commit.slice(0, 7)})`
-			: '',
+		commit && message ? `${icon('commit')}  ${message} (${commit.slice(0, 7)})` : '',
 		commit && !message ? `${icon('commit')}  ${commit.slice(0, 7)}` : ''
 	]
 	paragraphs.push(stats.filter(Boolean).join('  \n'))

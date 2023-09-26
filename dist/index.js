@@ -9833,8 +9833,7 @@ async function report() {
         head.sha = payload.after;
         console.log(`Commit pushed onto ${base.ref} (${head.sha})`);
     }
-    else if (eventName === 'pull_request' ||
-        eventName === 'pull_request_target') {
+    else if (eventName === 'pull_request' || eventName === 'pull_request_target') {
         base.ref = payload.pull_request?.base?.ref;
         base.sha = payload.pull_request?.base?.sha;
         head.ref = payload.pull_request?.head?.ref;
@@ -9954,11 +9953,7 @@ const core_1 = __nccwpck_require__(2186);
 const formatting_1 = __nccwpck_require__(9598);
 const icons_1 = __nccwpck_require__(6975);
 function isValidReport(report) {
-    return (report !== null &&
-        typeof report === 'object' &&
-        'config' in report &&
-        'errors' in report &&
-        'suites' in report);
+    return report !== null && typeof report === 'object' && 'config' in report && 'errors' in report && 'suites' in report;
 }
 exports.isValidReport = isValidReport;
 function parseReport(data) {
@@ -9975,14 +9970,12 @@ function parseReport(data) {
         throw error;
     }
     const files = report.suites.map((file) => file.title);
-    const suites = report.suites.flatMap((file) => file.suites?.length
-        ? [...file.suites.map((suite) => `${file.title} > ${suite.title}`)]
-        : [file.title]);
+    const suites = report.suites.flatMap((file) => file.suites?.length ? [...file.suites.map((suite) => `${file.title} > ${suite.title}`)] : [file.title]);
     const specs = report.suites.reduce((all, file) => {
         for (const spec of file.specs) {
             all.push(parseSpec(spec, [file]));
         }
-        for (const suite of (file.suites || [])) {
+        for (const suite of file.suites || []) {
             for (const spec of suite.specs) {
                 all.push(parseSpec(spec, [file, suite]));
             }
@@ -10032,7 +10025,7 @@ function getTotalDuration(report, results) {
         const last = sorted[sorted.length - 1];
         if (first && last) {
             started = first.started;
-            duration = (last.started.getTime() + last.duration) - first.started.getTime();
+            duration = last.started.getTime() + last.duration - first.started.getTime();
         }
     }
     return { duration, started };
@@ -10082,9 +10075,7 @@ function renderReportSummary(report, { commit, message, title, reportUrl, iconSt
         reportUrl ? `${icon('report')}  [Open report ↗︎](${reportUrl})` : '',
         `${icon('stats')}  ${report.tests.length} ${(0, formatting_1.n)('test', report.tests.length)} across ${report.suites.length} ${(0, formatting_1.n)('suite', report.suites.length)}`,
         `${icon('duration')}  ${duration ? (0, formatting_1.formatDuration)(duration) : 'unknown'}`,
-        commit && message
-            ? `${icon('commit')}  ${message} (${commit.slice(0, 7)})`
-            : '',
+        commit && message ? `${icon('commit')}  ${message} (${commit.slice(0, 7)})` : '',
         commit && !message ? `${icon('commit')}  ${commit.slice(0, 7)}` : ''
     ];
     paragraphs.push(stats.filter(Boolean).join('  \n'));

@@ -25,6 +25,10 @@ inputs:
     description: 'Create a job summary comment for the workflow run'
     required: false
     default: false
+  report-id:
+    description: 'Identify unique test runs in the same workflow'
+    required: false
+    default: false
   icon-style:
     description: 'The icons to use: octicons or emoji'
     required: false

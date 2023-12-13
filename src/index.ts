@@ -37,12 +37,14 @@ export async function report(): Promise<void> {
 	const token = getInput('github-token')
 	const reportFile = getInput('report-file', { required: true })
 	const reportUrl = getInput('report-url')
+	const reportId = getInput('report-id') || reportFile
 	const commentTitle = getInput('comment-title') || 'Playwright test results'
 	const iconStyle = getInput('icon-style') || 'octicons'
 	const jobSummary = getBooleanInput('job-summary')
 
 	debug(`Report file: ${reportFile}`)
 	debug(`Report URL: ${reportUrl}`)
+	debug(`Report id: ${reportId}`)
 	debug(`Comment title: ${commentTitle}`)
 
 	const { eventName, repo, payload } = context
@@ -89,7 +91,7 @@ export async function report(): Promise<void> {
 		iconStyle
 	})
 
-	const prefix = '<!-- playwright-report-github-action -->'
+	const prefix = `<!-- playwright-report-github-action -- ${reportId} -->`
 	const body = `${prefix}\n\n${summary}`
 	let commentId = null
 

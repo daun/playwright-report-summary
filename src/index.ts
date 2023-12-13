@@ -103,7 +103,7 @@ export async function report(): Promise<void> {
 				...repo,
 				issue_number: pull_number
 			})
-			const existingComment = comments.findLast((c) => c.user?.type === 'Bot' && c.body?.includes(prefix))
+			const existingComment = comments.findLast((c) => c.body?.includes(prefix))
 			commentId = existingComment?.id || null
 		} catch (error: any) {
 			console.error(`Error fetching existing comments: ${error.message}`)

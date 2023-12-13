@@ -9873,7 +9873,7 @@ async function report() {
                 ...repo,
                 issue_number: pull_number
             });
-            const existingComment = comments.findLast((c) => c.user?.type === 'Bot' && c.body?.includes(prefix));
+            const existingComment = comments.findLast((c) => c.body?.includes(prefix));
             commentId = existingComment?.id || null;
         }
         catch (error) {

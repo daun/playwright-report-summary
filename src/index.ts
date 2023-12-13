@@ -34,19 +34,21 @@ export async function run(): Promise<void> {
 export async function report(): Promise<void> {
 	const cwd = process.cwd()
 
+	const { workflow, eventName, repo, payload } = context
+	const { owner, number: pull_number } = context.issue
+
 	const token = getInput('github-token')
 	const reportFile = getInput('report-file', { required: true })
 	const reportUrl = getInput('report-url')
+	const reportTag = getInput('report-tag') || workflow
 	const commentTitle = getInput('comment-title') || 'Playwright test results'
 	const iconStyle = getInput('icon-style') || 'octicons'
 	const jobSummary = getBooleanInput('job-summary')
 
 	debug(`Report file: ${reportFile}`)
-	debug(`Report URL: ${reportUrl}`)
+	debug(`Report url: ${reportUrl}`)
+	debug(`Report tag: ${reportTag || '(none)'}`)
 	debug(`Comment title: ${commentTitle}`)
-
-	const { eventName, repo, payload } = context
-	const { owner, number: pull_number } = context.issue
 
 	const base: { ref?: string; sha?: string } = {}
 	const head: { ref?: string; sha?: string } = {}
@@ -86,7 +88,7 @@ export async function report(): Promise<void> {
 		iconStyle
 	})
 
-	const prefix = '<!-- playwright-report-github-action -->'
+	const prefix = `<!-- playwright-report-github-action -- ${reportTag} -->`
 	const body = `${prefix}\n\n${summary}`
 	let commentId = null
 
@@ -101,7 +103,7 @@ export async function report(): Promise<void> {
 				...repo,
 				issue_number: pull_number
 			})
-			const existingComment = comments.findLast((c) => c.user?.type === 'Bot' && c.body?.includes(prefix))
+			const existingComment = comments.findLast((c) => c.body?.includes(prefix))
 			commentId = existingComment?.id || null
 		} catch (error: any) {
 			console.error(`Error fetching existing comments: ${error.message}`)

@@ -9813,17 +9813,19 @@ exports.run = run;
  */
 async function report() {
     const cwd = process.cwd();
+    const { workflow, eventName, repo, payload } = github_1.context;
+    const { owner, number: pull_number } = github_1.context.issue;
     const token = (0, core_1.getInput)('github-token');
     const reportFile = (0, core_1.getInput)('report-file', { required: true });
     const reportUrl = (0, core_1.getInput)('report-url');
+    const reportTag = (0, core_1.getInput)('report-tag') || workflow;
     const commentTitle = (0, core_1.getInput)('comment-title') || 'Playwright test results';
     const iconStyle = (0, core_1.getInput)('icon-style') || 'octicons';
     const jobSummary = (0, core_1.getBooleanInput)('job-summary');
     (0, core_1.debug)(`Report file: ${reportFile}`);
-    (0, core_1.debug)(`Report URL: ${reportUrl}`);
+    (0, core_1.debug)(`Report url: ${reportUrl}`);
+    (0, core_1.debug)(`Report tag: ${reportTag || '(none)'}`);
     (0, core_1.debug)(`Comment title: ${commentTitle}`);
-    const { eventName, repo, payload } = github_1.context;
-    const { owner, number: pull_number } = github_1.context.issue;
     const base = {};
     const head = {};
     if (eventName === 'push') {
@@ -9857,7 +9859,7 @@ async function report() {
         reportUrl,
         iconStyle
     });
-    const prefix = '<!-- playwright-report-github-action -->';
+    const prefix = `<!-- playwright-report-github-action -- ${reportTag} -->`;
     const body = `${prefix}\n\n${summary}`;
     let commentId = null;
     const octokit = (0, github_1.getOctokit)(token);

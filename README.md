@@ -56,6 +56,10 @@ jobs:
     # Example pipeline: https://playwright.dev/docs/test-sharding#publishing-report-on-the-web
     report-url: 'https://user.github.io/repo/yyyy-mm-dd-id/'
 
+    # A unique tag to represent this report when reporting on multiple test runs
+    # Defaults to the current workflow name
+    report-tag: ''
+
     # Title/headline to use for the created pull request comment.
     # Default: Playwright test results
     comment-title: 'Results'

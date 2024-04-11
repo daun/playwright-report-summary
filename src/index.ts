@@ -49,8 +49,8 @@ export async function report(): Promise<void> {
 	debug(`Report tag: ${reportTag || '(none)'}`)
 	debug(`Comment title: ${commentTitle}`)
 
-	let ref: string = ''
-	let sha: string = ''
+	let ref: string = context.ref
+	let sha: string = context.sha
 
 	if (eventName === 'push') {
 		ref = payload.ref
@@ -61,8 +61,6 @@ export async function report(): Promise<void> {
 		sha = payload.pull_request?.head?.sha
 		console.log(`PR #${pull_number} targeting ${ref} (${sha})`)
 	} else if (eventName === 'workflow_dispatch') {
-		ref = context.ref
-		sha = context.sha
 		console.log(`Workflow dispatched on ${ref} (${sha})`)
 	} else {
 		throw new Error(

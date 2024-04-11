@@ -94,7 +94,9 @@ export async function report(): Promise<void> {
 
 	const octokit = getOctokit(token)
 
-	if (eventName !== 'pull_request' && eventName !== 'pull_request_target') {
+	const hasPR = eventName === 'pull_request' || eventName === 'pull_request_target'
+
+	if (!hasPR) {
 		console.log('No PR associated with this action run. Not posting a check or comment.')
 	} else {
 		startGroup(`Commenting test report on PR`)
@@ -154,7 +156,7 @@ export async function report(): Promise<void> {
 		endGroup()
 	}
 
-	if (!commentId && eventName !== 'workflow_dispatch') {
+	if (!commentId && hasPR) {
 		const intro = `Unable to comment on your PR — this can happen for PR's originating from a fork without write permissions. You can copy the test results directly into a comment using the markdown summary below:`
 		warning(`${intro}\n\n${body}`, { title: 'Unable to comment on PR' })
 	}

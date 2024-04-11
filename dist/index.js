@@ -32058,7 +32058,8 @@ async function report() {
     const body = `${prefix}\n\n${summary}`;
     let commentId = null;
     const octokit = (0, github_1.getOctokit)(token);
-    if (eventName !== 'pull_request' && eventName !== 'pull_request_target') {
+    const hasPR = eventName === 'pull_request' || eventName === 'pull_request_target';
+    if (!hasPR) {
         console.log('No PR associated with this action run. Not posting a check or comment.');
     }
     else {
@@ -32120,7 +32121,7 @@ async function report() {
         }
         (0, core_1.endGroup)();
     }
-    if (!commentId) {
+    if (!commentId && hasPR) {
         const intro = `Unable to comment on your PR — this can happen for PR's originating from a fork without write permissions. You can copy the test results directly into a comment using the markdown summary below:`;
         (0, core_1.warning)(`${intro}\n\n${body}`, { title: 'Unable to comment on PR' });
     }

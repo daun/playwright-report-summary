@@ -28,7 +28,7 @@ describe('formatDuration', () => {
 		// (5*1000)+(15*1000*60)+(2*1000*60*60)
 		expect(formatDuration(8105000)).toBe('2 hours, 15 minutes, 5 seconds')
 	})
-	it('formats singular minutes', async () => {
+	it('formats singular hours', async () => {
 		expect(formatDuration(3600000)).toBe('1 hour')
 	})
 	it('formats days', async () => {

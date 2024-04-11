@@ -32020,21 +32020,22 @@ async function report() {
     (0, core_1.debug)(`Report url: ${reportUrl}`);
     (0, core_1.debug)(`Report tag: ${reportTag || '(none)'}`);
     (0, core_1.debug)(`Comment title: ${commentTitle}`);
-    const base = {};
-    const head = {};
+    let ref = '';
+    let sha = '';
     if (eventName === 'push') {
-        base.ref = payload.ref;
-        base.sha = payload.before;
-        head.ref = payload.ref;
-        head.sha = payload.after;
-        console.log(`Commit pushed onto ${base.ref} (${head.sha})`);
+        ref = payload.ref;
+        sha = payload.after;
+        console.log(`Commit pushed onto ${ref} (${sha})`);
     }
     else if (eventName === 'pull_request' || eventName === 'pull_request_target') {
-        base.ref = payload.pull_request?.base?.ref;
-        base.sha = payload.pull_request?.base?.sha;
-        head.ref = payload.pull_request?.head?.ref;
-        head.sha = payload.pull_request?.head?.sha;
-        console.log(`PR #${pull_number} targeting ${base.ref} (${head.sha})`);
+        ref = payload.pull_request?.base?.ref;
+        sha = payload.pull_request?.head?.sha;
+        console.log(`PR #${pull_number} targeting ${ref} (${sha})`);
+    }
+    else if (eventName === 'workflow_dispatch') {
+        ref = github_1.context.ref;
+        sha = github_1.context.sha;
+        console.log(`Workflow dispatched on ${ref} (${sha})`);
     }
     else {
         throw new Error(`Unsupported event type: ${eventName}. Only "pull_request", "pull_request_target", and "push" triggered workflows are currently supported.`);
@@ -32048,7 +32049,7 @@ async function report() {
     const data = await (0, fs_1.readFile)(reportPath);
     const report = (0, report_1.parseReport)(data);
     const summary = (0, report_1.renderReportSummary)(report, {
-        commit: head.sha,
+        commit: sha,
         title: commentTitle,
         reportUrl,
         iconStyle

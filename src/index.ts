@@ -63,9 +63,7 @@ export async function report(): Promise<void> {
 	} else if (eventName === 'workflow_dispatch') {
 		console.log(`Workflow dispatched on ${ref} (${sha})`)
 	} else {
-		throw new Error(
-			`Unsupported event type: ${eventName}. Only "pull_request", "pull_request_target", and "push" triggered workflows are currently supported.`
-		)
+		console.warn(`Unsupported event type: ${eventName}`)
 	}
 
 	const reportPath = path.resolve(cwd, reportFile)

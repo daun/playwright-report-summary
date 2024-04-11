@@ -32020,8 +32020,8 @@ async function report() {
     (0, core_1.debug)(`Report url: ${reportUrl}`);
     (0, core_1.debug)(`Report tag: ${reportTag || '(none)'}`);
     (0, core_1.debug)(`Comment title: ${commentTitle}`);
-    let ref = '';
-    let sha = '';
+    let ref = github_1.context.ref;
+    let sha = github_1.context.sha;
     if (eventName === 'push') {
         ref = payload.ref;
         sha = payload.after;
@@ -32033,12 +32033,10 @@ async function report() {
         console.log(`PR #${pull_number} targeting ${ref} (${sha})`);
     }
     else if (eventName === 'workflow_dispatch') {
-        ref = github_1.context.ref;
-        sha = github_1.context.sha;
         console.log(`Workflow dispatched on ${ref} (${sha})`);
     }
     else {
-        throw new Error(`Unsupported event type: ${eventName}. Only "pull_request", "pull_request_target", and "push" triggered workflows are currently supported.`);
+        console.warn(`Unsupported event type: ${eventName}`);
     }
     const reportPath = path_1.default.resolve(cwd, reportFile);
     const reportExists = await (0, fs_1.fileExists)(reportPath);

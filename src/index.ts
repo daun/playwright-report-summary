@@ -49,20 +49,21 @@ export async function report(): Promise<void> {
 	debug(`Report tag: ${reportTag || '(none)'}`)
 	debug(`Comment title: ${commentTitle}`)
 
-	const base: { ref?: string; sha?: string } = {}
-	const head: { ref?: string; sha?: string } = {}
+	let ref: string = ''
+	let sha: string = ''
+
 	if (eventName === 'push') {
-		base.ref = payload.ref
-		base.sha = payload.before
-		head.ref = payload.ref
-		head.sha = payload.after
-		console.log(`Commit pushed onto ${base.ref} (${head.sha})`)
+		ref = payload.ref
+		sha = payload.after
+		console.log(`Commit pushed onto ${ref} (${sha})`)
 	} else if (eventName === 'pull_request' || eventName === 'pull_request_target') {
-		base.ref = payload.pull_request?.base?.ref
-		base.sha = payload.pull_request?.base?.sha
-		head.ref = payload.pull_request?.head?.ref
-		head.sha = payload.pull_request?.head?.sha
-		console.log(`PR #${pull_number} targeting ${base.ref} (${head.sha})`)
+		ref = payload.pull_request?.base?.ref
+		sha = payload.pull_request?.head?.sha
+		console.log(`PR #${pull_number} targeting ${ref} (${sha})`)
+	} else if (eventName === 'workflow_dispatch') {
+		ref = context.ref
+		sha = context.sha
+		console.log(`Workflow dispatched on ${ref} (${sha})`)
 	} else {
 		throw new Error(
 			`Unsupported event type: ${eventName}. Only "pull_request", "pull_request_target", and "push" triggered workflows are currently supported.`
@@ -81,7 +82,7 @@ export async function report(): Promise<void> {
 	const data = await readFile(reportPath)
 	const report = parseReport(data)
 	const summary = renderReportSummary(report, {
-		commit: head.sha,
+		commit: sha,
 		title: commentTitle,
 		reportUrl,
 		iconStyle
@@ -93,7 +94,9 @@ export async function report(): Promise<void> {
 
 	const octokit = getOctokit(token)
 
-	if (eventName !== 'pull_request' && eventName !== 'pull_request_target') {
+	const hasPR = eventName === 'pull_request' || eventName === 'pull_request_target'
+
+	if (!hasPR) {
 		console.log('No PR associated with this action run. Not posting a check or comment.')
 	} else {
 		startGroup(`Commenting test report on PR`)
@@ -153,7 +156,7 @@ export async function report(): Promise<void> {
 		endGroup()
 	}
 
-	if (!commentId) {
+	if (!commentId && hasPR) {
 		const intro = `Unable to comment on your PR — this can happen for PR's originating from a fork without write permissions. You can copy the test results directly into a comment using the markdown summary below:`
 		warning(`${intro}\n\n${body}`, { title: 'Unable to comment on PR' })
 	}

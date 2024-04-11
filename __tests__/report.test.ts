@@ -4,16 +4,16 @@
 
 import { expect } from '@jest/globals'
 import { readFile } from '../src/fs'
-import { isValidReport, parseReport, renderReportSummary } from '../src/report'
+import { ReportSummary, isValidReport, parseReport, renderReportSummary } from '../src/report'
 
 const defaultReport = 'report-valid.json'
 
-async function getReport(file = defaultReport) {
+async function getReport(file = defaultReport): Promise<string> {
 	return await readFile(`__tests__/__fixtures__/${file}`)
 }
 
-async function getParsedReport(file = defaultReport) {
-	return await parseReport(await getReport(file))
+async function getParsedReport(file = defaultReport): Promise<ReportSummary> {
+	return parseReport(await getReport(file))
 }
 
 describe('isValidReport', () => {
@@ -90,7 +90,8 @@ describe('renderReportSummary', () => {
 		reportUrl: 'https://example.com/report',
 		commit: '1234567'
 	}
-	const getReportSummary = async () => renderReportSummary(parseReport(await getReport()), renderOptions)
+	const getReportSummary = async (): Promise<string> =>
+		renderReportSummary(parseReport(await getReport()), renderOptions)
 	it('returns a string', async () => {
 		const summary = await getReportSummary()
 		expect(typeof summary === 'string').toBe(true)

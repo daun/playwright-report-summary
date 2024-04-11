@@ -31,13 +31,13 @@ const runMock = jest.spyOn(index, 'run')
 // process.env.GITHUB_ACTIONS = 'true'
 
 // Shallow clone original @actions/github context
-// @ts-expect-error
+// @ts-expect-error missing issue and repo keys
 const originalContext: Context = { ...github.context }
 
 // Inputs for mock @actions/core
-let inputs = {} as any
+let inputs: Record<string, string> = {}
 
-function setContext(context: any) {
+function setContext(context: any): void {
 	Object.defineProperty(github, 'context', { value: context, writable: true })
 }
 

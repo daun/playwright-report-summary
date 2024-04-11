@@ -79,7 +79,7 @@ import { icons, renderIcon } from './icons'
 // 	startTime: string
 // }
 
-interface ReportSummary {
+export interface ReportSummary {
 	version: string
 	started: Date
 	duration: number

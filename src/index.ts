@@ -154,7 +154,7 @@ export async function report(): Promise<void> {
 		endGroup()
 	}
 
-	if (!commentId) {
+	if (!commentId && eventName !== 'workflow_dispatch') {
 		const intro = `Unable to comment on your PR — this can happen for PR's originating from a fork without write permissions. You can copy the test results directly into a comment using the markdown summary below:`
 		warning(`${intro}\n\n${body}`, { title: 'Unable to comment on PR' })
 	}

@@ -7,7 +7,6 @@ import {
 	startGroup,
 	endGroup,
 	debug,
-	notice,
 	warning,
 	summary as setSummary
 } from '@actions/core'
@@ -105,8 +104,8 @@ export async function report(): Promise<void> {
 			})
 			const existingComment = comments.findLast((c) => c.body?.includes(prefix))
 			commentId = existingComment?.id || null
-		} catch (error: any) {
-			console.error(`Error fetching existing comments: ${error.message}`)
+		} catch (error: unknown) {
+			console.error(`Error fetching existing comments: ${(error as Error).message}`)
 		}
 
 		if (commentId) {
@@ -118,8 +117,8 @@ export async function report(): Promise<void> {
 					body
 				})
 				console.log(`Updated previous comment #${commentId}`)
-			} catch (error: any) {
-				console.error(`Error updating previous comment: ${error.message}`)
+			} catch (error: unknown) {
+				console.error(`Error updating previous comment: ${(error as Error).message}`)
 				commentId = null
 			}
 		}
@@ -134,8 +133,8 @@ export async function report(): Promise<void> {
 				})
 				commentId = newComment.id
 				console.log(`Created new comment #${commentId}`)
-			} catch (error: any) {
-				console.error(`Error creating comment: ${error.message}`)
+			} catch (error: unknown) {
+				console.error(`Error creating comment: ${(error as Error).message}`)
 				console.log(`Submitting PR review comment instead...`)
 				try {
 					const { issue } = context
@@ -146,8 +145,8 @@ export async function report(): Promise<void> {
 						event: 'COMMENT',
 						body
 					})
-				} catch (error: any) {
-					console.error(`Error creating PR review: ${error.message}`)
+				} catch (error: unknown) {
+					console.error(`Error creating PR review: ${(error as Error).message}`)
 				}
 			}
 		}

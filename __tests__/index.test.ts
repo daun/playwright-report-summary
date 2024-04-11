@@ -32,7 +32,7 @@ const runMock = jest.spyOn(index, 'run')
 
 // Shallow clone original @actions/github context
 // @ts-expect-error missing issue and repo keys
-const originalContext: Context = { ...github.context }
+const originalContext: Context = { issue: {}, ...github.context }
 
 // Inputs for mock @actions/core
 let inputs: Record<string, string> = {}

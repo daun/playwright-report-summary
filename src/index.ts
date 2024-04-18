@@ -34,7 +34,7 @@ export async function report(): Promise<void> {
 	const cwd = process.cwd()
 
 	const { workflow, eventName, repo, payload } = context
-	const { owner, number: pull_number } = context.issue
+	const { owner, number: pull_number } = context.issue || {}
 
 	const token = getInput('github-token')
 	const reportFile = getInput('report-file', { required: true })

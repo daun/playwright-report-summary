@@ -42,7 +42,7 @@ export async function report(): Promise<void> {
 	const reportTag = getInput('report-tag') || workflow
 	const commentTitle = getInput('comment-title') || 'Playwright test results'
 	const iconStyle = getInput('icon-style') || 'octicons'
-	const jobSummary = getBooleanInput('job-summary')
+	const jobSummary = getInput('job-summary') ? getBooleanInput('job-summary') : false
 
 	debug(`Report file: ${reportFile}`)
 	debug(`Report url: ${reportUrl}`)

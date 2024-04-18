@@ -1,31 +1,23 @@
-import path from 'path'
-import {
-	getInput,
-	getBooleanInput,
-	setOutput,
-	setFailed,
-	startGroup,
-	endGroup,
-	debug,
-	warning,
-	summary as setSummary
-} from '@actions/core'
 import { context, getOctokit } from '@actions/github'
-import { fileExists, readFile } from './fs'
-import { parseReport, renderReportSummary } from './report'
-import { getPullRequestComments } from './github'
+import { Endpoints } from '@octokit/types'
 
-/**
- * The main function for the action.
- */
-export async function run(): Promise<void> {
-	try {
-		await report()
-	} catch (error) {
-		if (error instanceof Error) {
-			setFailed(error.message)
-		}
-	}
+type listUserReposParameters =
+  Endpoints["GET /repos/{owner}/{repo}"]["parameters"];
+type listIssueCommentsResponse = Endpoints["GET /repos/{owner}/{repo}"]["response"];
+
+
+export function octokit(token: string) {
+	return getOctokit(token)
+}
+
+export async function getPullRequestComments({ token, owner, repo, pull_number }: { token: string, owner: string, repo: string, pull_number: number }): Promise<object[]> {
+	return await getIssueComments({ token, owner, repo, issue_number: pull_number })
+}
+
+export async function getIssueComments({ token, owner, repo, issue_number }: { token: string, owner: string, repo: string, issue_number: number }): Promise<object[]> {
+	const params = { owner, repo, issue_number }
+	const { data } = await octokit(token).rest.issues.listComments(params)
+	return data
 }
 
 /**
@@ -98,7 +90,10 @@ export async function report(): Promise<void> {
 	} else {
 		startGroup(`Commenting test report on PR`)
 		try {
-			const comments = await getPullRequestComments({ token, pull_number, ...repo })
+			const { data: comments } = await octokit.rest.issues.listComments({
+				...repo,
+				issue_number: pull_number
+			})
 			const existingComment = comments.findLast((c) => c.body?.includes(prefix))
 			commentId = existingComment?.id || null
 		} catch (error: unknown) {

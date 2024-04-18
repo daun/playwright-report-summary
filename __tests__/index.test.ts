@@ -58,9 +58,13 @@ const defaultContext = {
 			number: 12345
 		},
 		pull_request: {
+			base: {
+				ref: 'main',
+				sha: 'abc123'
+			},
 			head: {
 				ref: 'feature-branch',
-				sha: 'abc123'
+				sha: 'def456'
 			}
 		}
 	}
@@ -128,8 +132,8 @@ describe('action', () => {
 
 		expect(parseReportMock).toHaveBeenNthCalledWith(1, expect.any(String))
 		expect(renderReportSummaryMock).toHaveBeenNthCalledWith(1, expect.any(Object), expect.objectContaining({
-			commit: expect.any(String),
-			title: expect.any(String),
+			commit: 'def456',
+			title: 'Playwright test results',
 			reportUrl: expect.any(String),
 			iconStyle: expect.any(String)
 		}))

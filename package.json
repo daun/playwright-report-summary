@@ -70,6 +70,7 @@
     "@actions/github": "^5.1.1"
   },
   "devDependencies": {
+    "@octokit/types": "^13.4.1",
     "@playwright/test": "^1.43.1",
     "@types/jest": "^29.5.4",
     "@types/node": "^20.12.7",

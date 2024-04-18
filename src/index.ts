@@ -45,7 +45,7 @@ export async function report(): Promise<void> {
 	const jobSummary = getInput('job-summary') ? getBooleanInput('job-summary') : false
 
 	debug(`Report file: ${reportFile}`)
-	debug(`Report url: ${reportUrl}`)
+	debug(`Report url: ${reportUrl || '(none)'}`)
 	debug(`Report tag: ${reportTag || '(none)'}`)
 	debug(`Comment title: ${commentTitle}`)
 

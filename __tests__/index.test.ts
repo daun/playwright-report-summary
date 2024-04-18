@@ -98,6 +98,23 @@ describe('action', () => {
 	})
 
 	it('sets a failed status', async () => {
+		setContext({
+			eventName: 'pull_request',
+			repo: {
+				owner: 'some-owner',
+				repo: 'some-repo'
+			},
+			issue: {
+				owner: 'some-owner',
+				number: 12345
+			},
+			payload: {
+				issue: {
+					number: 12345
+				}
+			}
+		})
+
 		inputs = {
 			'report-file': 'file-does-not-exist.json'
 		}

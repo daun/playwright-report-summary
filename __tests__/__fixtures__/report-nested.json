@@ -1,0 +1,3109 @@
+{
+  "config": {
+    "configFile": "/project/tests/config/playwright.config.ts",
+    "rootDir": "/project/tests/functional",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 5
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "../reports/html",
+          "open": "on-failure"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../reports/json/report.json"
+        }
+      ],
+      [
+        "blob",
+        {
+          "outputDir": "../reports/blobs"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 15000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/project/tests/results",
+        "repeatEach": 1,
+        "retries": 4,
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/project/tests/functional",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 5000
+      },
+      {
+        "outputDir": "/project/tests/results",
+        "repeatEach": 1,
+        "retries": 4,
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/project/tests/functional",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 5000
+      },
+      {
+        "outputDir": "/project/tests/results",
+        "repeatEach": 1,
+        "retries": 4,
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/project/tests/functional",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 5000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "version": "1.38.0",
+    "workers": 5,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "add.spec.ts",
+      "file": "add.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "add",
+          "file": "add.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 23,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:13.739Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2f4bb8d916741bacc6cb-23c1b2167130e38ec767",
+              "file": "add.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "adds",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 23,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:13.739Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2f4bb8d916741bacc6cb-328ccc869357d9515391",
+              "file": "add.spec.ts",
+              "line": 7,
+              "column": 3
+            },
+            {
+              "title": "returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "status": "passed",
+                      "duration": 23,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:14.323Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2f4bb8d916741bacc6cb-acf8e9042a34b90fed6a",
+              "file": "add.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "adds",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "status": "passed",
+                      "duration": 23,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:14.323Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2f4bb8d916741bacc6cb-ab12f000ed9a4eea5a16",
+              "file": "add.spec.ts",
+              "line": 7,
+              "column": 3
+            },
+            {
+              "title": "returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 13,
+                      "status": "passed",
+                      "duration": 22,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:14.984Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2f4bb8d916741bacc6cb-1072f29bbb9cb3f8bbc9",
+              "file": "add.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "adds",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 15,
+                      "status": "passed",
+                      "duration": 23,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:15.399Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2f4bb8d916741bacc6cb-fd19a15b8b57bf62098b",
+              "file": "add.spec.ts",
+              "line": 7,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "divide.spec.ts",
+      "file": "divide.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "divide",
+          "file": "divide.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "status": "passed",
+                      "duration": 20,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:13.739Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "abd65a3ec2f3a35a080f-6441d08247ddeb3814bf",
+              "file": "divide.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "divides",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "status": "passed",
+                      "duration": 22,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:13.740Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "abd65a3ec2f3a35a080f-acf768063c5e76dcf174",
+              "file": "divide.spec.ts",
+              "line": 7,
+              "column": 3
+            },
+            {
+              "title": "returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "status": "passed",
+                      "duration": 22,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:14.334Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "abd65a3ec2f3a35a080f-c8fc13731bda4a14fed6",
+              "file": "divide.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "divides",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "status": "passed",
+                      "duration": 9,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:14.354Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "abd65a3ec2f3a35a080f-e2851b1968efd2c5a313",
+              "file": "divide.spec.ts",
+              "line": 7,
+              "column": 3
+            },
+            {
+              "title": "returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 13,
+                      "status": "passed",
+                      "duration": 9,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:15.016Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "abd65a3ec2f3a35a080f-936b5d467715a7a2da70",
+              "file": "divide.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "divides",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 13,
+                      "status": "passed",
+                      "duration": 7,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:15.028Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "abd65a3ec2f3a35a080f-ed0e95225bd09fafb573",
+              "file": "divide.spec.ts",
+              "line": 7,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "multiply.spec.ts",
+      "file": "multiply.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "multiply",
+          "file": "multiply.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "status": "passed",
+                      "duration": 22,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:13.740Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "e7c88bf2960b23764a9d-a054f04aedfc95a37bb3",
+              "file": "multiply.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "multiplies",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "status": "failed",
+                      "duration": 12,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m7\u001b[39m\nReceived: \u001b[31m6\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m7\u001b[39m\nReceived: \u001b[31m6\u001b[39m\n    at /project/tests/functional/multiply.spec.ts:8:28",
+                        "location": {
+                          "file": "/project/tests/functional/multiply.spec.ts",
+                          "column": 28,
+                          "line": 8
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(multiply(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'multiplies'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(multiply(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[33mMath\u001b[39m\u001b[33m.\u001b[39mrandom() \u001b[33m>\u001b[39m \u001b[35m0.5\u001b[39m \u001b[33m?\u001b[39m \u001b[35m6\u001b[39m \u001b[33m:\u001b[39m \u001b[35m7\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/multiply.spec.ts",
+                            "column": 28,
+                            "line": 8
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m7\u001b[39m\nReceived: \u001b[31m6\u001b[39m\n\n\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(multiply(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'multiplies'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(multiply(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[33mMath\u001b[39m\u001b[33m.\u001b[39mrandom() \u001b[33m>\u001b[39m \u001b[35m0.5\u001b[39m \u001b[33m?\u001b[39m \u001b[35m6\u001b[39m \u001b[33m:\u001b[39m \u001b[35m7\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/multiply.spec.ts:8:28\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:13.769Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/multiply.spec.ts",
+                        "column": 28,
+                        "line": 8
+                      }
+                    },
+                    {
+                      "workerIndex": 5,
+                      "status": "failed",
+                      "duration": 43,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m7\u001b[39m\nReceived: \u001b[31m6\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m7\u001b[39m\nReceived: \u001b[31m6\u001b[39m\n    at /project/tests/functional/multiply.spec.ts:8:28",
+                        "location": {
+                          "file": "/project/tests/functional/multiply.spec.ts",
+                          "column": 28,
+                          "line": 8
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(multiply(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'multiplies'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(multiply(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[33mMath\u001b[39m\u001b[33m.\u001b[39mrandom() \u001b[33m>\u001b[39m \u001b[35m0.5\u001b[39m \u001b[33m?\u001b[39m \u001b[35m6\u001b[39m \u001b[33m:\u001b[39m \u001b[35m7\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/multiply.spec.ts",
+                            "column": 28,
+                            "line": 8
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m7\u001b[39m\nReceived: \u001b[31m6\u001b[39m\n\n\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(multiply(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'multiplies'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(multiply(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[33mMath\u001b[39m\u001b[33m.\u001b[39mrandom() \u001b[33m>\u001b[39m \u001b[35m0.5\u001b[39m \u001b[33m?\u001b[39m \u001b[35m6\u001b[39m \u001b[33m:\u001b[39m \u001b[35m7\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/multiply.spec.ts:8:28\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2024-04-19T12:56:14.302Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/project/tests/results/multiply-multiply-multiplies-chromium-retry1/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/multiply.spec.ts",
+                        "column": 28,
+                        "line": 8
+                      }
+                    },
+                    {
+                      "workerIndex": 10,
+                      "status": "passed",
+                      "duration": 27,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 2,
+                      "startTime": "2024-04-19T12:56:14.865Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "flaky"
+                }
+              ],
+              "id": "e7c88bf2960b23764a9d-a5e9ce9b2e8260f09823",
+              "file": "multiply.spec.ts",
+              "line": 7,
+              "column": 3
+            },
+            {
+              "title": "skips",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [
+                    {
+                      "type": "skip"
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "skipped",
+                      "duration": 9,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:13.770Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "e7c88bf2960b23764a9d-669ef72c0b906305e786",
+              "file": "multiply.spec.ts",
+              "line": 10,
+              "column": 3
+            },
+            {
+              "title": "returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "status": "passed",
+                      "duration": 9,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:14.355Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "e7c88bf2960b23764a9d-8a515c71fb3c71beb32d",
+              "file": "multiply.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "multiplies",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 8,
+                      "status": "failed",
+                      "duration": 12,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m7\u001b[39m\nReceived: \u001b[31m6\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m7\u001b[39m\nReceived: \u001b[31m6\u001b[39m\n    at /project/tests/functional/multiply.spec.ts:8:28",
+                        "location": {
+                          "file": "/project/tests/functional/multiply.spec.ts",
+                          "column": 28,
+                          "line": 8
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(multiply(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'multiplies'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(multiply(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[33mMath\u001b[39m\u001b[33m.\u001b[39mrandom() \u001b[33m>\u001b[39m \u001b[35m0.5\u001b[39m \u001b[33m?\u001b[39m \u001b[35m6\u001b[39m \u001b[33m:\u001b[39m \u001b[35m7\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/multiply.spec.ts",
+                            "column": 28,
+                            "line": 8
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m7\u001b[39m\nReceived: \u001b[31m6\u001b[39m\n\n\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(multiply(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'multiplies'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(multiply(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[33mMath\u001b[39m\u001b[33m.\u001b[39mrandom() \u001b[33m>\u001b[39m \u001b[35m0.5\u001b[39m \u001b[33m?\u001b[39m \u001b[35m6\u001b[39m \u001b[33m:\u001b[39m \u001b[35m7\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/multiply.spec.ts:8:28\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:14.367Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/multiply.spec.ts",
+                        "column": 28,
+                        "line": 8
+                      }
+                    },
+                    {
+                      "workerIndex": 12,
+                      "status": "failed",
+                      "duration": 41,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m7\u001b[39m\nReceived: \u001b[31m6\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m7\u001b[39m\nReceived: \u001b[31m6\u001b[39m\n    at /project/tests/functional/multiply.spec.ts:8:28",
+                        "location": {
+                          "file": "/project/tests/functional/multiply.spec.ts",
+                          "column": 28,
+                          "line": 8
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(multiply(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'multiplies'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(multiply(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[33mMath\u001b[39m\u001b[33m.\u001b[39mrandom() \u001b[33m>\u001b[39m \u001b[35m0.5\u001b[39m \u001b[33m?\u001b[39m \u001b[35m6\u001b[39m \u001b[33m:\u001b[39m \u001b[35m7\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/multiply.spec.ts",
+                            "column": 28,
+                            "line": 8
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m7\u001b[39m\nReceived: \u001b[31m6\u001b[39m\n\n\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(multiply(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'multiplies'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(multiply(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[33mMath\u001b[39m\u001b[33m.\u001b[39mrandom() \u001b[33m>\u001b[39m \u001b[35m0.5\u001b[39m \u001b[33m?\u001b[39m \u001b[35m6\u001b[39m \u001b[33m:\u001b[39m \u001b[35m7\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/multiply.spec.ts:8:28\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2024-04-19T12:56:14.897Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/project/tests/results/multiply-multiply-multiplies-firefox-retry1/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/multiply.spec.ts",
+                        "column": 28,
+                        "line": 8
+                      }
+                    },
+                    {
+                      "workerIndex": 17,
+                      "status": "failed",
+                      "duration": 25,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m7\u001b[39m\nReceived: \u001b[31m6\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m7\u001b[39m\nReceived: \u001b[31m6\u001b[39m\n    at /project/tests/functional/multiply.spec.ts:8:28",
+                        "location": {
+                          "file": "/project/tests/functional/multiply.spec.ts",
+                          "column": 28,
+                          "line": 8
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(multiply(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'multiplies'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(multiply(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[33mMath\u001b[39m\u001b[33m.\u001b[39mrandom() \u001b[33m>\u001b[39m \u001b[35m0.5\u001b[39m \u001b[33m?\u001b[39m \u001b[35m6\u001b[39m \u001b[33m:\u001b[39m \u001b[35m7\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/multiply.spec.ts",
+                            "column": 28,
+                            "line": 8
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m7\u001b[39m\nReceived: \u001b[31m6\u001b[39m\n\n\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(multiply(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'multiplies'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(multiply(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[33mMath\u001b[39m\u001b[33m.\u001b[39mrandom() \u001b[33m>\u001b[39m \u001b[35m0.5\u001b[39m \u001b[33m?\u001b[39m \u001b[35m6\u001b[39m \u001b[33m:\u001b[39m \u001b[35m7\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/multiply.spec.ts:8:28\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 2,
+                      "startTime": "2024-04-19T12:56:15.439Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/multiply.spec.ts",
+                        "column": 28,
+                        "line": 8
+                      }
+                    },
+                    {
+                      "workerIndex": 21,
+                      "status": "passed",
+                      "duration": 21,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 3,
+                      "startTime": "2024-04-19T12:56:15.966Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "flaky"
+                }
+              ],
+              "id": "e7c88bf2960b23764a9d-44118160991463975447",
+              "file": "multiply.spec.ts",
+              "line": 7,
+              "column": 3
+            },
+            {
+              "title": "skips",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [
+                    {
+                      "type": "skip"
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "status": "skipped",
+                      "duration": 5,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:14.373Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "e7c88bf2960b23764a9d-4601a5b575ff745c2ba8",
+              "file": "multiply.spec.ts",
+              "line": 10,
+              "column": 3
+            },
+            {
+              "title": "returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 13,
+                      "status": "passed",
+                      "duration": 8,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:15.040Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "e7c88bf2960b23764a9d-6793fc44493b5ddceb5a",
+              "file": "multiply.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "multiplies",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 13,
+                      "status": "failed",
+                      "duration": 12,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m7\u001b[39m\nReceived: \u001b[31m6\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m7\u001b[39m\nReceived: \u001b[31m6\u001b[39m\n    at /project/tests/functional/multiply.spec.ts:8:28",
+                        "location": {
+                          "file": "/project/tests/functional/multiply.spec.ts",
+                          "column": 28,
+                          "line": 8
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(multiply(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'multiplies'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(multiply(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[33mMath\u001b[39m\u001b[33m.\u001b[39mrandom() \u001b[33m>\u001b[39m \u001b[35m0.5\u001b[39m \u001b[33m?\u001b[39m \u001b[35m6\u001b[39m \u001b[33m:\u001b[39m \u001b[35m7\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/multiply.spec.ts",
+                            "column": 28,
+                            "line": 8
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m7\u001b[39m\nReceived: \u001b[31m6\u001b[39m\n\n\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(multiply(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'multiplies'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(multiply(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[33mMath\u001b[39m\u001b[33m.\u001b[39mrandom() \u001b[33m>\u001b[39m \u001b[35m0.5\u001b[39m \u001b[33m?\u001b[39m \u001b[35m6\u001b[39m \u001b[33m:\u001b[39m \u001b[35m7\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/multiply.spec.ts:8:28\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:15.050Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/multiply.spec.ts",
+                        "column": 28,
+                        "line": 8
+                      }
+                    },
+                    {
+                      "workerIndex": 19,
+                      "status": "passed",
+                      "duration": 35,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2024-04-19T12:56:15.579Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/project/tests/results/multiply-multiply-multiplies-webkit-retry1/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "flaky"
+                }
+              ],
+              "id": "e7c88bf2960b23764a9d-daf0b5644d774e4c3bc1",
+              "file": "multiply.spec.ts",
+              "line": 7,
+              "column": 3
+            },
+            {
+              "title": "skips",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [
+                    {
+                      "type": "skip"
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 15,
+                      "status": "skipped",
+                      "duration": 8,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:15.431Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "e7c88bf2960b23764a9d-a5c6e43715e1911916c5",
+              "file": "multiply.spec.ts",
+              "line": 10,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "nested.spec.ts",
+      "file": "nested.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "1",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 5000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "status": "passed",
+                  "duration": 9,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2024-04-19T12:56:13.772Z",
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0eec0283ceb63ba72484-9a3c7b59df15cb485f04",
+          "file": "nested.spec.ts",
+          "line": 2,
+          "column": 1
+        },
+        {
+          "title": "1",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 5000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "status": "passed",
+                  "duration": 5,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2024-04-19T12:56:14.375Z",
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0eec0283ceb63ba72484-bfcdf0837f360ce7a898",
+          "file": "nested.spec.ts",
+          "line": 2,
+          "column": 1
+        },
+        {
+          "title": "1",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 5000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 15,
+                  "status": "passed",
+                  "duration": 6,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2024-04-19T12:56:15.447Z",
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0eec0283ceb63ba72484-f94a682766433f7511a8",
+          "file": "nested.spec.ts",
+          "line": 2,
+          "column": 1
+        }
+      ],
+      "suites": [
+        {
+          "title": "a",
+          "file": "nested.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "a-1",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 9,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:13.773Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0eec0283ceb63ba72484-cc483d689f2e0be5e341",
+              "file": "nested.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "a-1",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "status": "passed",
+                      "duration": 6,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:14.384Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0eec0283ceb63ba72484-bcd3729025bc49137edd",
+              "file": "nested.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "a-1",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 15,
+                      "status": "passed",
+                      "duration": 7,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:15.455Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0eec0283ceb63ba72484-99e7c97e42878e138d30",
+              "file": "nested.spec.ts",
+              "line": 4,
+              "column": 3
+            }
+          ],
+          "suites": [
+            {
+              "title": "a-a",
+              "file": "nested.spec.ts",
+              "line": 5,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "a-a-1",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "status": "passed",
+                          "duration": 9,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:13.777Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-3386713849e4d416ad92",
+                  "file": "nested.spec.ts",
+                  "line": 6,
+                  "column": 5
+                },
+                {
+                  "title": "a-a-2",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "status": "passed",
+                          "duration": 7,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:13.789Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-27a4e5f6ce0cae4f4d07",
+                  "file": "nested.spec.ts",
+                  "line": 7,
+                  "column": 5
+                },
+                {
+                  "title": "a-a-1",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [
+                        {
+                          "workerIndex": 7,
+                          "status": "passed",
+                          "duration": 6,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:14.385Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-67dd3203bcf5627bd9f1",
+                  "file": "nested.spec.ts",
+                  "line": 6,
+                  "column": 5
+                },
+                {
+                  "title": "a-a-2",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [
+                        {
+                          "workerIndex": 6,
+                          "status": "passed",
+                          "duration": 8,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:14.392Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-b081905b127d16fbd43a",
+                  "file": "nested.spec.ts",
+                  "line": 7,
+                  "column": 5
+                },
+                {
+                  "title": "a-a-1",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [
+                        {
+                          "workerIndex": 15,
+                          "status": "passed",
+                          "duration": 8,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:15.464Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-4e4e67dcb71b637b12bb",
+                  "file": "nested.spec.ts",
+                  "line": 6,
+                  "column": 5
+                },
+                {
+                  "title": "a-a-2",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [
+                        {
+                          "workerIndex": 15,
+                          "status": "passed",
+                          "duration": 7,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:15.473Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-cc4792d6f100e06b82dc",
+                  "file": "nested.spec.ts",
+                  "line": 7,
+                  "column": 5
+                }
+              ]
+            },
+            {
+              "title": "a-b",
+              "file": "nested.spec.ts",
+              "line": 9,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "a-b-1",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "status": "passed",
+                          "duration": 4,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:13.790Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-460ce4be2c6bd2129d37",
+                  "file": "nested.spec.ts",
+                  "line": 10,
+                  "column": 5
+                },
+                {
+                  "title": "a-b-1",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [
+                        {
+                          "workerIndex": 7,
+                          "status": "passed",
+                          "duration": 7,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:14.394Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-842901ce233fa6cfbb62",
+                  "file": "nested.spec.ts",
+                  "line": 10,
+                  "column": 5
+                },
+                {
+                  "title": "a-b-1",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [
+                        {
+                          "workerIndex": 15,
+                          "status": "passed",
+                          "duration": 12,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:15.483Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-94606afc5917b70eeb99",
+                  "file": "nested.spec.ts",
+                  "line": 10,
+                  "column": 5
+                }
+              ],
+              "suites": [
+                {
+                  "title": "a-b-a",
+                  "file": "nested.spec.ts",
+                  "line": 11,
+                  "column": 10,
+                  "specs": [
+                    {
+                      "title": "a-b-a-1",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "chromium",
+                          "projectName": "chromium",
+                          "results": [
+                            {
+                              "workerIndex": 1,
+                              "status": "passed",
+                              "duration": 5,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:13.793Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-dcf9682e55e84d6febdd",
+                      "file": "nested.spec.ts",
+                      "line": 12,
+                      "column": 7
+                    },
+                    {
+                      "title": "a-b-a-1",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "firefox",
+                          "projectName": "firefox",
+                          "results": [
+                            {
+                              "workerIndex": 6,
+                              "status": "passed",
+                              "duration": 7,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:14.402Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-ca801d2130b87feaee12",
+                      "file": "nested.spec.ts",
+                      "line": 12,
+                      "column": 7
+                    },
+                    {
+                      "title": "a-b-a-1",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "webkit",
+                          "projectName": "webkit",
+                          "results": [
+                            {
+                              "workerIndex": 15,
+                              "status": "passed",
+                              "duration": 6,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:15.498Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-6cc5f8e66bcb1945c741",
+                      "file": "nested.spec.ts",
+                      "line": 12,
+                      "column": 7
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "b",
+          "file": "nested.spec.ts",
+          "line": 16,
+          "column": 6,
+          "specs": [
+            {
+              "title": "b-1",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "status": "passed",
+                      "duration": 4,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:13.795Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0eec0283ceb63ba72484-d1ecbb1a7292083136ee",
+              "file": "nested.spec.ts",
+              "line": 17,
+              "column": 3
+            },
+            {
+              "title": "b-2",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "status": "passed",
+                      "duration": 7,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:13.796Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0eec0283ceb63ba72484-ee2e45efc3c908e3b66d",
+              "file": "nested.spec.ts",
+              "line": 18,
+              "column": 3
+            },
+            {
+              "title": "b-1",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "status": "passed",
+                      "duration": 7,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:14.403Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0eec0283ceb63ba72484-71598a4977f580a99c43",
+              "file": "nested.spec.ts",
+              "line": 17,
+              "column": 3
+            },
+            {
+              "title": "b-2",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "status": "passed",
+                      "duration": 12,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:14.415Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0eec0283ceb63ba72484-d66b6ea688bd94612383",
+              "file": "nested.spec.ts",
+              "line": 18,
+              "column": 3
+            },
+            {
+              "title": "b-1",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 15,
+                      "status": "passed",
+                      "duration": 5,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:15.505Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0eec0283ceb63ba72484-4b596707df50c69c1402",
+              "file": "nested.spec.ts",
+              "line": 17,
+              "column": 3
+            },
+            {
+              "title": "b-2",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 15,
+                      "status": "passed",
+                      "duration": 6,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:15.517Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0eec0283ceb63ba72484-5c0190abc060cac25caa",
+              "file": "nested.spec.ts",
+              "line": 18,
+              "column": 3
+            }
+          ],
+          "suites": [
+            {
+              "title": "b-a",
+              "file": "nested.spec.ts",
+              "line": 19,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "b-a-1",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "status": "passed",
+                          "duration": 8,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:13.798Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-27a9110d6f7a8887c28e",
+                  "file": "nested.spec.ts",
+                  "line": 20,
+                  "column": 5
+                },
+                {
+                  "title": "b-a-1",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [
+                        {
+                          "workerIndex": 7,
+                          "status": "passed",
+                          "duration": 8,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:14.417Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-f8feed7944a0261bb010",
+                  "file": "nested.spec.ts",
+                  "line": 20,
+                  "column": 5
+                },
+                {
+                  "title": "b-a-1",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [
+                        {
+                          "workerIndex": 15,
+                          "status": "passed",
+                          "duration": 4,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:15.526Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-2099241f481047c14546",
+                  "file": "nested.spec.ts",
+                  "line": 20,
+                  "column": 5
+                }
+              ],
+              "suites": [
+                {
+                  "title": "b-a-a",
+                  "file": "nested.spec.ts",
+                  "line": 21,
+                  "column": 10,
+                  "specs": [
+                    {
+                      "title": "b-a-a-1",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "chromium",
+                          "projectName": "chromium",
+                          "results": [
+                            {
+                              "workerIndex": 1,
+                              "status": "passed",
+                              "duration": 8,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:13.800Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-a075bc0967975b6fe2bb",
+                      "file": "nested.spec.ts",
+                      "line": 22,
+                      "column": 7
+                    },
+                    {
+                      "title": "b-a-a-2",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "chromium",
+                          "projectName": "chromium",
+                          "results": [
+                            {
+                              "workerIndex": 3,
+                              "status": "passed",
+                              "duration": 8,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:13.801Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-caf0850fc08b4d959f68",
+                      "file": "nested.spec.ts",
+                      "line": 23,
+                      "column": 7
+                    },
+                    {
+                      "title": "b-a-a-1",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "firefox",
+                          "projectName": "firefox",
+                          "results": [
+                            {
+                              "workerIndex": 6,
+                              "status": "passed",
+                              "duration": 15,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:14.430Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-7797faaeea728712effd",
+                      "file": "nested.spec.ts",
+                      "line": 22,
+                      "column": 7
+                    },
+                    {
+                      "title": "b-a-a-2",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "firefox",
+                          "projectName": "firefox",
+                          "results": [
+                            {
+                              "workerIndex": 7,
+                              "status": "passed",
+                              "duration": 14,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:14.430Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-c09b8788d4a004f22a0a",
+                      "file": "nested.spec.ts",
+                      "line": 23,
+                      "column": 7
+                    },
+                    {
+                      "title": "b-a-a-1",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "webkit",
+                          "projectName": "webkit",
+                          "results": [
+                            {
+                              "workerIndex": 15,
+                              "status": "passed",
+                              "duration": 6,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:15.532Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-09a9d4365c978f4d4568",
+                      "file": "nested.spec.ts",
+                      "line": 22,
+                      "column": 7
+                    },
+                    {
+                      "title": "b-a-a-2",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "webkit",
+                          "projectName": "webkit",
+                          "results": [
+                            {
+                              "workerIndex": 15,
+                              "status": "passed",
+                              "duration": 4,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:15.539Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-41d9d635b0c5960d3fe6",
+                      "file": "nested.spec.ts",
+                      "line": 23,
+                      "column": 7
+                    }
+                  ]
+                },
+                {
+                  "title": "b-a-b",
+                  "file": "nested.spec.ts",
+                  "line": 25,
+                  "column": 10,
+                  "specs": [
+                    {
+                      "title": "b-a-b-1",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "chromium",
+                          "projectName": "chromium",
+                          "results": [
+                            {
+                              "workerIndex": 4,
+                              "status": "passed",
+                              "duration": 9,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:13.804Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-a1dd807586c4bcf18fba",
+                      "file": "nested.spec.ts",
+                      "line": 26,
+                      "column": 7
+                    },
+                    {
+                      "title": "b-a-b-2",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "chromium",
+                          "projectName": "chromium",
+                          "results": [
+                            {
+                              "workerIndex": 0,
+                              "status": "passed",
+                              "duration": 7,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:13.807Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-1475733cd6e2999f2097",
+                      "file": "nested.spec.ts",
+                      "line": 27,
+                      "column": 7
+                    },
+                    {
+                      "title": "b-a-b-1",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "firefox",
+                          "projectName": "firefox",
+                          "results": [
+                            {
+                              "workerIndex": 7,
+                              "status": "passed",
+                              "duration": 14,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:14.446Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-bc099b1eb6f568b80de9",
+                      "file": "nested.spec.ts",
+                      "line": 26,
+                      "column": 7
+                    },
+                    {
+                      "title": "b-a-b-2",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "firefox",
+                          "projectName": "firefox",
+                          "results": [
+                            {
+                              "workerIndex": 6,
+                              "status": "passed",
+                              "duration": 14,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:14.447Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-e1160db57f6e6021fe49",
+                      "file": "nested.spec.ts",
+                      "line": 27,
+                      "column": 7
+                    },
+                    {
+                      "title": "b-a-b-1",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "webkit",
+                          "projectName": "webkit",
+                          "results": [
+                            {
+                              "workerIndex": 15,
+                              "status": "passed",
+                              "duration": 4,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:15.544Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-07754deb2fb79cfed177",
+                      "file": "nested.spec.ts",
+                      "line": 26,
+                      "column": 7
+                    },
+                    {
+                      "title": "b-a-b-2",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "webkit",
+                          "projectName": "webkit",
+                          "results": [
+                            {
+                              "workerIndex": 15,
+                              "status": "passed",
+                              "duration": 4,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:15.551Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-249106888494c9d6420e",
+                      "file": "nested.spec.ts",
+                      "line": 27,
+                      "column": 7
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "subtract.spec.ts",
+      "file": "subtract.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "subtract",
+          "file": "subtract.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 8,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:13.816Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6ac0882294147c5cf865-ce417e4a0eefba5d5d53",
+              "file": "subtract.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "subtracts",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "status": "failed",
+                      "duration": 12,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n    at /project/tests/functional/subtract.spec.ts:8:28",
+                        "location": {
+                          "file": "/project/tests/functional/subtract.spec.ts",
+                          "column": 28,
+                          "line": 8
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/subtract.spec.ts",
+                            "column": 28,
+                            "line": 8
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/subtract.spec.ts:8:28\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:13.817Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/subtract.spec.ts",
+                        "column": 28,
+                        "line": 8
+                      }
+                    },
+                    {
+                      "workerIndex": 9,
+                      "status": "failed",
+                      "duration": 42,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n    at /project/tests/functional/subtract.spec.ts:8:28",
+                        "location": {
+                          "file": "/project/tests/functional/subtract.spec.ts",
+                          "column": 28,
+                          "line": 8
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/subtract.spec.ts",
+                            "column": 28,
+                            "line": 8
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/subtract.spec.ts:8:28\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2024-04-19T12:56:14.334Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/project/tests/results/subtract-subtract-subtracts-chromium-retry1/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/subtract.spec.ts",
+                        "column": 28,
+                        "line": 8
+                      }
+                    },
+                    {
+                      "workerIndex": 11,
+                      "status": "failed",
+                      "duration": 29,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n    at /project/tests/functional/subtract.spec.ts:8:28",
+                        "location": {
+                          "file": "/project/tests/functional/subtract.spec.ts",
+                          "column": 28,
+                          "line": 8
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/subtract.spec.ts",
+                            "column": 28,
+                            "line": 8
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/subtract.spec.ts:8:28\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 2,
+                      "startTime": "2024-04-19T12:56:14.897Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/subtract.spec.ts",
+                        "column": 28,
+                        "line": 8
+                      }
+                    },
+                    {
+                      "workerIndex": 16,
+                      "status": "failed",
+                      "duration": 26,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n    at /project/tests/functional/subtract.spec.ts:8:28",
+                        "location": {
+                          "file": "/project/tests/functional/subtract.spec.ts",
+                          "column": 28,
+                          "line": 8
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/subtract.spec.ts",
+                            "column": 28,
+                            "line": 8
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/subtract.spec.ts:8:28\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 3,
+                      "startTime": "2024-04-19T12:56:15.433Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/subtract.spec.ts",
+                        "column": 28,
+                        "line": 8
+                      }
+                    },
+                    {
+                      "workerIndex": 20,
+                      "status": "failed",
+                      "duration": 23,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n    at /project/tests/functional/subtract.spec.ts:8:28",
+                        "location": {
+                          "file": "/project/tests/functional/subtract.spec.ts",
+                          "column": 28,
+                          "line": 8
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/subtract.spec.ts",
+                            "column": 28,
+                            "line": 8
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/subtract.spec.ts:8:28\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 4,
+                      "startTime": "2024-04-19T12:56:15.964Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/subtract.spec.ts",
+                        "column": 28,
+                        "line": 8
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "6ac0882294147c5cf865-17a50ac4c8699683fcf2",
+              "file": "subtract.spec.ts",
+              "line": 7,
+              "column": 3
+            },
+            {
+              "title": "returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "status": "passed",
+                      "duration": 6,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:14.466Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6ac0882294147c5cf865-860e60fd9482c9bdfac6",
+              "file": "subtract.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "subtracts",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "status": "failed",
+                      "duration": 9,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n    at /project/tests/functional/subtract.spec.ts:8:28",
+                        "location": {
+                          "file": "/project/tests/functional/subtract.spec.ts",
+                          "column": 28,
+                          "line": 8
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/subtract.spec.ts",
+                            "column": 28,
+                            "line": 8
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/subtract.spec.ts:8:28\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:14.466Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/subtract.spec.ts",
+                        "column": 28,
+                        "line": 8
+                      }
+                    },
+                    {
+                      "workerIndex": 14,
+                      "status": "failed",
+                      "duration": 40,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n    at /project/tests/functional/subtract.spec.ts:8:28",
+                        "location": {
+                          "file": "/project/tests/functional/subtract.spec.ts",
+                          "column": 28,
+                          "line": 8
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/subtract.spec.ts",
+                            "column": 28,
+                            "line": 8
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/subtract.spec.ts:8:28\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2024-04-19T12:56:14.986Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/project/tests/results/subtract-subtract-subtracts-firefox-retry1/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/subtract.spec.ts",
+                        "column": 28,
+                        "line": 8
+                      }
+                    },
+                    {
+                      "workerIndex": 18,
+                      "status": "failed",
+                      "duration": 35,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n    at /project/tests/functional/subtract.spec.ts:8:28",
+                        "location": {
+                          "file": "/project/tests/functional/subtract.spec.ts",
+                          "column": 28,
+                          "line": 8
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/subtract.spec.ts",
+                            "column": 28,
+                            "line": 8
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/subtract.spec.ts:8:28\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 2,
+                      "startTime": "2024-04-19T12:56:15.540Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/subtract.spec.ts",
+                        "column": 28,
+                        "line": 8
+                      }
+                    },
+                    {
+                      "workerIndex": 22,
+                      "status": "failed",
+                      "duration": 23,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n    at /project/tests/functional/subtract.spec.ts:8:28",
+                        "location": {
+                          "file": "/project/tests/functional/subtract.spec.ts",
+                          "column": 28,
+                          "line": 8
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/subtract.spec.ts",
+                            "column": 28,
+                            "line": 8
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/subtract.spec.ts:8:28\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 3,
+                      "startTime": "2024-04-19T12:56:16.073Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/subtract.spec.ts",
+                        "column": 28,
+                        "line": 8
+                      }
+                    },
+                    {
+                      "workerIndex": 24,
+                      "status": "failed",
+                      "duration": 24,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n    at /project/tests/functional/subtract.spec.ts:8:28",
+                        "location": {
+                          "file": "/project/tests/functional/subtract.spec.ts",
+                          "column": 28,
+                          "line": 8
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/subtract.spec.ts",
+                            "column": 28,
+                            "line": 8
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/subtract.spec.ts:8:28\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 4,
+                      "startTime": "2024-04-19T12:56:16.571Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/subtract.spec.ts",
+                        "column": 28,
+                        "line": 8
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "6ac0882294147c5cf865-43e9afdbe5969bb0b17e",
+              "file": "subtract.spec.ts",
+              "line": 7,
+              "column": 3
+            },
+            {
+              "title": "returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 15,
+                      "status": "passed",
+                      "duration": 4,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:15.563Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6ac0882294147c5cf865-d31bf88b0b1803fcd416",
+              "file": "subtract.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "subtracts",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 15,
+                      "status": "failed",
+                      "duration": 10,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n    at /project/tests/functional/subtract.spec.ts:8:28",
+                        "location": {
+                          "file": "/project/tests/functional/subtract.spec.ts",
+                          "column": 28,
+                          "line": 8
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/subtract.spec.ts",
+                            "column": 28,
+                            "line": 8
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/subtract.spec.ts:8:28\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:15.569Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/subtract.spec.ts",
+                        "column": 28,
+                        "line": 8
+                      }
+                    },
+                    {
+                      "workerIndex": 23,
+                      "status": "failed",
+                      "duration": 37,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n    at /project/tests/functional/subtract.spec.ts:8:28",
+                        "location": {
+                          "file": "/project/tests/functional/subtract.spec.ts",
+                          "column": 28,
+                          "line": 8
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/subtract.spec.ts",
+                            "column": 28,
+                            "line": 8
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/subtract.spec.ts:8:28\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2024-04-19T12:56:16.075Z",
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/project/tests/results/subtract-subtract-subtracts-webkit-retry1/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/subtract.spec.ts",
+                        "column": 28,
+                        "line": 8
+                      }
+                    },
+                    {
+                      "workerIndex": 25,
+                      "status": "failed",
+                      "duration": 23,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n    at /project/tests/functional/subtract.spec.ts:8:28",
+                        "location": {
+                          "file": "/project/tests/functional/subtract.spec.ts",
+                          "column": 28,
+                          "line": 8
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/subtract.spec.ts",
+                            "column": 28,
+                            "line": 8
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/subtract.spec.ts:8:28\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 2,
+                      "startTime": "2024-04-19T12:56:16.587Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/subtract.spec.ts",
+                        "column": 28,
+                        "line": 8
+                      }
+                    },
+                    {
+                      "workerIndex": 26,
+                      "status": "failed",
+                      "duration": 22,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n    at /project/tests/functional/subtract.spec.ts:8:28",
+                        "location": {
+                          "file": "/project/tests/functional/subtract.spec.ts",
+                          "column": 28,
+                          "line": 8
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/subtract.spec.ts",
+                            "column": 28,
+                            "line": 8
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/subtract.spec.ts:8:28\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 3,
+                      "startTime": "2024-04-19T12:56:17.054Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/subtract.spec.ts",
+                        "column": 28,
+                        "line": 8
+                      }
+                    },
+                    {
+                      "workerIndex": 27,
+                      "status": "failed",
+                      "duration": 23,
+                      "error": {
+                        "message": "\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n    at /project/tests/functional/subtract.spec.ts:8:28",
+                        "location": {
+                          "file": "/project/tests/functional/subtract.spec.ts",
+                          "column": 28,
+                          "line": 8
+                        },
+                        "snippet": "\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/project/tests/functional/subtract.spec.ts",
+                            "column": 28,
+                            "line": 8
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m4\u001b[39m\nReceived: \u001b[31m1\u001b[39m\n\n\u001b[0m \u001b[90m  6 |\u001b[39m \ttest(\u001b[32m'returns'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m  7 |\u001b[39m \t\texpect(subtract(\u001b[35m1\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBeDefined()\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m  8 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m \t             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m  9 |\u001b[39m \ttest(\u001b[32m'subtracts'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m \t\texpect(subtract(\u001b[35m3\u001b[39m\u001b[33m,\u001b[39m \u001b[35m2\u001b[39m))\u001b[33m.\u001b[39mtoBe(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 11 |\u001b[39m \t})\u001b[33m;\u001b[39m\u001b[0m\n\n\u001b[2m    at /project/tests/functional/subtract.spec.ts:8:28\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 4,
+                      "startTime": "2024-04-19T12:56:17.529Z",
+                      "attachments": [],
+                      "errorLocation": {
+                        "file": "/project/tests/functional/subtract.spec.ts",
+                        "column": 28,
+                        "line": 8
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "6ac0882294147c5cf865-06131d0126af5f91ab02",
+              "file": "subtract.spec.ts",
+              "line": 7,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

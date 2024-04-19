@@ -112,6 +112,24 @@ describe('action', () => {
 		jest.restoreAllMocks()
 	})
 
+	it('reads its inputs', async () => {
+		inputs = {
+			'report-file': '__tests__/__fixtures__/report-valid.json',
+			'comment-title': 'Custom comment title'
+		}
+
+		await index.run()
+
+		expect(runMock).toHaveReturned()
+		expect(getInputMock).toHaveBeenCalledWith('github-token')
+		expect(getInputMock).toHaveBeenCalledWith('report-file', { required: true })
+		expect(getInputMock).toHaveBeenCalledWith('report-url')
+		expect(getInputMock).toHaveBeenCalledWith('report-tag')
+		expect(getInputMock).toHaveBeenCalledWith('comment-title')
+		expect(getInputMock).toHaveBeenCalledWith('icon-style')
+		expect(getInputMock).toHaveBeenCalledWith('job-summary')
+	})
+
 	it('debugs its inputs', async () => {
 		inputs = {
 			'report-file': '__tests__/__fixtures__/report-valid.json',

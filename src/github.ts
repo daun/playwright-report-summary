@@ -13,19 +13,19 @@ export async function getIssueComments(
 	return comments
 }
 
-export async function updateIssueComment(
-	octokit: Octokit,
-	params: { owner: string; repo: string; comment_id: number; body: string }
-): Promise<IssueComment> {
-	const { data: comment } = await octokit.rest.issues.updateComment(params)
-	return comment
-}
-
 export async function createIssueComment(
 	octokit: Octokit,
 	params: { owner: string; repo: string; issue_number: number; body: string }
 ): Promise<IssueComment> {
 	const { data: comment } = await octokit.rest.issues.createComment(params)
+	return comment
+}
+
+export async function updateIssueComment(
+	octokit: Octokit,
+	params: { owner: string; repo: string; comment_id: number; body: string }
+): Promise<IssueComment> {
+	const { data: comment } = await octokit.rest.issues.updateComment(params)
 	return comment
 }
 

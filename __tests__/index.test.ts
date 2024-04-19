@@ -30,8 +30,25 @@ const parseReportMock = jest.spyOn(report, 'parseReport')
 const renderReportSummaryMock = jest.spyOn(report, 'renderReportSummary')
 
 // Mock the GitHub Actions context library
-// const getOctokitMock = jest.spyOn(github, 'getOctokit')
 // const contextMock = jest.spyOn(github, 'context')
+
+// Mock the GitHub Actions Octokit instance
+type Octokit = ReturnType<typeof github.getOctokit>
+
+const octokitMock = {
+	rest: {
+		issues: {
+			listComments: jest.fn(() => Promise.resolve({ data: [ { id: 1 }, { id: 2 }] })),
+			updateComment: jest.fn((data: any) => Promise.resolve({ data: { ...data, id: data.comment_id } })),
+			createComment: jest.fn((data: any) => Promise.resolve({ data: { ...data, id: 4 } })),
+		},
+		pulls: {
+			createReview: jest.fn((data: object) => Promise.resolve({ data: { ...data, id: 5 } })),
+		}
+	}
+} as unknown as Octokit
+
+const getOctokitMock = jest.spyOn(github, 'getOctokit').mockImplementation((token: string) => octokitMock)
 
 // Mock the action's entrypoint
 const runMock = jest.spyOn(index, 'run')
@@ -78,8 +95,7 @@ function setContext(context: any): void {
 }
 
 describe('action', () => {
-	beforeAll(() => {
-	})
+	beforeAll(() => {})
 
 	beforeEach(() => {
 		setContext(defaultContext)
@@ -103,12 +119,22 @@ describe('action', () => {
 		}
 
 		await index.run()
-		expect(runMock).toHaveReturned()
 
+		expect(runMock).toHaveReturned()
 		expect(debugMock).toHaveBeenNthCalledWith(1, 'Report file: __tests__/__fixtures__/report-valid.json')
 		expect(debugMock).toHaveBeenNthCalledWith(2, 'Report url: (none)')
 		expect(debugMock).toHaveBeenNthCalledWith(3, 'Report tag: (none)')
 		expect(debugMock).toHaveBeenNthCalledWith(4, 'Comment title: Custom comment title')
+	})
+
+	it('creates an Octokit instance', async () => {
+		inputs = {
+			'github-token': 'some-token'
+		}
+
+		await index.run()
+		expect(runMock).toHaveReturned()
+		expect(getOctokitMock).toHaveBeenCalledWith('some-token')
 	})
 
 	it('reads the supplied report file', async () => {
@@ -117,9 +143,12 @@ describe('action', () => {
 		}
 
 		await index.run()
-		expect(runMock).toHaveReturned()
 
-		expect(readFileMock).toHaveBeenNthCalledWith(1, expect.stringMatching(/__tests__[/]__fixtures__[/]report-valid.json$/))
+		expect(runMock).toHaveReturned()
+		expect(readFileMock).toHaveBeenNthCalledWith(
+			1,
+			expect.stringMatching(/__tests__[/]__fixtures__[/]report-valid.json$/)
+		)
 	})
 
 	it('parses the report and renders a summary', async () => {
@@ -131,12 +160,16 @@ describe('action', () => {
 		expect(runMock).toHaveReturned()
 
 		expect(parseReportMock).toHaveBeenNthCalledWith(1, expect.any(String))
-		expect(renderReportSummaryMock).toHaveBeenNthCalledWith(1, expect.any(Object), expect.objectContaining({
-			commit: 'def456',
-			title: 'Playwright test results',
-			reportUrl: expect.any(String),
-			iconStyle: expect.any(String)
-		}))
+		expect(renderReportSummaryMock).toHaveBeenNthCalledWith(
+			1,
+			expect.any(Object),
+			expect.objectContaining({
+				commit: 'def456',
+				title: 'Playwright test results',
+				reportUrl: expect.any(String),
+				iconStyle: expect.any(String)
+			})
+		)
 	})
 
 	it('sets a summary and comment id output', async () => {
@@ -146,9 +179,8 @@ describe('action', () => {
 		}
 
 		await index.run()
-		expect(runMock).toHaveReturned()
 
-		// Verify that all of the core library functions were called correctly
+		expect(runMock).toHaveReturned()
 		expect(setOutputMock).toHaveBeenNthCalledWith(1, 'summary', expect.anything())
 		expect(setOutputMock).toHaveBeenNthCalledWith(2, 'comment-id', expect.anything())
 	})
@@ -159,9 +191,11 @@ describe('action', () => {
 		}
 
 		await index.run()
-		expect(runMock).toHaveReturned()
 
-		// Verify that all of the core library functions were called correctly
-		expect(setFailedMock).toHaveBeenNthCalledWith(1, 'Report file file-does-not-exist.json not found. Make sure Playwright is configured to generate a JSON report.')
+		expect(runMock).toHaveReturned()
+		expect(setFailedMock).toHaveBeenNthCalledWith(
+			1,
+			'Report file file-does-not-exist.json not found. Make sure Playwright is configured to generate a JSON report.'
+		)
 	})
 })

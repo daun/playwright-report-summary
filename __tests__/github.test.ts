@@ -4,23 +4,7 @@
 
 import { expect } from '@jest/globals'
 
-import * as github from '@actions/github'
 import { createIssueComment, createPullRequestReview, getIssueComments, updateIssueComment } from '../src/github'
-
-// jest.mock('@actions/github', () => ({
-// 	getOctokit: jest.fn().mockReturnValue({
-// 		rest: {
-// 			issues: {
-// 				listComments: jest.fn(),
-// 				updateComment: jest.fn(),
-// 				createComment: jest.fn()
-// 			},
-// 			pulls: {
-// 				createReview: jest.fn()
-// 			}
-// 		}
-// 	})
-// }))
 
 describe('github', () => {
   let octokit: any;

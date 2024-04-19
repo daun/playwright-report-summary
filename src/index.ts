@@ -53,6 +53,8 @@ export async function report(): Promise<void> {
 	let ref: string = context.ref
 	let sha: string = context.sha
 
+	const octokit = getOctokit(token)
+
 	if (eventName === 'push') {
 		ref = payload.ref
 		sha = payload.after
@@ -88,8 +90,6 @@ export async function report(): Promise<void> {
 	const prefix = `<!-- playwright-report-github-action -- ${reportTag} -->`
 	const body = `${prefix}\n\n${summary}`
 	let commentId = null
-
-	const octokit = getOctokit(token)
 
 	const hasPR = eventName === 'pull_request' || eventName === 'pull_request_target'
 

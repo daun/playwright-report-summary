@@ -138,16 +138,11 @@ export function isValidReport(report: unknown): report is JSONReport {
 }
 
 export function parseReport(data: string): ReportSummary {
-	let report: JSONReport
-	try {
-		report = JSON.parse(data)
-		if (!isValidReport(report)) {
-			debug('Invalid report file')
-			debug(data)
-			throw new Error('Invalid JSON report file')
-		}
-	} catch (error) {
-		throw error
+	const report: JSONReport = JSON.parse(data)
+	if (!isValidReport(report)) {
+		debug('Invalid report file')
+		debug(data)
+		throw new Error('Invalid JSON report file')
 	}
 
 	const files: string[] = report.suites.map((file) => file.title)

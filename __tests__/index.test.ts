@@ -14,10 +14,10 @@ import * as report from '../src/report'
 import { Context } from '@actions/github/lib/context'
 
 // Mock the GitHub Actions core library
+jest.spyOn(core, 'info').mockImplementation(jest.fn())
+jest.spyOn(core, 'warning').mockImplementation(jest.fn())
+jest.spyOn(core, 'error').mockImplementation(jest.fn())
 const debugMock = jest.spyOn(core, 'debug').mockImplementation(jest.fn())
-const infoMock = jest.spyOn(core, 'info').mockImplementation(jest.fn())
-const warningMock = jest.spyOn(core, 'warning').mockImplementation(jest.fn())
-const errorMock = jest.spyOn(core, 'error').mockImplementation(jest.fn())
 const getInputMock = jest.spyOn(core, 'getInput').mockImplementation((name: string) => inputs[name] || '')
 const setFailedMock = jest.spyOn(core, 'setFailed').mockImplementation(jest.fn())
 const setOutputMock = jest.spyOn(core, 'setOutput').mockImplementation(jest.fn())
@@ -38,17 +38,17 @@ type Octokit = ReturnType<typeof github.getOctokit>
 const octokitMock = {
 	rest: {
 		issues: {
-			listComments: jest.fn(() => Promise.resolve({ data: [{ id: 1 }, { id: 2 }] })),
-			updateComment: jest.fn((data: any) => Promise.resolve({ data: { ...data, id: data.comment_id } })),
-			createComment: jest.fn((data: any) => Promise.resolve({ data: { ...data, id: 4 } }))
+			listComments: jest.fn(async () => ({ data: [{ id: 1 }, { id: 2 }] })),
+			updateComment: jest.fn(async (data: any) => ({ data: { ...data, id: data.comment_id } })),
+			createComment: jest.fn(async (data: any) => ({ data: { ...data, id: 4 } }))
 		},
 		pulls: {
-			createReview: jest.fn((data: object) => Promise.resolve({ data: { ...data, id: 5 } }))
+			createReview: jest.fn(async (data: object) => ({ data: { ...data, id: 5 } }))
 		}
 	}
 } as unknown as Octokit
 
-const getOctokitMock = jest.spyOn(github, 'getOctokit').mockImplementation((token: string) => octokitMock)
+const getOctokitMock = jest.spyOn(github, 'getOctokit').mockImplementation(() => octokitMock)
 
 // Mock the action's entrypoint
 const runMock = jest.spyOn(index, 'run')

@@ -13,12 +13,12 @@ describe('github', () => {
 		octokit = {
 			rest: {
 				issues: {
-					listComments: jest.fn(() => Promise.resolve({ data: [{ id: 1 }, { id: 2 }] })),
-					updateComment: jest.fn((data: any) => Promise.resolve({ data: { ...data, id: data.comment_id } })),
-					createComment: jest.fn((data: any) => Promise.resolve({ data: { ...data, id: 4 } }))
+					listComments: jest.fn(async () => ({ data: [{ id: 1 }, { id: 2 }] })),
+					updateComment: jest.fn(async (data: any) => ({ data: { ...data, id: data.comment_id } })),
+					createComment: jest.fn(async (data: any) => ({ data: { ...data, id: 4 } }))
 				},
 				pulls: {
-					createReview: jest.fn((data: object) => Promise.resolve({ data: { ...data, id: 5 } }))
+					createReview: jest.fn(async (data: object) => ({ data: { ...data, id: 5 } }))
 				}
 			}
 		}

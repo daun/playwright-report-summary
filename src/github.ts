@@ -1,4 +1,6 @@
 import { getOctokit } from '@actions/github'
+
+// eslint-disable-next-line import/no-unresolved
 import { components } from '@octokit/openapi-types'
 
 type IssueComment = components['schemas']['issue-comment']
@@ -33,7 +35,6 @@ export async function createPullRequestReview(
 	octokit: Octokit,
 	params: { owner: string; repo: string; pull_number: number; body: string }
 ): Promise<PullRequestReview> {
-	const event = 'COMMENT' as const
-	const { data: review } = await octokit.rest.pulls.createReview({ ...params, event })
+	const { data: review } = await octokit.rest.pulls.createReview({ ...params, event: 'COMMENT' })
 	return review
 }

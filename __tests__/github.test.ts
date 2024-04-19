@@ -5,7 +5,7 @@
 import { expect } from '@jest/globals'
 
 import * as github from '@actions/github'
-import { createPullRequestReview, getIssueComments } from '../src/github'
+import { createPullRequestReview, getIssueComments, updateIssueComment } from '../src/github'
 
 // jest.mock('@actions/github', () => ({
 // 	getOctokit: jest.fn().mockReturnValue({
@@ -30,7 +30,7 @@ describe('github', () => {
 			rest: {
 				issues: {
 					listComments: jest.fn(() => Promise.resolve({ data: [ { id: 1 }, { id: 2 }] })),
-					updateComment: jest.fn((data: any) => Promise.resolve({ data: { id: data.comment_id } })),
+					updateComment: jest.fn((data: any) => Promise.resolve({ data: { ...data, id: data.comment_id } })),
 					createComment: jest.fn((data: any) => Promise.resolve({ data: { ...data, id: 4 } })),
 				},
 				pulls: {
@@ -65,6 +65,33 @@ describe('github', () => {
 			const params = { owner: 'owner', repo: 'repo', issue_number: 123 };
 
 			await expect(getIssueComments(octokit, params)).rejects.toThrow('API error');
+		});
+	});
+
+	describe('updateIssueComment', () => {
+		it('calls issues.updateComment with correct parameters', async () => {
+			const params = { owner: 'owner', repo: 'repo', comment_id: 123, body: 'body' };
+			const expectedArguments = { ...params };
+
+			await updateIssueComment(octokit, params);
+
+			expect(octokit.rest.issues.updateComment).toHaveBeenCalledWith(expectedArguments);
+		});
+
+		it('returns the comment data', async () => {
+			const params = { owner: 'owner', repo: 'repo', comment_id: 123, body: 'body' };
+			const expectedResult =  { ...params, id: expect.any(Number) };
+
+			const result = await updateIssueComment(octokit, params);
+
+			expect(result).toMatchObject(expectedResult);
+		});
+
+		it('throws an error if updateComment fails', async () => {
+			octokit.rest.issues.updateComment.mockRejectedValue(new Error('API error'));
+			const params = { owner: 'owner', repo: 'repo', comment_id: 123, body: 'body' };
+
+			await expect(updateIssueComment(octokit, params)).rejects.toThrow('API error');
 		});
 	});
 

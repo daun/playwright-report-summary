@@ -7,6 +7,9 @@ import { readFile } from '../src/fs'
 import { ReportSummary, isValidReport, parseReport, renderReportSummary } from '../src/report'
 
 const defaultReport = 'report-valid.json'
+const invalidReport = 'report-invalid.json'
+const reportWithoutDuration = 'report-without-duration.json'
+const shardedReport = 'report-sharded.json'
 
 async function getReport(file = defaultReport): Promise<string> {
 	return await readFile(`__tests__/__fixtures__/${file}`)
@@ -22,7 +25,7 @@ describe('isValidReport', () => {
 		expect(isValidReport(JSON.parse(report))).toBe(true)
 	})
 	it('detects invalid reports', async () => {
-		const report = await getReport('report-invalid.json')
+		const report = await getReport(invalidReport)
 		expect(isValidReport([])).toBe(false)
 		expect(isValidReport('')).toBe(false)
 		expect(isValidReport(JSON.parse(report))).toBe(false)
@@ -43,7 +46,7 @@ describe('parseReport', () => {
 		expect(parsed.duration).toBe(1118.34)
 	})
 	it('calculates duration if missing', async () => {
-		const parsed = await getParsedReport('report-without-duration.json')
+		const parsed = await getParsedReport(reportWithoutDuration)
 		expect(parsed.duration).toBe(943)
 	})
 	it('returns workers', async () => {
@@ -75,7 +78,7 @@ describe('parseReport', () => {
 		expect(parsed.skipped.length).toBe(1)
 	})
 	it('counts sharded tests', async () => {
-		const parsed = await getParsedReport('report-sharded.json')
+		const parsed = await getParsedReport(shardedReport)
 		expect(parsed.tests.length).toBe(27)
 		expect(parsed.failed.length).toBe(1)
 		expect(parsed.passed.length).toBe(22)

@@ -38,12 +38,12 @@ type Octokit = ReturnType<typeof github.getOctokit>
 const octokitMock = {
 	rest: {
 		issues: {
-			listComments: jest.fn(() => Promise.resolve({ data: [ { id: 1 }, { id: 2 }] })),
+			listComments: jest.fn(() => Promise.resolve({ data: [{ id: 1 }, { id: 2 }] })),
 			updateComment: jest.fn((data: any) => Promise.resolve({ data: { ...data, id: data.comment_id } })),
-			createComment: jest.fn((data: any) => Promise.resolve({ data: { ...data, id: 4 } })),
+			createComment: jest.fn((data: any) => Promise.resolve({ data: { ...data, id: 4 } }))
 		},
 		pulls: {
-			createReview: jest.fn((data: object) => Promise.resolve({ data: { ...data, id: 5 } })),
+			createReview: jest.fn((data: object) => Promise.resolve({ data: { ...data, id: 5 } }))
 		}
 	}
 } as unknown as Octokit

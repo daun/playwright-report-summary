@@ -31911,6 +31911,38 @@ exports.readFile = readFile;
 
 /***/ }),
 
+/***/ 978:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.createPullRequestReview = exports.updateIssueComment = exports.createIssueComment = exports.getIssueComments = void 0;
+async function getIssueComments(octokit, params) {
+    const { data: comments } = await octokit.rest.issues.listComments(params);
+    return comments;
+}
+exports.getIssueComments = getIssueComments;
+async function createIssueComment(octokit, params) {
+    const { data: comment } = await octokit.rest.issues.createComment(params);
+    return comment;
+}
+exports.createIssueComment = createIssueComment;
+async function updateIssueComment(octokit, params) {
+    const { data: comment } = await octokit.rest.issues.updateComment(params);
+    return comment;
+}
+exports.updateIssueComment = updateIssueComment;
+async function createPullRequestReview(octokit, params) {
+    const event = 'COMMENT';
+    const { data: review } = await octokit.rest.pulls.createReview({ ...params, event });
+    return review;
+}
+exports.createPullRequestReview = createPullRequestReview;
+
+
+/***/ }),
+
 /***/ 6975:
 /***/ ((__unused_webpack_module, exports) => {
 
@@ -31988,6 +32020,7 @@ const core_1 = __nccwpck_require__(2186);
 const github_1 = __nccwpck_require__(5438);
 const fs_1 = __nccwpck_require__(9219);
 const report_1 = __nccwpck_require__(9707);
+const github_2 = __nccwpck_require__(978);
 /**
  * The main function for the action.
  */
@@ -32008,20 +32041,21 @@ exports.run = run;
 async function report() {
     const cwd = process.cwd();
     const { workflow, eventName, repo, payload } = github_1.context;
-    const { owner, number: pull_number } = github_1.context.issue;
+    const { owner, number: pull_number } = github_1.context.issue || {};
     const token = (0, core_1.getInput)('github-token');
     const reportFile = (0, core_1.getInput)('report-file', { required: true });
     const reportUrl = (0, core_1.getInput)('report-url');
     const reportTag = (0, core_1.getInput)('report-tag') || workflow;
     const commentTitle = (0, core_1.getInput)('comment-title') || 'Playwright test results';
     const iconStyle = (0, core_1.getInput)('icon-style') || 'octicons';
-    const jobSummary = (0, core_1.getBooleanInput)('job-summary');
+    const jobSummary = (0, core_1.getInput)('job-summary') ? (0, core_1.getBooleanInput)('job-summary') : false;
     (0, core_1.debug)(`Report file: ${reportFile}`);
-    (0, core_1.debug)(`Report url: ${reportUrl}`);
+    (0, core_1.debug)(`Report url: ${reportUrl || '(none)'}`);
     (0, core_1.debug)(`Report tag: ${reportTag || '(none)'}`);
     (0, core_1.debug)(`Comment title: ${commentTitle}`);
     let ref = github_1.context.ref;
     let sha = github_1.context.sha;
+    const octokit = (0, github_1.getOctokit)(token);
     if (eventName === 'push') {
         ref = payload.ref;
         sha = payload.after;
@@ -32055,7 +32089,6 @@ async function report() {
     const prefix = `<!-- playwright-report-github-action -- ${reportTag} -->`;
     const body = `${prefix}\n\n${summary}`;
     let commentId = null;
-    const octokit = (0, github_1.getOctokit)(token);
     const hasPR = eventName === 'pull_request' || eventName === 'pull_request_target';
     if (!hasPR) {
         console.log('No PR associated with this action run. Not posting a check or comment.');
@@ -32063,10 +32096,7 @@ async function report() {
     else {
         (0, core_1.startGroup)(`Commenting test report on PR`);
         try {
-            const { data: comments } = await octokit.rest.issues.listComments({
-                ...repo,
-                issue_number: pull_number
-            });
+            const comments = await (0, github_2.getIssueComments)(octokit, { ...repo, issue_number: pull_number });
             const existingComment = comments.findLast((c) => c.body?.includes(prefix));
             commentId = existingComment?.id || null;
         }
@@ -32076,11 +32106,7 @@ async function report() {
         if (commentId) {
             console.log(`Found previous comment #${commentId}`);
             try {
-                await octokit.rest.issues.updateComment({
-                    ...repo,
-                    comment_id: commentId,
-                    body
-                });
+                await (0, github_2.updateIssueComment)(octokit, { ...repo, comment_id: commentId, body });
                 console.log(`Updated previous comment #${commentId}`);
             }
             catch (error) {
@@ -32091,11 +32117,7 @@ async function report() {
         if (!commentId) {
             console.log('Creating new comment');
             try {
-                const { data: newComment } = await octokit.rest.issues.createComment({
-                    ...repo,
-                    issue_number: pull_number,
-                    body
-                });
+                const newComment = await (0, github_2.createIssueComment)(octokit, { ...repo, issue_number: pull_number, body });
                 commentId = newComment.id;
                 console.log(`Created new comment #${commentId}`);
             }
@@ -32104,13 +32126,13 @@ async function report() {
                 console.log(`Submitting PR review comment instead...`);
                 try {
                     const { issue } = github_1.context;
-                    await octokit.rest.pulls.createReview({
+                    const review = await (0, github_2.createPullRequestReview)(octokit, {
                         owner,
                         repo: issue.repo,
                         pull_number: issue.number,
-                        event: 'COMMENT',
                         body
                     });
+                    console.log(`Created pull request review: #${review.id}`);
                 }
                 catch (error) {
                     console.error(`Error creating PR review: ${error.message}`);

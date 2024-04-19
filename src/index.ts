@@ -127,7 +127,12 @@ export async function report(): Promise<void> {
 				console.log(`Submitting PR review comment instead...`)
 				try {
 					const { issue } = context
-					const review = await createPullRequestReview(octokit, { owner, repo: issue.repo, pull_number: issue.number, body })
+					const review = await createPullRequestReview(octokit, {
+						owner,
+						repo: issue.repo,
+						pull_number: issue.number,
+						body
+					})
 					console.log(`Created pull request review: #${review.id}`)
 				} catch (error: unknown) {
 					console.error(`Error creating PR review: ${(error as Error).message}`)

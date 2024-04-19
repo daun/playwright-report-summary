@@ -5,7 +5,7 @@
 import { expect } from '@jest/globals'
 
 import * as github from '@actions/github'
-import { createPullRequestReview, getIssueComments, updateIssueComment } from '../src/github'
+import { createIssueComment, createPullRequestReview, getIssueComments, updateIssueComment } from '../src/github'
 
 // jest.mock('@actions/github', () => ({
 // 	getOctokit: jest.fn().mockReturnValue({
@@ -65,6 +65,33 @@ describe('github', () => {
 			const params = { owner: 'owner', repo: 'repo', issue_number: 123 };
 
 			await expect(getIssueComments(octokit, params)).rejects.toThrow('API error');
+		});
+	});
+
+	describe('createIssueComment', () => {
+		it('calls issues.createComment with correct parameters', async () => {
+			const params = { owner: 'owner', repo: 'repo', issue_number: 123, body: 'body' };
+			const expectedArguments = { ...params };
+
+			await createIssueComment(octokit, params);
+
+			expect(octokit.rest.issues.createComment).toHaveBeenCalledWith(expectedArguments);
+		});
+
+		it('returns the comment data', async () => {
+			const params = { owner: 'owner', repo: 'repo', issue_number: 123, body: 'body' };
+			const expectedResult =  { ...params, id: expect.any(Number) };
+
+			const result = await createIssueComment(octokit, params);
+
+			expect(result).toMatchObject(expectedResult);
+		});
+
+		it('throws an error if createComment fails', async () => {
+			octokit.rest.issues.createComment.mockRejectedValue(new Error('API error'));
+			const params = { owner: 'owner', repo: 'repo', issue_number: 123, body: 'body' };
+
+			await expect(createIssueComment(octokit, params)).rejects.toThrow('API error');
 		});
 	});
 

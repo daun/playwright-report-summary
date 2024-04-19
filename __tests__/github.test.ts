@@ -5,7 +5,7 @@
 import { expect } from '@jest/globals'
 
 import * as github from '@actions/github'
-import { createPullRequestReview } from '../src/github'
+import { createPullRequestReview, getIssueComments } from '../src/github'
 
 // jest.mock('@actions/github', () => ({
 // 	getOctokit: jest.fn().mockReturnValue({
@@ -41,6 +41,33 @@ describe('github', () => {
 		jest.clearAllMocks();
   });
 
+	describe('getIssueComments', () => {
+		it('calls issues.listComments with correct parameters', async () => {
+			const params = { owner: 'owner', repo: 'repo', issue_number: 123 };
+			const expectedArguments = { ...params };
+
+			await getIssueComments(octokit, params);
+
+			expect(octokit.rest.issues.listComments).toHaveBeenCalledWith(expectedArguments);
+		});
+
+		it('returns the comment data', async () => {
+			const params = { owner: 'owner', repo: 'repo', issue_number: 123 };
+			const expectedResult = [ { id: 1 }, { id: 2 } ];
+
+			const result = await getIssueComments(octokit, params);
+
+			expect(result).toMatchObject(expectedResult);
+		});
+
+		it('throws an error if listComments fails', async () => {
+			octokit.rest.issues.listComments.mockRejectedValue(new Error('API error'));
+			const params = { owner: 'owner', repo: 'repo', issue_number: 123 };
+
+			await expect(getIssueComments(octokit, params)).rejects.toThrow('API error');
+		});
+	});
+
 	describe('createPullRequestReview', () => {
 		it('calls pulls.createReview with correct parameters', async () => {
 			const params = { owner: 'owner', repo: 'repo', pull_number: 123, body: 'body' };
@@ -53,11 +80,11 @@ describe('github', () => {
 
 		it('returns the review data', async () => {
 			const params = { owner: 'owner', repo: 'repo', pull_number: 123, body: 'body' };
-			const expectedReview = { ...params, id: expect.any(Number) };
+			const expectedResult = { ...params, id: expect.any(Number) };
 
-			const review = await createPullRequestReview(octokit, params);
+			const result = await createPullRequestReview(octokit, params);
 
-			expect(review).toMatchObject(expectedReview);
+			expect(result).toMatchObject(expectedResult);
 		});
 
 		it('throws an error if createReview fails', async () => {

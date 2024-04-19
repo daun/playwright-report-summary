@@ -13,7 +13,7 @@ import {
 import { context, getOctokit } from '@actions/github'
 import { fileExists, readFile } from './fs'
 import { parseReport, renderReportSummary } from './report'
-import { getPullRequestComments } from './github'
+import { getIssueComments, createIssueComment, updateIssueComment, createPullRequestReview } from './github'
 
 /**
  * The main function for the action.
@@ -98,7 +98,7 @@ export async function report(): Promise<void> {
 	} else {
 		startGroup(`Commenting test report on PR`)
 		try {
-			const comments = await getPullRequestComments({ token, pull_number, ...repo })
+			const comments = await getIssueComments(octokit, { ...repo, issue_number: pull_number })
 			const existingComment = comments.findLast((c) => c.body?.includes(prefix))
 			commentId = existingComment?.id || null
 		} catch (error: unknown) {
@@ -108,11 +108,7 @@ export async function report(): Promise<void> {
 		if (commentId) {
 			console.log(`Found previous comment #${commentId}`)
 			try {
-				await octokit.rest.issues.updateComment({
-					...repo,
-					comment_id: commentId,
-					body
-				})
+				await updateIssueComment(octokit, { ...repo, comment_id: commentId, body })
 				console.log(`Updated previous comment #${commentId}`)
 			} catch (error: unknown) {
 				console.error(`Error updating previous comment: ${(error as Error).message}`)
@@ -123,11 +119,7 @@ export async function report(): Promise<void> {
 		if (!commentId) {
 			console.log('Creating new comment')
 			try {
-				const { data: newComment } = await octokit.rest.issues.createComment({
-					...repo,
-					issue_number: pull_number,
-					body
-				})
+				const newComment = await createIssueComment(octokit, { ...repo, issue_number: pull_number, body })
 				commentId = newComment.id
 				console.log(`Created new comment #${commentId}`)
 			} catch (error: unknown) {
@@ -135,13 +127,8 @@ export async function report(): Promise<void> {
 				console.log(`Submitting PR review comment instead...`)
 				try {
 					const { issue } = context
-					await octokit.rest.pulls.createReview({
-						owner,
-						repo: issue.repo,
-						pull_number: issue.number,
-						event: 'COMMENT',
-						body
-					})
+					const review = await createPullRequestReview(octokit, { owner, repo: issue.repo, pull_number: issue.number, body })
+					console.log(`Created pull request review: #${review.id}`)
 				} catch (error: unknown) {
 					console.error(`Error creating PR review: ${(error as Error).message}`)
 				}

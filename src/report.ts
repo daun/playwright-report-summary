@@ -190,29 +190,29 @@ export function parseReport(data: string): ReportSummary {
 }
 
 function extractSuiteInformation(suites: JSONReportSuite[]): {
-	files: string[],
-	suites: JSONReportSuite[],
+	files: string[]
+	suites: JSONReportSuite[]
 	specs: JSONReportSpec[]
 } {
-	let allFiles: string[] = [];
-	let allSuites: JSONReportSuite[] = [];
-	let allSpecs: JSONReportSpec[] = [];
+	let allFiles: string[] = []
+	let allSuites: JSONReportSuite[] = []
+	let allSpecs: JSONReportSpec[] = []
 
 	for (const suite of suites) {
-		allFiles.push(suite.file);
+		allFiles.push(suite.file)
 
 		// Nested suites and their specs
-		const { suites: nestedSuites, specs: nestedSpecs } = extractSuiteInformation(suite.suites ?? []);
-		allSuites = allSuites.concat(nestedSuites);
-		allSpecs = allSpecs.concat(nestedSpecs);
+		const { suites: nestedSuites, specs: nestedSpecs } = extractSuiteInformation(suite.suites ?? [])
+		allSuites = allSuites.concat(nestedSuites)
+		allSpecs = allSpecs.concat(nestedSpecs)
 
 		// Current-suite specs
-		allSpecs = allSpecs.concat(suite.specs ?? []);
+		allSpecs = allSpecs.concat(suite.specs ?? [])
 
-		allSuites.push(suite);
+		allSuites.push(suite)
 	}
 
-	return { files: allFiles, suites: allSuites, specs: allSpecs };
+	return { files: allFiles, suites: allSuites, specs: allSpecs }
 }
 
 function parseSuite(suite: JSONReportSuite, parents: string[] = []): SuiteSummary {

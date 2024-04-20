@@ -36,9 +36,9 @@ describe('isValidReport', () => {
 describe('buildTitle', () => {
 	it('returns an object with path and title', async () => {
 		const result = buildTitle('A', 'B')
-		expect(result).toBeInstanceOf(Object);
-		expect(result.path).toBeDefined();
-		expect(result.title).toBeDefined();
+		expect(result).toBeInstanceOf(Object)
+		expect(result.path).toBeDefined()
+		expect(result.title).toBeDefined()
 	})
 	it('concatenates and filters title segments', async () => {
 		const { title } = buildTitle('A', 'B', '', 'C')

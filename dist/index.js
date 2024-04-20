@@ -32165,7 +32165,7 @@ if (process.env.GITHUB_ACTIONS === 'true') {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.renderReportSummary = exports.parseReport = exports.isValidReport = void 0;
+exports.renderReportSummary = exports.buildTitle = exports.parseReport = exports.isValidReport = void 0;
 const core_1 = __nccwpck_require__(2186);
 const formatting_1 = __nccwpck_require__(9598);
 const icons_1 = __nccwpck_require__(6975);
@@ -32180,19 +32180,9 @@ function parseReport(data) {
         (0, core_1.debug)(data);
         throw new Error('Invalid JSON report file');
     }
-    const files = report.suites.map((file) => file.title);
-    const suites = report.suites.flatMap((file) => file.suites?.length ? [...file.suites.map((suite) => `${file.title} > ${suite.title}`)] : [file.title]);
-    const specs = report.suites.reduce((all, file) => {
-        for (const spec of file.specs) {
-            all.push(parseSpec(spec, [file]));
-        }
-        for (const suite of file.suites || []) {
-            for (const spec of suite.specs) {
-                all.push(parseSpec(spec, [file, suite]));
-            }
-        }
-        return all;
-    }, []);
+    const { files, suites: allSuites } = extractSuiteInformation(report.suites);
+    const suites = allSuites.map((suite) => parseSuite(suite), []);
+    const specs = suites.flatMap((suite) => suite.specs);
     const tests = specs.flatMap((spec) => spec.tests);
     const results = tests.flatMap((test) => test.results);
     const failed = tests.filter((test) => test.failed);
@@ -32223,34 +32213,38 @@ function parseReport(data) {
     };
 }
 exports.parseReport = parseReport;
-function getTotalDuration(report, results) {
-    let duration = 0;
-    let started = new Date();
-    const { totalTime } = report.config.metadata;
-    if (totalTime) {
-        duration = totalTime;
+function extractSuiteInformation(suites) {
+    let allFiles = [];
+    let allSuites = [];
+    let allSpecs = [];
+    for (const suite of suites) {
+        allFiles.push(suite.file);
+        // Nested suites and their specs
+        const { suites: nestedSuites, specs: nestedSpecs } = extractSuiteInformation(suite.suites ?? []);
+        allSuites = allSuites.concat(nestedSuites);
+        allSpecs = allSpecs.concat(nestedSpecs);
+        // Current-suite specs
+        allSpecs = allSpecs.concat(suite.specs ?? []);
+        allSuites.push(suite);
     }
-    else {
-        const sorted = results.sort((a, b) => a.started.getTime() - b.started.getTime());
-        const first = sorted[0];
-        const last = sorted[sorted.length - 1];
-        if (first && last) {
-            started = first.started;
-            duration = last.started.getTime() + last.duration - first.started.getTime();
-        }
-    }
-    return { duration, started };
+    return { files: allFiles, suites: allSuites, specs: allSpecs };
+}
+function parseSuite(suite, parents = []) {
+    const { file, line, column } = suite;
+    const { title, path } = buildTitle(...parents, suite.title);
+    const specs = suite.specs.map((spec) => parseSpec(spec, [...parents, suite.title]));
+    return { file, line, column, path, title, specs };
 }
 function parseSpec(spec, parents = []) {
     const { ok, file, line, column } = spec;
-    const { title, path } = buildTitle(...parents.map((p) => p.title), spec.title);
+    const { title, path } = buildTitle(...parents, spec.title);
     const tests = spec.tests.map((test) => parseTest(test, spec, parents));
     return { ok, file, line, column, path, title, tests };
 }
 function parseTest(test, spec, parents = []) {
     const { file, line, column } = spec;
     const { status, projectName: project } = test;
-    const { title, path } = buildTitle(project, ...parents.map((p) => p.title), spec.title);
+    const { title, path } = buildTitle(project, ...parents, spec.title);
     const results = test.results.map((result) => parseTestResult(result));
     const passed = status === 'expected';
     const failed = status === 'unexpected';
@@ -32266,6 +32260,7 @@ function buildTitle(...paths) {
     const title = path.join(' → ');
     return { title, path };
 }
+exports.buildTitle = buildTitle;
 function renderReportSummary(report, { commit, message, title, reportUrl, iconStyle } = {}) {
     const { duration, failed, passed, flaky, skipped } = report;
     const icon = (symbol) => (0, icons_1.renderIcon)(symbol, { iconStyle });
@@ -32311,6 +32306,24 @@ function renderReportSummary(report, { commit, message, title, reportUrl, iconSt
         .join('\n\n');
 }
 exports.renderReportSummary = renderReportSummary;
+function getTotalDuration(report, results) {
+    let duration = 0;
+    let started = new Date();
+    const { totalTime } = report.config.metadata;
+    if (totalTime) {
+        duration = totalTime;
+    }
+    else {
+        const sorted = results.sort((a, b) => a.started.getTime() - b.started.getTime());
+        const first = sorted[0];
+        const last = sorted[sorted.length - 1];
+        if (first && last) {
+            started = first.started;
+            duration = last.started.getTime() + last.duration - first.started.getTime();
+        }
+    }
+    return { duration, started };
+}
 
 
 /***/ }),

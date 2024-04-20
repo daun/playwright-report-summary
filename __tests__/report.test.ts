@@ -10,6 +10,7 @@ const defaultReport = 'report-valid.json'
 const invalidReport = 'report-invalid.json'
 const reportWithoutDuration = 'report-without-duration.json'
 const shardedReport = 'report-sharded.json'
+const nestedReport = 'report-nested.json'
 
 async function getReport(file = defaultReport): Promise<string> {
 	return await readFile(`__tests__/__fixtures__/${file}`)
@@ -96,6 +97,16 @@ describe('parseReport', () => {
 	})
 	it('counts sharded tests', async () => {
 		const parsed = await getParsedReport(shardedReport)
+		expect(parsed.tests.length).toBe(27)
+		expect(parsed.failed.length).toBe(1)
+		expect(parsed.passed.length).toBe(22)
+		expect(parsed.flaky.length).toBe(1)
+		expect(parsed.skipped.length).toBe(3)
+	})
+	it('counts nested tests', async () => {
+		const parsed = await getParsedReport(nestedReport)
+		expect(parsed.suites.length).toBe(4)
+		expect(parsed.specs.length).toBe(14)
 		expect(parsed.tests.length).toBe(27)
 		expect(parsed.failed.length).toBe(1)
 		expect(parsed.passed.length).toBe(22)

@@ -4,7 +4,7 @@
 
 import { expect } from '@jest/globals'
 import { readFile } from '../src/fs'
-import { ReportSummary, isValidReport, parseReport, renderReportSummary } from '../src/report'
+import { ReportSummary, buildTitle, isValidReport, parseReport, renderReportSummary } from '../src/report'
 
 const defaultReport = 'report-valid.json'
 const invalidReport = 'report-invalid.json'
@@ -29,6 +29,23 @@ describe('isValidReport', () => {
 		expect(isValidReport([])).toBe(false)
 		expect(isValidReport('')).toBe(false)
 		expect(isValidReport(JSON.parse(report))).toBe(false)
+	})
+})
+
+describe('buildTitle', () => {
+	it('returns an object with path and title', async () => {
+		const result = buildTitle('A', 'B')
+		expect(result).toBeInstanceOf(Object);
+		expect(result.path).toBeDefined();
+		expect(result.title).toBeDefined();
+	})
+	it('concatenates and filters title segments', async () => {
+		const { title } = buildTitle('A', 'B', '', 'C')
+		expect(title).toBe('A → B → C')
+	})
+	it('concatenates and filters path segments', async () => {
+		const { path } = buildTitle('A', '', 'B', 'C')
+		expect(path).toStrictEqual(['A', 'B', 'C'])
 	})
 })
 

@@ -34,6 +34,8 @@ interface SuiteSummary {
 	column: number
 	path: string[]
 	title: string
+	level: number
+	root: boolean
 	specs: SpecSummary[]
 }
 
@@ -85,9 +87,10 @@ export function parseReport(data: string): ReportSummary {
 		throw new Error('Invalid JSON report file')
 	}
 
-	const { files, suites: allSuites } = extractSuiteInformation(report.suites)
-	const suites: SuiteSummary[] = allSuites.map((suite) => parseSuite(suite), [] as SpecSummary[])
-	const specs = suites.flatMap((suite) => suite.specs)
+	const files = parseReportFiles(report)
+	const allSuites = parseReportSuites(report)
+	const suites = allSuites.filter((suite) => suite.root)
+	const specs = allSuites.flatMap((suite) => suite.specs)
 	const tests = specs.flatMap((spec) => spec.tests)
 	const results = tests.flatMap((test) => test.results)
 	const failed = tests.filter((test) => test.failed)
@@ -120,37 +123,26 @@ export function parseReport(data: string): ReportSummary {
 	}
 }
 
-function extractSuiteInformation(suites: JSONReportSuite[]): {
-	files: string[]
-	suites: JSONReportSuite[]
-	specs: JSONReportSpec[]
-} {
-	let allFiles: string[] = []
-	let allSuites: JSONReportSuite[] = []
-	let allSpecs: JSONReportSpec[] = []
+function parseReportFiles({ suites }: JSONReport): string[] {
+	return suites.map((suite) => suite.file)
+}
 
-	for (const suite of suites) {
-		allFiles.push(suite.file)
-
-		// Nested suites and their specs
-		const { suites: nestedSuites, specs: nestedSpecs } = extractSuiteInformation(suite.suites ?? [])
-		allSuites = allSuites.concat(nestedSuites)
-		allSpecs = allSpecs.concat(nestedSpecs)
-
-		// Current-suite specs
-		allSpecs = allSpecs.concat(suite.specs ?? [])
-
-		allSuites.push(suite)
-	}
-
-	return { files: allFiles, suites: allSuites, specs: allSpecs }
+function parseReportSuites({ suites }: JSONReport): SuiteSummary[] {
+	return suites.map((suite) => parseSuite(suite))
 }
 
 function parseSuite(suite: JSONReportSuite, parents: string[] = []): SuiteSummary {
 	const { file, line, column } = suite
 	const { title, path } = buildTitle(...parents, suite.title)
-	const specs = suite.specs.map((spec) => parseSpec(spec, [...parents, suite.title]))
-	return { file, line, column, path, title, specs }
+	const level = parents.length
+	const root = level === 0
+
+	const nestedSuites = (suite.suites ?? []).map((child) => parseSuite(child, [...parents, suite.title]))
+	const nestedSpecs = nestedSuites.flatMap((suite) => suite.specs)
+	const directSpecs = suite.specs.map((spec) => parseSpec(spec, [...parents, suite.title]))
+	const specs = [...nestedSpecs, ...directSpecs]
+
+	return { file, line, column, path, title, level, root, specs }
 }
 
 function parseSpec(spec: JSONReportSpec, parents: string[] = []): SpecSummary {

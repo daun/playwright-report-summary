@@ -42,7 +42,7 @@ describe('buildTitle', () => {
 	})
 	it('concatenates and filters title segments', async () => {
 		const { title } = buildTitle('A', 'B', '', 'C')
-		expect(title).toBe('A → B → C')
+		expect(title).toBe('A › B › C')
 	})
 	it('concatenates and filters path segments', async () => {
 		const { path } = buildTitle('A', '', 'B', 'C')

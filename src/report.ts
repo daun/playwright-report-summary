@@ -247,7 +247,7 @@ function parseTestResult({ duration, startTime }: JSONReportTestResult): TestRes
 
 export function buildTitle(...paths: string[]): { title: string; path: string[] } {
 	const path = paths.filter(Boolean)
-	const title = path.join(' → ')
+	const title = path.join(' › ')
 	return { title, path }
 }
 

@@ -1,0 +1,1636 @@
+{
+  "config": {
+    "configFile": "/project/tests/config/playwright.config.ts",
+    "rootDir": "/project/tests/functional",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 5
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "../reports/html",
+          "open": "on-failure"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../reports/json/report.json"
+        }
+      ],
+      [
+        "blob",
+        {
+          "outputDir": "../reports/blobs"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 15000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/project/tests/results",
+        "repeatEach": 1,
+        "retries": 4,
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/project/tests/functional",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 5000
+      },
+      {
+        "outputDir": "/project/tests/results",
+        "repeatEach": 1,
+        "retries": 4,
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/project/tests/functional",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 5000
+      },
+      {
+        "outputDir": "/project/tests/results",
+        "repeatEach": 1,
+        "retries": 4,
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/project/tests/functional",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 5000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "version": "1.38.0",
+    "workers": 5,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "add.spec.ts",
+      "file": "add.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "add",
+          "file": "add.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "status": "passed",
+                      "duration": 23,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:13.739Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2f4bb8d916741bacc6cb-23c1b2167130e38ec767",
+              "file": "add.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "adds",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 23,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:13.739Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2f4bb8d916741bacc6cb-328ccc869357d9515391",
+              "file": "add.spec.ts",
+              "line": 7,
+              "column": 3
+            },
+            {
+              "title": "returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "status": "passed",
+                      "duration": 23,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:14.323Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2f4bb8d916741bacc6cb-acf8e9042a34b90fed6a",
+              "file": "add.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "adds",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "status": "passed",
+                      "duration": 23,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:14.323Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2f4bb8d916741bacc6cb-ab12f000ed9a4eea5a16",
+              "file": "add.spec.ts",
+              "line": 7,
+              "column": 3
+            },
+            {
+              "title": "returns",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 13,
+                      "status": "passed",
+                      "duration": 22,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:14.984Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2f4bb8d916741bacc6cb-1072f29bbb9cb3f8bbc9",
+              "file": "add.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "adds",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 15,
+                      "status": "passed",
+                      "duration": 23,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:15.399Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2f4bb8d916741bacc6cb-fd19a15b8b57bf62098b",
+              "file": "add.spec.ts",
+              "line": 7,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "nested.spec.ts",
+      "file": "nested.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "1",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 5000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "status": "passed",
+                  "duration": 9,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2024-04-19T12:56:13.772Z",
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0eec0283ceb63ba72484-9a3c7b59df15cb485f04",
+          "file": "nested.spec.ts",
+          "line": 2,
+          "column": 1
+        },
+        {
+          "title": "1",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 5000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "status": "passed",
+                  "duration": 5,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2024-04-19T12:56:14.375Z",
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0eec0283ceb63ba72484-bfcdf0837f360ce7a898",
+          "file": "nested.spec.ts",
+          "line": 2,
+          "column": 1
+        },
+        {
+          "title": "1",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 5000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 15,
+                  "status": "passed",
+                  "duration": 6,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2024-04-19T12:56:15.447Z",
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "0eec0283ceb63ba72484-f94a682766433f7511a8",
+          "file": "nested.spec.ts",
+          "line": 2,
+          "column": 1
+        }
+      ],
+      "suites": [
+        {
+          "title": "a",
+          "file": "nested.spec.ts",
+          "line": 3,
+          "column": 6,
+          "specs": [
+            {
+              "title": "a-1",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "status": "passed",
+                      "duration": 9,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:13.773Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0eec0283ceb63ba72484-cc483d689f2e0be5e341",
+              "file": "nested.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "a-1",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "status": "passed",
+                      "duration": 6,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:14.384Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0eec0283ceb63ba72484-bcd3729025bc49137edd",
+              "file": "nested.spec.ts",
+              "line": 4,
+              "column": 3
+            },
+            {
+              "title": "a-1",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 15,
+                      "status": "passed",
+                      "duration": 7,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:15.455Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0eec0283ceb63ba72484-99e7c97e42878e138d30",
+              "file": "nested.spec.ts",
+              "line": 4,
+              "column": 3
+            }
+          ],
+          "suites": [
+            {
+              "title": "a-a",
+              "file": "nested.spec.ts",
+              "line": 5,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "a-a-1",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 3,
+                          "status": "passed",
+                          "duration": 9,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:13.777Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-3386713849e4d416ad92",
+                  "file": "nested.spec.ts",
+                  "line": 6,
+                  "column": 5
+                },
+                {
+                  "title": "a-a-2",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "status": "passed",
+                          "duration": 7,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:13.789Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-27a4e5f6ce0cae4f4d07",
+                  "file": "nested.spec.ts",
+                  "line": 7,
+                  "column": 5
+                },
+                {
+                  "title": "a-a-1",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [
+                        {
+                          "workerIndex": 7,
+                          "status": "passed",
+                          "duration": 6,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:14.385Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-67dd3203bcf5627bd9f1",
+                  "file": "nested.spec.ts",
+                  "line": 6,
+                  "column": 5
+                },
+                {
+                  "title": "a-a-2",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [
+                        {
+                          "workerIndex": 6,
+                          "status": "passed",
+                          "duration": 8,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:14.392Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-b081905b127d16fbd43a",
+                  "file": "nested.spec.ts",
+                  "line": 7,
+                  "column": 5
+                },
+                {
+                  "title": "a-a-1",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [
+                        {
+                          "workerIndex": 15,
+                          "status": "passed",
+                          "duration": 8,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:15.464Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-4e4e67dcb71b637b12bb",
+                  "file": "nested.spec.ts",
+                  "line": 6,
+                  "column": 5
+                },
+                {
+                  "title": "a-a-2",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [
+                        {
+                          "workerIndex": 15,
+                          "status": "passed",
+                          "duration": 7,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:15.473Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-cc4792d6f100e06b82dc",
+                  "file": "nested.spec.ts",
+                  "line": 7,
+                  "column": 5
+                }
+              ]
+            },
+            {
+              "title": "a-b",
+              "file": "nested.spec.ts",
+              "line": 9,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "a-b-1",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 4,
+                          "status": "passed",
+                          "duration": 4,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:13.790Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-460ce4be2c6bd2129d37",
+                  "file": "nested.spec.ts",
+                  "line": 10,
+                  "column": 5
+                },
+                {
+                  "title": "a-b-1",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [
+                        {
+                          "workerIndex": 7,
+                          "status": "passed",
+                          "duration": 7,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:14.394Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-842901ce233fa6cfbb62",
+                  "file": "nested.spec.ts",
+                  "line": 10,
+                  "column": 5
+                },
+                {
+                  "title": "a-b-1",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [
+                        {
+                          "workerIndex": 15,
+                          "status": "passed",
+                          "duration": 12,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:15.483Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-94606afc5917b70eeb99",
+                  "file": "nested.spec.ts",
+                  "line": 10,
+                  "column": 5
+                }
+              ],
+              "suites": [
+                {
+                  "title": "a-b-a",
+                  "file": "nested.spec.ts",
+                  "line": 11,
+                  "column": 10,
+                  "specs": [
+                    {
+                      "title": "a-b-a-1",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "chromium",
+                          "projectName": "chromium",
+                          "results": [
+                            {
+                              "workerIndex": 1,
+                              "status": "passed",
+                              "duration": 5,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:13.793Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-dcf9682e55e84d6febdd",
+                      "file": "nested.spec.ts",
+                      "line": 12,
+                      "column": 7
+                    },
+                    {
+                      "title": "a-b-a-1",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "firefox",
+                          "projectName": "firefox",
+                          "results": [
+                            {
+                              "workerIndex": 6,
+                              "status": "passed",
+                              "duration": 7,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:14.402Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-ca801d2130b87feaee12",
+                      "file": "nested.spec.ts",
+                      "line": 12,
+                      "column": 7
+                    },
+                    {
+                      "title": "a-b-a-1",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "webkit",
+                          "projectName": "webkit",
+                          "results": [
+                            {
+                              "workerIndex": 15,
+                              "status": "passed",
+                              "duration": 6,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:15.498Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-6cc5f8e66bcb1945c741",
+                      "file": "nested.spec.ts",
+                      "line": 12,
+                      "column": 7
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "b",
+          "file": "nested.spec.ts",
+          "line": 16,
+          "column": 6,
+          "specs": [
+            {
+              "title": "b-1",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "status": "passed",
+                      "duration": 4,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:13.795Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0eec0283ceb63ba72484-d1ecbb1a7292083136ee",
+              "file": "nested.spec.ts",
+              "line": 17,
+              "column": 3
+            },
+            {
+              "title": "b-2",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "status": "passed",
+                      "duration": 7,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:13.796Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0eec0283ceb63ba72484-ee2e45efc3c908e3b66d",
+              "file": "nested.spec.ts",
+              "line": 18,
+              "column": 3
+            },
+            {
+              "title": "b-1",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 7,
+                      "status": "passed",
+                      "duration": 7,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:14.403Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0eec0283ceb63ba72484-71598a4977f580a99c43",
+              "file": "nested.spec.ts",
+              "line": 17,
+              "column": 3
+            },
+            {
+              "title": "b-2",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "firefox",
+                  "projectName": "firefox",
+                  "results": [
+                    {
+                      "workerIndex": 6,
+                      "status": "passed",
+                      "duration": 12,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:14.415Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0eec0283ceb63ba72484-d66b6ea688bd94612383",
+              "file": "nested.spec.ts",
+              "line": 18,
+              "column": 3
+            },
+            {
+              "title": "b-1",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 15,
+                      "status": "passed",
+                      "duration": 5,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:15.505Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0eec0283ceb63ba72484-4b596707df50c69c1402",
+              "file": "nested.spec.ts",
+              "line": 17,
+              "column": 3
+            },
+            {
+              "title": "b-2",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 5000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "webkit",
+                  "projectName": "webkit",
+                  "results": [
+                    {
+                      "workerIndex": 15,
+                      "status": "passed",
+                      "duration": 6,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2024-04-19T12:56:15.517Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "0eec0283ceb63ba72484-5c0190abc060cac25caa",
+              "file": "nested.spec.ts",
+              "line": 18,
+              "column": 3
+            }
+          ],
+          "suites": [
+            {
+              "title": "b-a",
+              "file": "nested.spec.ts",
+              "line": 19,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "b-a-1",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "status": "passed",
+                          "duration": 8,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:13.798Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-27a9110d6f7a8887c28e",
+                  "file": "nested.spec.ts",
+                  "line": 20,
+                  "column": 5
+                },
+                {
+                  "title": "b-a-1",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "firefox",
+                      "projectName": "firefox",
+                      "results": [
+                        {
+                          "workerIndex": 7,
+                          "status": "passed",
+                          "duration": 8,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:14.417Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-f8feed7944a0261bb010",
+                  "file": "nested.spec.ts",
+                  "line": 20,
+                  "column": 5
+                },
+                {
+                  "title": "b-a-1",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
+                    {
+                      "timeout": 5000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "webkit",
+                      "projectName": "webkit",
+                      "results": [
+                        {
+                          "workerIndex": 15,
+                          "status": "passed",
+                          "duration": 4,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2024-04-19T12:56:15.526Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "0eec0283ceb63ba72484-2099241f481047c14546",
+                  "file": "nested.spec.ts",
+                  "line": 20,
+                  "column": 5
+                }
+              ],
+              "suites": [
+                {
+                  "title": "b-a-a",
+                  "file": "nested.spec.ts",
+                  "line": 21,
+                  "column": 10,
+                  "specs": [
+                    {
+                      "title": "b-a-a-1",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "chromium",
+                          "projectName": "chromium",
+                          "results": [
+                            {
+                              "workerIndex": 1,
+                              "status": "passed",
+                              "duration": 8,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:13.800Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-a075bc0967975b6fe2bb",
+                      "file": "nested.spec.ts",
+                      "line": 22,
+                      "column": 7
+                    },
+                    {
+                      "title": "b-a-a-2",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "chromium",
+                          "projectName": "chromium",
+                          "results": [
+                            {
+                              "workerIndex": 3,
+                              "status": "passed",
+                              "duration": 8,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:13.801Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-caf0850fc08b4d959f68",
+                      "file": "nested.spec.ts",
+                      "line": 23,
+                      "column": 7
+                    },
+                    {
+                      "title": "b-a-a-1",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "firefox",
+                          "projectName": "firefox",
+                          "results": [
+                            {
+                              "workerIndex": 6,
+                              "status": "passed",
+                              "duration": 15,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:14.430Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-7797faaeea728712effd",
+                      "file": "nested.spec.ts",
+                      "line": 22,
+                      "column": 7
+                    },
+                    {
+                      "title": "b-a-a-2",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "firefox",
+                          "projectName": "firefox",
+                          "results": [
+                            {
+                              "workerIndex": 7,
+                              "status": "passed",
+                              "duration": 14,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:14.430Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-c09b8788d4a004f22a0a",
+                      "file": "nested.spec.ts",
+                      "line": 23,
+                      "column": 7
+                    },
+                    {
+                      "title": "b-a-a-1",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "webkit",
+                          "projectName": "webkit",
+                          "results": [
+                            {
+                              "workerIndex": 15,
+                              "status": "passed",
+                              "duration": 6,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:15.532Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-09a9d4365c978f4d4568",
+                      "file": "nested.spec.ts",
+                      "line": 22,
+                      "column": 7
+                    },
+                    {
+                      "title": "b-a-a-2",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "webkit",
+                          "projectName": "webkit",
+                          "results": [
+                            {
+                              "workerIndex": 15,
+                              "status": "passed",
+                              "duration": 4,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:15.539Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-41d9d635b0c5960d3fe6",
+                      "file": "nested.spec.ts",
+                      "line": 23,
+                      "column": 7
+                    }
+                  ]
+                },
+                {
+                  "title": "b-a-b",
+                  "file": "nested.spec.ts",
+                  "line": 25,
+                  "column": 10,
+                  "specs": [
+                    {
+                      "title": "b-a-b-1",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "chromium",
+                          "projectName": "chromium",
+                          "results": [
+                            {
+                              "workerIndex": 4,
+                              "status": "passed",
+                              "duration": 9,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:13.804Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-a1dd807586c4bcf18fba",
+                      "file": "nested.spec.ts",
+                      "line": 26,
+                      "column": 7
+                    },
+                    {
+                      "title": "b-a-b-2",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "chromium",
+                          "projectName": "chromium",
+                          "results": [
+                            {
+                              "workerIndex": 0,
+                              "status": "passed",
+                              "duration": 7,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:13.807Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-1475733cd6e2999f2097",
+                      "file": "nested.spec.ts",
+                      "line": 27,
+                      "column": 7
+                    },
+                    {
+                      "title": "b-a-b-1",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "firefox",
+                          "projectName": "firefox",
+                          "results": [
+                            {
+                              "workerIndex": 7,
+                              "status": "passed",
+                              "duration": 14,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:14.446Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-bc099b1eb6f568b80de9",
+                      "file": "nested.spec.ts",
+                      "line": 26,
+                      "column": 7
+                    },
+                    {
+                      "title": "b-a-b-2",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "firefox",
+                          "projectName": "firefox",
+                          "results": [
+                            {
+                              "workerIndex": 6,
+                              "status": "passed",
+                              "duration": 14,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:14.447Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-e1160db57f6e6021fe49",
+                      "file": "nested.spec.ts",
+                      "line": 27,
+                      "column": 7
+                    },
+                    {
+                      "title": "b-a-b-1",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "webkit",
+                          "projectName": "webkit",
+                          "results": [
+                            {
+                              "workerIndex": 15,
+                              "status": "passed",
+                              "duration": 4,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:15.544Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-07754deb2fb79cfed177",
+                      "file": "nested.spec.ts",
+                      "line": 26,
+                      "column": 7
+                    },
+                    {
+                      "title": "b-a-b-2",
+                      "ok": true,
+                      "tags": [],
+                      "tests": [
+                        {
+                          "timeout": 5000,
+                          "annotations": [],
+                          "expectedStatus": "passed",
+                          "projectId": "webkit",
+                          "projectName": "webkit",
+                          "results": [
+                            {
+                              "workerIndex": 15,
+                              "status": "passed",
+                              "duration": 4,
+                              "errors": [],
+                              "stdout": [],
+                              "stderr": [],
+                              "retry": 0,
+                              "startTime": "2024-04-19T12:56:15.551Z",
+                              "attachments": []
+                            }
+                          ],
+                          "status": "expected"
+                        }
+                      ],
+                      "id": "0eec0283ceb63ba72484-249106888494c9d6420e",
+                      "file": "nested.spec.ts",
+                      "line": 27,
+                      "column": 7
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

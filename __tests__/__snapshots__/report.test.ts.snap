@@ -17,18 +17,18 @@ exports[`renderReportSummary matches snapshot 1`] = `
 
 <details open><summary><strong>Failed tests</strong></summary>
 
-chromium → add.spec.ts → add → adds
-  firefox → add.spec.ts → add → adds
+chromium › add.spec.ts › add › adds
+  firefox › add.spec.ts › add › adds
 
 </details>
 <details ><summary><strong>Flaky tests</strong></summary>
 
-chromium → multiply.spec.ts → multiply → multiplies
+chromium › multiply.spec.ts › multiply › multiplies
 
 </details>
 <details ><summary><strong>Skipped tests</strong></summary>
 
-chromium → multiply.spec.ts → multiply → skips
+chromium › multiply.spec.ts › multiply › skips
 
 </details>"
 `;

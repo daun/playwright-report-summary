@@ -10,75 +10,6 @@ import { debug } from '@actions/core'
 import { formatDuration, n, renderAccordion, upperCaseFirst } from './formatting'
 import { icons, renderIcon } from './icons'
 
-// interface Report {
-// 	config: {
-// 		configFile: string
-// 		rootDir: string
-// 		fullyParallel: boolean
-// 		globalTimeout: number
-// 		grep: Record<string, unknown>
-// 		grepInvert: null
-// 		maxFailures: number
-// 		metadata: {
-// 			actualWorkers: number
-// 			totalTime: number
-// 		}
-// 		projects: Project[]
-// 		shard?: {
-// 			current: number
-// 			total: number
-// 		}
-// 		version: string
-// 		workers: number
-// 	}
-// 	suites: Suite[]
-// 	errors: any[]
-// }
-
-// interface Project {
-// 	id: string
-// 	name: string
-// }
-
-// interface Suite {
-// 	title: string
-// 	file: string
-// 	column: number
-// 	line: number
-// 	specs: Spec[]
-// 	suites: Suite[]
-// }
-
-// interface Spec {
-// 	title: string
-// 	ok: boolean
-// 	tags: string[]
-// 	tests: Test[]
-// 	id: string
-// 	file: string
-// 	line: number
-// 	column: number
-// }
-
-// interface Test {
-// 	timeout: number
-// 	expectedStatus: 'passed' | 'skipped' | 'failed' | 'flaky' | string
-// 	projectId: string
-// 	projectName: string
-// 	results: TestResult[]
-// 	status: 'expected' | 'skipped' | string
-// }
-
-// interface TestResult {
-// 	workerIndex: number
-// 	status: 'passed' | 'failed' | 'skipped' | string
-// 	duration: number
-// 	error?: any
-// 	errors: any[]
-// 	retry: number
-// 	startTime: string
-// }
-
 export interface ReportSummary {
 	version: string
 	started: Date
@@ -87,7 +18,7 @@ export interface ReportSummary {
 	shards: number
 	projects: string[]
 	files: string[]
-	suites: string[]
+	suites: SuiteSummary[]
 	specs: SpecSummary[]
 	tests: TestSummary[]
 	failed: TestSummary[]
@@ -95,6 +26,17 @@ export interface ReportSummary {
 	flaky: TestSummary[]
 	skipped: TestSummary[]
 	results: TestResultSummary[]
+}
+
+interface SuiteSummary {
+	file: string
+	line: number
+	column: number
+	path: string[]
+	title: string
+	level: number
+	root: boolean
+	specs: SpecSummary[]
 }
 
 interface SpecSummary {
@@ -137,29 +79,24 @@ export function isValidReport(report: unknown): report is JSONReport {
 	return report !== null && typeof report === 'object' && 'config' in report && 'errors' in report && 'suites' in report
 }
 
-export function parseReport(data: string): ReportSummary {
+export function makeReport(data: string): JSONReport {
 	const report: JSONReport = JSON.parse(data)
-	if (!isValidReport(report)) {
+	if (isValidReport(report)) {
+		return report
+	} else {
 		debug('Invalid report file')
 		debug(data)
 		throw new Error('Invalid JSON report file')
 	}
+}
 
-	const files: string[] = report.suites.map((file) => file.title)
-	const suites: string[] = report.suites.flatMap((file) =>
-		file.suites?.length ? [...file.suites.map((suite) => `${file.title} > ${suite.title}`)] : [file.title]
-	)
-	const specs: SpecSummary[] = report.suites.reduce((all, file) => {
-		for (const spec of file.specs) {
-			all.push(parseSpec(spec, [file]))
-		}
-		for (const suite of file.suites || []) {
-			for (const spec of suite.specs) {
-				all.push(parseSpec(spec, [file, suite]))
-			}
-		}
-		return all
-	}, [] as SpecSummary[])
+export function parseReport(data: string): ReportSummary {
+	const report = makeReport(data)
+	const files = parseReportFiles(report)
+	const allSuites = parseReportSuites(report)
+	const suites = allSuites.filter((suite) => suite.root)
+	const specs = allSuites.flatMap((suite) => suite.specs)
+
 	const tests = specs.flatMap((spec) => spec.tests)
 	const results = tests.flatMap((test) => test.results)
 	const failed = tests.filter((test) => test.failed)
@@ -192,35 +129,39 @@ export function parseReport(data: string): ReportSummary {
 	}
 }
 
-function getTotalDuration(report: JSONReport, results: TestResultSummary[]): { duration: number; started: Date } {
-	let duration = 0
-	let started = new Date()
-	const { totalTime } = report.config.metadata
-	if (totalTime) {
-		duration = totalTime
-	} else {
-		const sorted = results.sort((a, b) => a.started.getTime() - b.started.getTime())
-		const first = sorted[0]
-		const last = sorted[sorted.length - 1]
-		if (first && last) {
-			started = first.started
-			duration = last.started.getTime() + last.duration - first.started.getTime()
-		}
-	}
-	return { duration, started }
+export function parseReportFiles({ suites }: JSONReport): string[] {
+	return suites.map((suite) => suite.file)
 }
 
-function parseSpec(spec: JSONReportSpec, parents: JSONReportSuite[] = []): SpecSummary {
+export function parseReportSuites({ suites }: JSONReport): SuiteSummary[] {
+	return suites.map((suite) => parseSuite(suite))
+}
+
+function parseSuite(suite: JSONReportSuite, parents: string[] = []): SuiteSummary {
+	const { file, line, column } = suite
+	const { title, path } = buildTitle(...parents, suite.title)
+	const level = parents.length
+	const root = level === 0
+
+	const directSpecs = (suite.specs ?? []).map((spec) => parseSpec(spec, [...parents, suite.title]))
+	const nestedSuites = (suite.suites ?? []).map((child) => parseSuite(child, [...parents, suite.title]))
+	const nestedSpecs = nestedSuites.flatMap((suite) => suite.specs)
+	const specs = [...nestedSpecs, ...directSpecs]
+
+	return { file, line, column, path, title, level, root, specs }
+}
+
+function parseSpec(spec: JSONReportSpec, parents: string[] = []): SpecSummary {
 	const { ok, file, line, column } = spec
-	const { title, path } = buildTitle(...parents.map((p) => p.title), spec.title)
+	const { title, path } = buildTitle(...parents, spec.title)
 	const tests = spec.tests.map((test) => parseTest(test, spec, parents))
 	return { ok, file, line, column, path, title, tests }
 }
 
-function parseTest(test: JSONReportTest, spec: JSONReportSpec, parents: JSONReportSuite[] = []): TestSummary {
+function parseTest(test: JSONReportTest, spec: JSONReportSpec, parents: string[] = []): TestSummary {
 	const { file, line, column } = spec
 	const { status, projectName: project } = test
-	const { title, path } = buildTitle(project, ...parents.map((p) => p.title), spec.title)
+	const { title, path } = buildTitle(project, ...parents, spec.title)
 	const results = test.results.map((result) => parseTestResult(result))
 	const passed = status === 'expected'
 	const failed = status === 'unexpected'
@@ -233,9 +174,9 @@ function parseTestResult({ duration, startTime }: JSONReportTestResult): TestRes
 	return { duration, started: new Date(startTime) }
 }
 
-function buildTitle(...paths: string[]): { title: string; path: string[] } {
+export function buildTitle(...paths: string[]): { title: string; path: string[] } {
 	const path = paths.filter(Boolean)
-	const title = path.join(' → ')
+	const title = path.join(' › ')
 	return { title, path }
 }
 
@@ -300,4 +241,22 @@ export function renderReportSummary(
 		.map((p) => p.trim())
 		.filter(Boolean)
 		.join('\n\n')
+}
+
+function getTotalDuration(report: JSONReport, results: TestResultSummary[]): { duration: number; started: Date } {
+	let duration = 0
+	let started = new Date()
+	const { totalTime } = report.config.metadata
+	if (totalTime) {
+		duration = totalTime
+	} else {
+		const sorted = results.sort((a, b) => a.started.getTime() - b.started.getTime())
+		const first = sorted[0]
+		const last = sorted[sorted.length - 1]
+		if (first && last) {
+			started = first.started
+			duration = last.started.getTime() + last.duration - first.started.getTime()
+		}
+	}
+	return { duration, started }
 }

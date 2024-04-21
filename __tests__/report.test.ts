@@ -4,12 +4,21 @@
 
 import { expect } from '@jest/globals'
 import { readFile } from '../src/fs'
-import { ReportSummary, isValidReport, parseReport, renderReportSummary } from '../src/report'
+import {
+	ReportSummary,
+	buildTitle,
+	isValidReport,
+	parseReport,
+	parseReportFiles,
+	parseReportSuites,
+	renderReportSummary
+} from '../src/report'
 
 const defaultReport = 'report-valid.json'
 const invalidReport = 'report-invalid.json'
 const reportWithoutDuration = 'report-without-duration.json'
 const shardedReport = 'report-sharded.json'
+const nestedReport = 'report-nested.json'
 
 async function getReport(file = defaultReport): Promise<string> {
 	return await readFile(`__tests__/__fixtures__/${file}`)
@@ -29,6 +38,41 @@ describe('isValidReport', () => {
 		expect(isValidReport([])).toBe(false)
 		expect(isValidReport('')).toBe(false)
 		expect(isValidReport(JSON.parse(report))).toBe(false)
+	})
+})
+
+describe('buildTitle', () => {
+	it('returns an object with path and title', async () => {
+		const result = buildTitle('A', 'B')
+		expect(result).toBeInstanceOf(Object)
+		expect(result.path).toBeDefined()
+		expect(result.title).toBeDefined()
+	})
+	it('concatenates and filters title segments', async () => {
+		const { title } = buildTitle('A', 'B', '', 'C')
+		expect(title).toBe('A › B › C')
+	})
+	it('concatenates and filters path segments', async () => {
+		const { path } = buildTitle('A', '', 'B', 'C')
+		expect(path).toStrictEqual(['A', 'B', 'C'])
+	})
+})
+
+describe('parseReportFiles', () => {
+	it('returns an array of root filenames', async () => {
+		const report = JSON.parse(await getReport(nestedReport))
+		const files = parseReportFiles(report)
+		expect(files).toStrictEqual(['add.spec.ts', 'nested.spec.ts'])
+	})
+})
+
+describe('parseReportSuites', () => {
+	it('returns an array of root suite summaries', async () => {
+		const report = JSON.parse(await getReport(nestedReport))
+		const suites = parseReportSuites(report)
+		expect(suites).toBeInstanceOf(Array)
+		expect(suites.length).toBe(2)
+		expect(suites[0].title).toBe('add.spec.ts')
 	})
 })
 
@@ -84,6 +128,12 @@ describe('parseReport', () => {
 		expect(parsed.passed.length).toBe(22)
 		expect(parsed.flaky.length).toBe(1)
 		expect(parsed.skipped.length).toBe(3)
+	})
+	it('counts nested suites', async () => {
+		const parsed = await getParsedReport(nestedReport)
+		expect(parsed.suites.length).toBe(2)
+		expect(parsed.specs.length).toBe(45)
+		expect(parsed.tests.length).toBe(45)
 	})
 })
 

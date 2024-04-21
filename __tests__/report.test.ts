@@ -4,7 +4,15 @@
 
 import { expect } from '@jest/globals'
 import { readFile } from '../src/fs'
-import { ReportSummary, buildTitle, isValidReport, parseReport, parseReportFiles, parseReportSuites, renderReportSummary } from '../src/report'
+import {
+	ReportSummary,
+	buildTitle,
+	isValidReport,
+	parseReport,
+	parseReportFiles,
+	parseReportSuites,
+	renderReportSummary
+} from '../src/report'
 
 const defaultReport = 'report-valid.json'
 const invalidReport = 'report-invalid.json'

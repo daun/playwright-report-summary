@@ -15,7 +15,7 @@
 
 ## [3.0.1] - 2024-04-02
 
-- Fix reflow helper being optimized away during build step
+- Bump dependencies
 
 ## [3.0.0] - 2023-12-13
 

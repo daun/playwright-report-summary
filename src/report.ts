@@ -79,18 +79,24 @@ export function isValidReport(report: unknown): report is JSONReport {
 	return report !== null && typeof report === 'object' && 'config' in report && 'errors' in report && 'suites' in report
 }
 
-export function parseReport(data: string): ReportSummary {
+export function makeReport(data: string): JSONReport {
 	const report: JSONReport = JSON.parse(data)
-	if (!isValidReport(report)) {
+	if (isValidReport(report)) {
+		return report
+	} else {
 		debug('Invalid report file')
 		debug(data)
 		throw new Error('Invalid JSON report file')
 	}
+}
 
+export function parseReport(data: string): ReportSummary {
+	const report = makeReport(data)
 	const files = parseReportFiles(report)
 	const allSuites = parseReportSuites(report)
 	const suites = allSuites.filter((suite) => suite.root)
 	const specs = allSuites.flatMap((suite) => suite.specs)
+
 	const tests = specs.flatMap((spec) => spec.tests)
 	const results = tests.flatMap((test) => test.results)
 	const failed = tests.filter((test) => test.failed)
@@ -123,11 +129,11 @@ export function parseReport(data: string): ReportSummary {
 	}
 }
 
-function parseReportFiles({ suites }: JSONReport): string[] {
+export function parseReportFiles({ suites }: JSONReport): string[] {
 	return suites.map((suite) => suite.file)
 }
 
-function parseReportSuites({ suites }: JSONReport): SuiteSummary[] {
+export function parseReportSuites({ suites }: JSONReport): SuiteSummary[] {
 	return suites.map((suite) => parseSuite(suite))
 }
 
@@ -137,9 +143,9 @@ function parseSuite(suite: JSONReportSuite, parents: string[] = []): SuiteSummar
 	const level = parents.length
 	const root = level === 0
 
+	const directSpecs = (suite.specs ?? []).map((spec) => parseSpec(spec, [...parents, suite.title]))
 	const nestedSuites = (suite.suites ?? []).map((child) => parseSuite(child, [...parents, suite.title]))
 	const nestedSpecs = nestedSuites.flatMap((suite) => suite.specs)
-	const directSpecs = suite.specs.map((spec) => parseSpec(spec, [...parents, suite.title]))
 	const specs = [...nestedSpecs, ...directSpecs]
 
 	return { file, line, column, path, title, level, root, specs }

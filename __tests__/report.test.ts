@@ -4,7 +4,7 @@
 
 import { expect } from '@jest/globals'
 import { readFile } from '../src/fs'
-import { ReportSummary, buildTitle, isValidReport, parseReport, renderReportSummary } from '../src/report'
+import { ReportSummary, buildTitle, isValidReport, parseReport, parseReportFiles, parseReportSuites, renderReportSummary } from '../src/report'
 
 const defaultReport = 'report-valid.json'
 const invalidReport = 'report-invalid.json'
@@ -47,6 +47,24 @@ describe('buildTitle', () => {
 	it('concatenates and filters path segments', async () => {
 		const { path } = buildTitle('A', '', 'B', 'C')
 		expect(path).toStrictEqual(['A', 'B', 'C'])
+	})
+})
+
+describe('parseReportFiles', () => {
+	it('returns an array of root filenames', async () => {
+		const report = JSON.parse(await getReport(nestedReport))
+		const files = parseReportFiles(report)
+		expect(files).toStrictEqual(['add.spec.ts', 'nested.spec.ts'])
+	})
+})
+
+describe('parseReportSuites', () => {
+	it('returns an array of root suite summaries', async () => {
+		const report = JSON.parse(await getReport(nestedReport))
+		const suites = parseReportSuites(report)
+		expect(suites).toBeInstanceOf(Array)
+		expect(suites.length).toBe(2)
+		expect(suites[0].title).toBe('add.spec.ts')
 	})
 })
 

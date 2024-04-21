@@ -84,3 +84,7 @@ The rendered markdown summary of the test report.
 ### comment-id
 
 The ID of the comment that was created or updated
+
+# License
+
+[MIT](./LICENSE)

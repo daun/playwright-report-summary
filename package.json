@@ -1,21 +1,24 @@
 {
   "name": "playwright-report-summary",
-  "description": "A GitHub action to report Playwright test results as pull request comments",
+  "description": "A GitHub action to report Playwright test results as pull-request comments",
   "version": "3.3.0",
-  "author": "",
-  "private": true,
-  "homepage": "https://github.com/actions/playwright-report-summary",
+  "author": "Philipp Daun <daun@daun.ltd>",
+  "homepage": "https://github.com/daun/playwright-report-summary",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/playwright-report-summary.git"
+    "url": "git+https://github.com/daun/playwright-report-summary.git"
   },
   "bugs": {
-    "url": "https://github.com/actions/playwright-report-summary/issues"
+    "url": "https://github.com/daun/playwright-report-summary/issues"
   },
   "keywords": [
     "actions",
     "node",
-    "setup"
+    "testing",
+    "reporting",
+    "test report",
+    "playwright",
+    "pull request"
   ],
   "exports": {
     ".": "./dist/index.js"

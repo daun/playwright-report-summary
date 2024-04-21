@@ -32165,7 +32165,7 @@ if (process.env.GITHUB_ACTIONS === 'true') {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.renderReportSummary = exports.buildTitle = exports.parseReport = exports.isValidReport = void 0;
+exports.renderReportSummary = exports.buildTitle = exports.parseReportSuites = exports.parseReportFiles = exports.parseReport = exports.makeReport = exports.isValidReport = void 0;
 const core_1 = __nccwpck_require__(2186);
 const formatting_1 = __nccwpck_require__(9598);
 const icons_1 = __nccwpck_require__(6975);
@@ -32173,16 +32173,24 @@ function isValidReport(report) {
     return report !== null && typeof report === 'object' && 'config' in report && 'errors' in report && 'suites' in report;
 }
 exports.isValidReport = isValidReport;
-function parseReport(data) {
+function makeReport(data) {
     const report = JSON.parse(data);
-    if (!isValidReport(report)) {
+    if (isValidReport(report)) {
+        return report;
+    }
+    else {
         (0, core_1.debug)('Invalid report file');
         (0, core_1.debug)(data);
         throw new Error('Invalid JSON report file');
     }
-    const { files, suites: allSuites } = extractSuiteInformation(report.suites);
-    const suites = allSuites.map((suite) => parseSuite(suite), []);
-    const specs = suites.flatMap((suite) => suite.specs);
+}
+exports.makeReport = makeReport;
+function parseReport(data) {
+    const report = makeReport(data);
+    const files = parseReportFiles(report);
+    const allSuites = parseReportSuites(report);
+    const suites = allSuites.filter((suite) => suite.root);
+    const specs = allSuites.flatMap((suite) => suite.specs);
     const tests = specs.flatMap((spec) => spec.tests);
     const results = tests.flatMap((test) => test.results);
     const failed = tests.filter((test) => test.failed);
@@ -32213,27 +32221,24 @@ function parseReport(data) {
     };
 }
 exports.parseReport = parseReport;
-function extractSuiteInformation(suites) {
-    let allFiles = [];
-    let allSuites = [];
-    let allSpecs = [];
-    for (const suite of suites) {
-        allFiles.push(suite.file);
-        // Nested suites and their specs
-        const { suites: nestedSuites, specs: nestedSpecs } = extractSuiteInformation(suite.suites ?? []);
-        allSuites = allSuites.concat(nestedSuites);
-        allSpecs = allSpecs.concat(nestedSpecs);
-        // Current-suite specs
-        allSpecs = allSpecs.concat(suite.specs ?? []);
-        allSuites.push(suite);
-    }
-    return { files: allFiles, suites: allSuites, specs: allSpecs };
+function parseReportFiles({ suites }) {
+    return suites.map((suite) => suite.file);
 }
+exports.parseReportFiles = parseReportFiles;
+function parseReportSuites({ suites }) {
+    return suites.map((suite) => parseSuite(suite));
+}
+exports.parseReportSuites = parseReportSuites;
 function parseSuite(suite, parents = []) {
     const { file, line, column } = suite;
     const { title, path } = buildTitle(...parents, suite.title);
-    const specs = suite.specs.map((spec) => parseSpec(spec, [...parents, suite.title]));
-    return { file, line, column, path, title, specs };
+    const level = parents.length;
+    const root = level === 0;
+    const directSpecs = (suite.specs ?? []).map((spec) => parseSpec(spec, [...parents, suite.title]));
+    const nestedSuites = (suite.suites ?? []).map((child) => parseSuite(child, [...parents, suite.title]));
+    const nestedSpecs = nestedSuites.flatMap((suite) => suite.specs);
+    const specs = [...nestedSpecs, ...directSpecs];
+    return { file, line, column, path, title, level, root, specs };
 }
 function parseSpec(spec, parents = []) {
     const { ok, file, line, column } = spec;
@@ -32257,7 +32262,7 @@ function parseTestResult({ duration, startTime }) {
 }
 function buildTitle(...paths) {
     const path = paths.filter(Boolean);
-    const title = path.join(' → ');
+    const title = path.join(' › ');
     return { title, path };
 }
 exports.buildTitle = buildTitle;

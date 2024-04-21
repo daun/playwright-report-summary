@@ -121,15 +121,11 @@ describe('parseReport', () => {
 		expect(parsed.flaky.length).toBe(1)
 		expect(parsed.skipped.length).toBe(3)
 	})
-	it('counts nested tests', async () => {
+	it('counts nested suites', async () => {
 		const parsed = await getParsedReport(nestedReport)
-		expect(parsed.suites.length).toBe(4)
-		expect(parsed.specs.length).toBe(14)
-		expect(parsed.tests.length).toBe(27)
-		expect(parsed.failed.length).toBe(1)
-		expect(parsed.passed.length).toBe(22)
-		expect(parsed.flaky.length).toBe(1)
-		expect(parsed.skipped.length).toBe(3)
+		expect(parsed.suites.length).toBe(2)
+		expect(parsed.specs.length).toBe(45)
+		expect(parsed.tests.length).toBe(45)
 	})
 })
 

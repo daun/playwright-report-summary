@@ -76,7 +76,7 @@
     "@octokit/openapi-types": "^22.2.0",
     "@playwright/test": "^1.43.1",
     "@types/jest": "^29.5.4",
-    "@types/node": "^20.12.7",
+    "@types/node": "^20.12.8",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
     "@typescript-eslint/parser": "^7.8.0",
     "@vercel/ncc": "^0.38.0",

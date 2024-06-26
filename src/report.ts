@@ -71,6 +71,7 @@ interface ReportRenderOptions {
 	commit?: string
 	message?: string
 	title?: string
+	additionalDetails?: string
 	reportUrl?: string
 	iconStyle?: keyof typeof icons
 }
@@ -182,7 +183,7 @@ export function buildTitle(...paths: string[]): { title: string; path: string[] 
 
 export function renderReportSummary(
 	report: ReportSummary,
-	{ commit, message, title, reportUrl, iconStyle }: ReportRenderOptions = {}
+	{ commit, message, title, additionalDetails, reportUrl, iconStyle }: ReportRenderOptions = {}
 ): string {
 	const { duration, failed, passed, flaky, skipped } = report
 	const icon = (symbol: string): string => renderIcon(symbol, { iconStyle })
@@ -214,7 +215,8 @@ export function renderReportSummary(
 		)}`,
 		`${icon('duration')}  ${duration ? formatDuration(duration) : 'unknown'}`,
 		commit && message ? `${icon('commit')}  ${message} (${commit.slice(0, 7)})` : '',
-		commit && !message ? `${icon('commit')}  ${commit.slice(0, 7)}` : ''
+		commit && !message ? `${icon('commit')}  ${commit.slice(0, 7)}` : '',
+		additionalDetails ? `${icon('info')}  ${additionalDetails}` : ''
 	]
 	paragraphs.push(stats.filter(Boolean).join('  \n'))
 

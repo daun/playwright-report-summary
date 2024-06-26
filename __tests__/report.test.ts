@@ -141,6 +141,7 @@ describe('renderReportSummary', () => {
 	const renderOptions = {
 		title: 'Test Report',
 		reportUrl: 'https://example.com/report',
+		additionalDetails: 'For more information, see our [documentation](https://example.com/docs)',
 		commit: '1234567'
 	}
 	const getReportSummary = async (): Promise<string> =>

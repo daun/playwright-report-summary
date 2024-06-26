@@ -63,6 +63,10 @@ jobs:
     # Title/headline to use for the created pull request comment.
     # Default: Playwright test results
     comment-title: 'Results'
+    
+    # Additional details to include in the summary comment
+    # Default: ''
+    additional-details: 'For more information, see our [end-to-end test readme](link)'
 
     # Create a job summary comment for the workflow run
     # Default: false

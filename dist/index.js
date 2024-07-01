@@ -32048,14 +32048,14 @@ async function report() {
     const reportUrl = (0, core_1.getInput)('report-url');
     const reportTag = (0, core_1.getInput)('report-tag') || workflow;
     const commentTitle = (0, core_1.getInput)('comment-title') || 'Playwright test results';
-    const additionalDetails = (0, core_1.getInput)('additional-details');
+    const customInfo = (0, core_1.getInput)('custom-info');
     const iconStyle = (0, core_1.getInput)('icon-style') || 'octicons';
     const jobSummary = (0, core_1.getInput)('job-summary') ? (0, core_1.getBooleanInput)('job-summary') : false;
     (0, core_1.debug)(`Report file: ${reportFile}`);
     (0, core_1.debug)(`Report url: ${reportUrl || '(none)'}`);
     (0, core_1.debug)(`Report tag: ${reportTag || '(none)'}`);
     (0, core_1.debug)(`Comment title: ${commentTitle}`);
-    (0, core_1.debug)(`Additional details: ${additionalDetails || '(none)'}`);
+    (0, core_1.debug)(`Custom info: ${customInfo || '(none)'}`);
     let ref = github_1.context.ref;
     let sha = github_1.context.sha;
     const octokit = (0, github_1.getOctokit)(token);
@@ -32086,7 +32086,7 @@ async function report() {
     const summary = (0, report_1.renderReportSummary)(report, {
         commit: sha,
         title: commentTitle,
-        additionalDetails,
+        customInfo,
         reportUrl,
         iconStyle
     });
@@ -32271,7 +32271,7 @@ function buildTitle(...paths) {
     return { title, path };
 }
 exports.buildTitle = buildTitle;
-function renderReportSummary(report, { commit, message, title, additionalDetails, reportUrl, iconStyle } = {}) {
+function renderReportSummary(report, { commit, message, title, customInfo, reportUrl, iconStyle } = {}) {
     const { duration, failed, passed, flaky, skipped } = report;
     const icon = (symbol) => (0, icons_1.renderIcon)(symbol, { iconStyle });
     const paragraphs = [];
@@ -32293,7 +32293,7 @@ function renderReportSummary(report, { commit, message, title, additionalDetails
         `${icon('duration')}  ${duration ? (0, formatting_1.formatDuration)(duration) : 'unknown'}`,
         commit && message ? `${icon('commit')}  ${message} (${commit.slice(0, 7)})` : '',
         commit && !message ? `${icon('commit')}  ${commit.slice(0, 7)}` : '',
-        additionalDetails ? `${icon('info')}  ${additionalDetails}` : ''
+        customInfo ? `${icon('info')}  ${customInfo}` : ''
     ];
     paragraphs.push(stats.filter(Boolean).join('  \n'));
     // Lists of failed/skipped tests

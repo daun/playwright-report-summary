@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.4.0] - 2024-07-02
+
+- Add ability to display custom information by @fungairino
+
 ## [3.3.0] - 2024-04-21
 
 - Add support for indefinitely nested specs

@@ -64,7 +64,7 @@ jobs:
     # Default: Playwright test results
     comment-title: 'Results'
     
-    # Additional details to include in the summary comment
+    # Additional information to include in the summary comment, markdown-formatted
     # Default: ''
     custom-info: 'For more information, see our [end-to-end test readme](link)'
 

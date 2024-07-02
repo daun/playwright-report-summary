@@ -42,6 +42,7 @@ export async function report(): Promise<void> {
 	const reportUrl = getInput('report-url')
 	const reportTag = getInput('report-tag') || workflow
 	const commentTitle = getInput('comment-title') || 'Playwright test results'
+	const customInfo = getInput('custom-info')
 	const iconStyle = getInput('icon-style') || 'octicons'
 	const jobSummary = getInput('job-summary') ? getBooleanInput('job-summary') : false
 
@@ -49,6 +50,7 @@ export async function report(): Promise<void> {
 	debug(`Report url: ${reportUrl || '(none)'}`)
 	debug(`Report tag: ${reportTag || '(none)'}`)
 	debug(`Comment title: ${commentTitle}`)
+	debug(`Custom info: ${customInfo || '(none)'}`)
 
 	let ref: string = context.ref
 	let sha: string = context.sha
@@ -83,6 +85,7 @@ export async function report(): Promise<void> {
 	const summary = renderReportSummary(report, {
 		commit: sha,
 		title: commentTitle,
+		customInfo,
 		reportUrl,
 		iconStyle
 	})

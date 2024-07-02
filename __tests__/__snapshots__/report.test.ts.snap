@@ -13,7 +13,8 @@ exports[`renderReportSummary matches snapshot 1`] = `
 ![report](https://icongr.am/octicons/package.svg?size=14&color=abb4bf)  [Open report ↗︎](https://example.com/report)  
 ![stats](https://icongr.am/octicons/pulse.svg?size=14&color=abb4bf)  14 tests across 4 suites  
 ![duration](https://icongr.am/octicons/clock.svg?size=14&color=abb4bf)  1.1 seconds  
-![commit](https://icongr.am/octicons/git-pull-request.svg?size=14&color=abb4bf)  1234567
+![commit](https://icongr.am/octicons/git-pull-request.svg?size=14&color=abb4bf)  1234567  
+![info](https://icongr.am/octicons/info.svg?size=14&color=abb4bf)  For more information, see our [documentation](https://example.com/docs)
 
 <details open><summary><strong>Failed tests</strong></summary>
 

@@ -14,7 +14,8 @@ export const icons: Record<string, IconSet> = {
 		duration: 'clock',
 		link: 'link-external',
 		report: 'package',
-		commit: 'git-pull-request'
+		commit: 'git-pull-request',
+		info: 'info'
 	},
 	emojis: {
 		failed: '❌',
@@ -25,7 +26,8 @@ export const icons: Record<string, IconSet> = {
 		duration: '',
 		link: '',
 		report: '',
-		commit: ''
+		commit: '',
+		info: 'ℹ️'
 	}
 }
 

@@ -32042,7 +32042,7 @@ exports.run = run;
 async function report() {
     const cwd = process.cwd();
     const { workflow, eventName, repo, payload } = github_1.context;
-    const { owner, number: pull_number } = github_1.context.issue || {};
+    const { owner, number: issueNumber } = github_1.context.issue || {};
     const token = (0, core_1.getInput)('github-token');
     const reportFile = (0, core_1.getInput)('report-file', { required: true });
     const reportUrl = (0, core_1.getInput)('report-url');
@@ -32058,22 +32058,36 @@ async function report() {
     (0, core_1.debug)(`Custom info: ${customInfo || '(none)'}`);
     let ref = github_1.context.ref;
     let sha = github_1.context.sha;
+    let pr = null;
     const octokit = (0, github_1.getOctokit)(token);
-    if (eventName === 'push') {
-        ref = payload.ref;
-        sha = payload.after;
-        console.log(`Commit pushed onto ${ref} (${sha})`);
-    }
-    else if (eventName === 'pull_request' || eventName === 'pull_request_target') {
-        ref = payload.pull_request?.base?.ref;
-        sha = payload.pull_request?.head?.sha;
-        console.log(`PR #${pull_number} targeting ${ref} (${sha})`);
-    }
-    else if (eventName === 'workflow_dispatch') {
-        console.log(`Workflow dispatched on ${ref} (${sha})`);
-    }
-    else {
-        console.warn(`Unsupported event type: ${eventName}`);
+    switch (eventName) {
+        case 'push':
+            ref = payload.ref;
+            sha = payload.after;
+            console.log(`Commit pushed onto ${ref} (${sha})`);
+            break;
+        case 'pull_request':
+        case 'pull_request_target':
+            ref = payload.pull_request?.base?.ref;
+            sha = payload.pull_request?.head?.sha;
+            pr = issueNumber;
+            console.log(`PR #${pr} targeting ${ref} (${sha})`);
+            break;
+        case 'issue_comment':
+            if (payload.issue?.pull_request) {
+                pr = issueNumber;
+                console.log(`Comment on PR #${pr} targeting ${ref} (${sha})`);
+            }
+            else {
+                console.log(`Comment on issue #${issueNumber}`);
+            }
+            break;
+        case 'workflow_dispatch':
+            console.log(`Workflow dispatched on ${ref} (${sha})`);
+            break;
+        default:
+            console.warn(`Unsupported event type: ${eventName}`);
+            break;
     }
     const reportPath = path_1.default.resolve(cwd, reportFile);
     const reportExists = await (0, fs_1.fileExists)(reportPath);
@@ -32093,14 +32107,13 @@ async function report() {
     const prefix = `<!-- playwright-report-github-action -- ${reportTag} -->`;
     const body = `${prefix}\n\n${summary}`;
     let commentId = null;
-    const hasPR = eventName === 'pull_request' || eventName === 'pull_request_target';
-    if (!hasPR) {
+    if (!pr) {
         console.log('No PR associated with this action run. Not posting a check or comment.');
     }
     else {
         (0, core_1.startGroup)(`Commenting test report on PR`);
         try {
-            const comments = await (0, github_2.getIssueComments)(octokit, { ...repo, issue_number: pull_number });
+            const comments = await (0, github_2.getIssueComments)(octokit, { ...repo, issue_number: pr });
             const existingComment = comments.findLast((c) => c.body?.includes(prefix));
             commentId = existingComment?.id || null;
         }
@@ -32121,7 +32134,7 @@ async function report() {
         if (!commentId) {
             console.log('Creating new comment');
             try {
-                const newComment = await (0, github_2.createIssueComment)(octokit, { ...repo, issue_number: pull_number, body });
+                const newComment = await (0, github_2.createIssueComment)(octokit, { ...repo, issue_number: pr, body });
                 commentId = newComment.id;
                 console.log(`Created new comment #${commentId}`);
             }
@@ -32145,7 +32158,7 @@ async function report() {
         }
         (0, core_1.endGroup)();
     }
-    if (!commentId && hasPR) {
+    if (!commentId && pr) {
         const intro = `Unable to comment on your PR — this can happen for PR's originating from a fork without write permissions. You can copy the test results directly into a comment using the markdown summary below:`;
         (0, core_1.warning)(`${intro}\n\n${body}`, { title: 'Unable to comment on PR' });
     }

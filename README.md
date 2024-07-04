@@ -21,7 +21,9 @@ A GitHub action to report Playwright test results as a pull request comment.
 ### Basic usage
 
 Playwright must be configured to [generate a JSON report](https://playwright.dev/docs/test-reporters#json-reporter)
-and write it to disk. This action receives the report file path as input, in this case `results.json`:
+and write it to disk. This action receives the report file path as input, in this case `results.json`.
+
+Note the `if: always()` to ensure the report comment is created even if the tests failed.
 
 ```yaml
 jobs:
@@ -37,6 +39,7 @@ jobs:
       - run: PLAYWRIGHT_JSON_OUTPUT_NAME=results.json npx playwright test --reporter json
 
       - uses: daun/playwright-report-summary@v3
+        if: always()
         with:
           report-file: results.json
 ```
@@ -45,6 +48,7 @@ jobs:
 
 ```yaml
 - uses: daun/playwright-report-summary@v3
+  if: always()
   with:
     # The GitHub access token to use for API requests. Defaults to the standard GITHUB_TOKEN.
     github-token: ''

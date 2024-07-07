@@ -13,7 +13,13 @@ import {
 import { context, getOctokit } from '@actions/github'
 import { fileExists, readFile } from './fs'
 import { parseReport, renderReportSummary } from './report'
-import { getIssueComments, createIssueComment, updateIssueComment, createPullRequestReview } from './github'
+import {
+	getIssueComments,
+	createIssueComment,
+	updateIssueComment,
+	createPullRequestReview,
+	getPullRequestInfo
+} from './github'
 
 /**
  * The main function for the action.
@@ -34,8 +40,13 @@ export async function run(): Promise<void> {
 export async function report(): Promise<void> {
 	const cwd = process.cwd()
 
-	const { workflow, eventName, repo, payload } = context
-	const { owner, number: issueNumber } = context.issue || {}
+	const {
+		workflow,
+		eventName,
+		repo: { owner, repo },
+		payload
+	} = context
+	const { number: issueNumber } = context.issue || {}
 
 	const token = getInput('github-token')
 	const reportFile = getInput('report-file', { required: true })
@@ -76,6 +87,7 @@ export async function report(): Promise<void> {
 		case 'issue_comment':
 			if (payload.issue?.pull_request) {
 				pr = issueNumber
+				;({ ref, sha } = await getPullRequestInfo(octokit, { owner, repo, pull_number: pr }))
 				console.log(`Comment on PR #${pr} targeting ${ref} (${sha})`)
 			} else {
 				console.log(`Comment on issue #${issueNumber}`)
@@ -119,7 +131,7 @@ export async function report(): Promise<void> {
 	} else {
 		startGroup(`Commenting test report on PR`)
 		try {
-			const comments = await getIssueComments(octokit, { ...repo, issue_number: pr })
+			const comments = await getIssueComments(octokit, { owner, repo, issue_number: pr })
 			const existingComment = comments.findLast((c) => c.body?.includes(prefix))
 			commentId = existingComment?.id || null
 		} catch (error: unknown) {
@@ -129,7 +141,7 @@ export async function report(): Promise<void> {
 		if (commentId) {
 			console.log(`Found previous comment #${commentId}`)
 			try {
-				await updateIssueComment(octokit, { ...repo, comment_id: commentId, body })
+				await updateIssueComment(octokit, { owner, repo, comment_id: commentId, body })
 				console.log(`Updated previous comment #${commentId}`)
 			} catch (error: unknown) {
 				console.error(`Error updating previous comment: ${(error as Error).message}`)
@@ -140,7 +152,7 @@ export async function report(): Promise<void> {
 		if (!commentId) {
 			console.log('Creating new comment')
 			try {
-				const newComment = await createIssueComment(octokit, { ...repo, issue_number: pr, body })
+				const newComment = await createIssueComment(octokit, { owner, repo, issue_number: pr, body })
 				commentId = newComment.id
 				console.log(`Created new comment #${commentId}`)
 			} catch (error: unknown) {

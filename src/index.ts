@@ -35,7 +35,7 @@ export async function report(): Promise<void> {
 	const cwd = process.cwd()
 
 	const { workflow, eventName, repo, payload } = context
-	const { owner, number: pull_number } = context.issue || {}
+	const { owner, number: issueNumber } = context.issue || {}
 
 	const token = getInput('github-token')
 	const reportFile = getInput('report-file', { required: true })
@@ -54,21 +54,41 @@ export async function report(): Promise<void> {
 
 	let ref: string = context.ref
 	let sha: string = context.sha
+	let pr: number | null = null
 
 	const octokit = getOctokit(token)
 
-	if (eventName === 'push') {
-		ref = payload.ref
-		sha = payload.after
-		console.log(`Commit pushed onto ${ref} (${sha})`)
-	} else if (eventName === 'pull_request' || eventName === 'pull_request_target') {
-		ref = payload.pull_request?.base?.ref
-		sha = payload.pull_request?.head?.sha
-		console.log(`PR #${pull_number} targeting ${ref} (${sha})`)
-	} else if (eventName === 'workflow_dispatch') {
-		console.log(`Workflow dispatched on ${ref} (${sha})`)
-	} else {
-		console.warn(`Unsupported event type: ${eventName}`)
+	switch (eventName) {
+		case 'push':
+			ref = payload.ref
+			sha = payload.after
+			console.log(`Commit pushed onto ${ref} (${sha})`)
+			break
+
+		case 'pull_request':
+		case 'pull_request_target':
+			ref = payload.pull_request?.base?.ref
+			sha = payload.pull_request?.head?.sha
+			pr = issueNumber
+			console.log(`PR #${pr} targeting ${ref} (${sha})`)
+			break
+
+		case 'issue_comment':
+			if (payload.issue?.pull_request) {
+				pr = issueNumber
+				console.log(`Comment on PR #${pr} targeting ${ref} (${sha})`)
+			} else {
+				console.log(`Comment on issue #${issueNumber}`)
+			}
+			break
+
+		case 'workflow_dispatch':
+			console.log(`Workflow dispatched on ${ref} (${sha})`)
+			break
+
+		default:
+			console.warn(`Unsupported event type: ${eventName}`)
+			break
 	}
 
 	const reportPath = path.resolve(cwd, reportFile)
@@ -94,14 +114,12 @@ export async function report(): Promise<void> {
 	const body = `${prefix}\n\n${summary}`
 	let commentId = null
 
-	const hasPR = eventName === 'pull_request' || eventName === 'pull_request_target'
-
-	if (!hasPR) {
+	if (!pr) {
 		console.log('No PR associated with this action run. Not posting a check or comment.')
 	} else {
 		startGroup(`Commenting test report on PR`)
 		try {
-			const comments = await getIssueComments(octokit, { ...repo, issue_number: pull_number })
+			const comments = await getIssueComments(octokit, { ...repo, issue_number: pr })
 			const existingComment = comments.findLast((c) => c.body?.includes(prefix))
 			commentId = existingComment?.id || null
 		} catch (error: unknown) {
@@ -122,7 +140,7 @@ export async function report(): Promise<void> {
 		if (!commentId) {
 			console.log('Creating new comment')
 			try {
-				const newComment = await createIssueComment(octokit, { ...repo, issue_number: pull_number, body })
+				const newComment = await createIssueComment(octokit, { ...repo, issue_number: pr, body })
 				commentId = newComment.id
 				console.log(`Created new comment #${commentId}`)
 			} catch (error: unknown) {
@@ -145,7 +163,7 @@ export async function report(): Promise<void> {
 		endGroup()
 	}
 
-	if (!commentId && hasPR) {
+	if (!commentId && pr) {
 		const intro = `Unable to comment on your PR — this can happen for PR's originating from a fork without write permissions. You can copy the test results directly into a comment using the markdown summary below:`
 		warning(`${intro}\n\n${body}`, { title: 'Unable to comment on PR' })
 	}

@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.5.0] - 2024-07-07
+
+- Support pull request comment as workflow trigger
+
 ## [3.4.0] - 2024-07-02
 
 - Add ability to display custom information by @fungairino
@@ -61,6 +65,8 @@
 
 - Initial release
 
+[3.5.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.5.0
+[3.4.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.4.0
 [3.3.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.3.0
 [3.2.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.2.0
 [3.1.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.1.0

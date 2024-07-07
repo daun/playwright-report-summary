@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.5.1] - 2024-07-07
+
+- Display correct commit sha when triggered from pull request comment
+
 ## [3.5.0] - 2024-07-07
 
 - Support pull request comment as workflow trigger
@@ -65,6 +69,7 @@
 
 - Initial release
 
+[3.5.1]: https://github.com/daun/playwright-report-summary/releases/tag/v3.5.1
 [3.5.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.5.0
 [3.4.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.4.0
 [3.3.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.3.0

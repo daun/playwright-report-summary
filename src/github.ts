@@ -7,6 +7,16 @@ type IssueComment = components['schemas']['issue-comment']
 type PullRequestReview = components['schemas']['pull-request-review']
 type Octokit = ReturnType<typeof getOctokit>
 
+export async function getPullRequestInfo(
+	octokit: Octokit,
+	params: { owner: string; repo: string; pull_number: number }
+): Promise<{ ref: string; sha: string }> {
+	const { data: pr } = await octokit.rest.pulls.get(params)
+	const { ref } = pr.base
+	const { sha } = pr.head
+	return { ref, sha }
+}
+
 export async function getIssueComments(
 	octokit: Octokit,
 	params: { owner: string; repo: string; issue_number: number }

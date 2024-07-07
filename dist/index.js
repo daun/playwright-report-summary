@@ -31917,7 +31917,14 @@ exports.readFile = readFile;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.createPullRequestReview = exports.updateIssueComment = exports.createIssueComment = exports.getIssueComments = void 0;
+exports.createPullRequestReview = exports.updateIssueComment = exports.createIssueComment = exports.getIssueComments = exports.getPullRequestInfo = void 0;
+async function getPullRequestInfo(octokit, params) {
+    const { data: pr } = await octokit.rest.pulls.get(params);
+    const { ref } = pr.base;
+    const { sha } = pr.head;
+    return { ref, sha };
+}
+exports.getPullRequestInfo = getPullRequestInfo;
 async function getIssueComments(octokit, params) {
     const { data: comments } = await octokit.rest.issues.listComments(params);
     return comments;
@@ -32041,8 +32048,8 @@ exports.run = run;
  */
 async function report() {
     const cwd = process.cwd();
-    const { workflow, eventName, repo, payload } = github_1.context;
-    const { owner, number: issueNumber } = github_1.context.issue || {};
+    const { workflow, eventName, repo: { owner, repo }, payload } = github_1.context;
+    const { number: issueNumber } = github_1.context.issue || {};
     const token = (0, core_1.getInput)('github-token');
     const reportFile = (0, core_1.getInput)('report-file', { required: true });
     const reportUrl = (0, core_1.getInput)('report-url');
@@ -32076,6 +32083,7 @@ async function report() {
         case 'issue_comment':
             if (payload.issue?.pull_request) {
                 pr = issueNumber;
+                ({ ref, sha } = await (0, github_2.getPullRequestInfo)(octokit, { owner, repo, pull_number: pr }));
                 console.log(`Comment on PR #${pr} targeting ${ref} (${sha})`);
             }
             else {
@@ -32113,7 +32121,7 @@ async function report() {
     else {
         (0, core_1.startGroup)(`Commenting test report on PR`);
         try {
-            const comments = await (0, github_2.getIssueComments)(octokit, { ...repo, issue_number: pr });
+            const comments = await (0, github_2.getIssueComments)(octokit, { owner, repo, issue_number: pr });
             const existingComment = comments.findLast((c) => c.body?.includes(prefix));
             commentId = existingComment?.id || null;
         }
@@ -32123,7 +32131,7 @@ async function report() {
         if (commentId) {
             console.log(`Found previous comment #${commentId}`);
             try {
-                await (0, github_2.updateIssueComment)(octokit, { ...repo, comment_id: commentId, body });
+                await (0, github_2.updateIssueComment)(octokit, { owner, repo, comment_id: commentId, body });
                 console.log(`Updated previous comment #${commentId}`);
             }
             catch (error) {
@@ -32134,7 +32142,7 @@ async function report() {
         if (!commentId) {
             console.log('Creating new comment');
             try {
-                const newComment = await (0, github_2.createIssueComment)(octokit, { ...repo, issue_number: pr, body });
+                const newComment = await (0, github_2.createIssueComment)(octokit, { owner, repo, issue_number: pr, body });
                 commentId = newComment.id;
                 console.log(`Created new comment #${commentId}`);
             }

@@ -14,16 +14,19 @@ inputs:
   report-file:
     description: 'Path to the generated json report file'
     required: true
-  report-url:
-    description: 'URL to the generated html report, if uploaded'
-    required: false
   report-tag:
     description: 'Tag reports to distinguish test runs in the same workflow instead of overwriting'
+    required: false
+  report-url:
+    description: 'URL to the generated html report, if uploaded'
     required: false
   comment-title:
     description: 'Customize the title of the pull request comment'
     required: false
     default: 'Playwright test results'
+  custom-info:
+    description: 'Additional information to include in the summary comment, markdown-formatted'
+    required: false
   job-summary:
     description: 'Create a job summary comment for the workflow run'
     required: false

@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.5.2] - 2024-07-08
+
+- Update action input docs
+
 ## [3.5.1] - 2024-07-07
 
 - Display correct commit sha when triggered from pull request comment
@@ -69,6 +73,7 @@
 
 - Initial release
 
+[3.5.2]: https://github.com/daun/playwright-report-summary/releases/tag/v3.5.2
 [3.5.1]: https://github.com/daun/playwright-report-summary/releases/tag/v3.5.1
 [3.5.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.5.0
 [3.4.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.4.0

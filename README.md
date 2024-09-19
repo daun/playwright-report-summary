@@ -79,6 +79,11 @@ jobs:
     # Icon style to use: octicons | emojis
     # Default: octicons
     icon-style: 'octicons'
+
+    # Command used to run tests. If provided, a command to re-run failed or
+    # flaky tests will be printed for each section.
+    # Default: ''
+    test-command: 'npm run test --'
 ```
 
 ## Output

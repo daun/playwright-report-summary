@@ -128,6 +128,7 @@ describe('action', () => {
 		expect(getInputMock).toHaveBeenCalledWith('comment-title')
 		expect(getInputMock).toHaveBeenCalledWith('icon-style')
 		expect(getInputMock).toHaveBeenCalledWith('job-summary')
+		expect(getInputMock).toHaveBeenCalledWith('test-command')
 	})
 
 	it('debugs its inputs', async () => {

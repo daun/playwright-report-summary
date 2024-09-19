@@ -35,6 +35,9 @@ inputs:
     description: 'The icons to use: octicons or emoji'
     required: false
     default: 'octicons'
+  test-command:
+    description: 'The command used to run the tests'
+    required: false
 
 outputs:
   summary:

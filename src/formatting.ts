@@ -13,7 +13,7 @@ export function renderAccordion(summary: string, content: string, { open = false
 	return `<details ${open ? 'open' : ''}>${summary}\n\n${content.trim()}\n\n</details>`
 }
 
-export function renderCodeBlock(code: string, lang: string = ''): string {
+export function renderCodeBlock(code: string, lang = ''): string {
 	return `\`\`\`${lang}\n${code}\n\`\`\``
 }
 

@@ -250,7 +250,7 @@ export function renderReportSummary(
 		.join('\n\n')
 }
 
-function renderTestList(tests: TestSummary[], testCommand: string | undefined) {
+function renderTestList(tests: TestSummary[], testCommand: string | undefined): string {
 	const list = tests.map((test) => `  ${test.title}`).join('\n')
 	if (!testCommand) {
 		return list
@@ -280,6 +280,6 @@ function getTotalDuration(report: JSONReport, results: TestResultSummary[]): { d
 	return { duration, started }
 }
 
-export function getCommitUrl(repoUrl: string | undefined, sha: string) {
+export function getCommitUrl(repoUrl: string | undefined, sha: string): string | undefined {
 	return repoUrl ? `${repoUrl}/commit/${sha}` : undefined
 }

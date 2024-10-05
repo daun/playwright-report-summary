@@ -31831,7 +31831,7 @@ function wrappy (fn, cb) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.n = exports.upperCaseFirst = exports.formatDuration = exports.renderAccordion = exports.renderMarkdownTable = void 0;
+exports.n = exports.upperCaseFirst = exports.formatDuration = exports.renderCodeBlock = exports.renderAccordion = exports.renderMarkdownTable = void 0;
 function renderMarkdownTable(rows, headers = []) {
     if (!rows.length) {
         return '';
@@ -31847,6 +31847,10 @@ function renderAccordion(summary, content, { open = false } = {}) {
     return `<details ${open ? 'open' : ''}>${summary}\n\n${content.trim()}\n\n</details>`;
 }
 exports.renderAccordion = renderAccordion;
+function renderCodeBlock(code, lang = '') {
+    return `\`\`\`${lang}\n${code}\n\`\`\``;
+}
+exports.renderCodeBlock = renderCodeBlock;
 function formatDuration(milliseconds) {
     const SECOND = 1000;
     const MINUTE = 60 * SECOND;
@@ -32058,6 +32062,7 @@ async function report() {
     const customInfo = (0, core_1.getInput)('custom-info');
     const iconStyle = (0, core_1.getInput)('icon-style') || 'octicons';
     const jobSummary = (0, core_1.getInput)('job-summary') ? (0, core_1.getBooleanInput)('job-summary') : false;
+    const testCommand = (0, core_1.getInput)('test-command');
     (0, core_1.debug)(`Report file: ${reportFile}`);
     (0, core_1.debug)(`Report url: ${reportUrl || '(none)'}`);
     (0, core_1.debug)(`Report tag: ${reportTag || '(none)'}`);
@@ -32066,11 +32071,13 @@ async function report() {
     let ref = github_1.context.ref;
     let sha = github_1.context.sha;
     let pr = null;
+    let commitUrl;
     const octokit = (0, github_1.getOctokit)(token);
     switch (eventName) {
         case 'push':
             ref = payload.ref;
             sha = payload.after;
+            commitUrl = (0, report_1.getCommitUrl)(payload.repository?.html_url, sha);
             console.log(`Commit pushed onto ${ref} (${sha})`);
             break;
         case 'pull_request':
@@ -32078,6 +32085,7 @@ async function report() {
             ref = payload.pull_request?.base?.ref;
             sha = payload.pull_request?.head?.sha;
             pr = issueNumber;
+            commitUrl = (0, report_1.getCommitUrl)(payload.repository?.html_url, sha);
             console.log(`PR #${pr} targeting ${ref} (${sha})`);
             break;
         case 'issue_comment':
@@ -32107,10 +32115,12 @@ async function report() {
     const report = (0, report_1.parseReport)(data);
     const summary = (0, report_1.renderReportSummary)(report, {
         commit: sha,
+        commitUrl,
         title: commentTitle,
         customInfo,
         reportUrl,
-        iconStyle
+        iconStyle,
+        testCommand
     });
     const prefix = `<!-- playwright-report-github-action -- ${reportTag} -->`;
     const body = `${prefix}\n\n${summary}`;
@@ -32191,7 +32201,7 @@ if (process.env.GITHUB_ACTIONS === 'true') {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.renderReportSummary = exports.buildTitle = exports.parseReportSuites = exports.parseReportFiles = exports.parseReport = exports.makeReport = exports.isValidReport = void 0;
+exports.getCommitUrl = exports.renderReportSummary = exports.buildTitle = exports.parseReportSuites = exports.parseReportFiles = exports.parseReport = exports.makeReport = exports.isValidReport = void 0;
 const core_1 = __nccwpck_require__(2186);
 const formatting_1 = __nccwpck_require__(9598);
 const icons_1 = __nccwpck_require__(6975);
@@ -32292,7 +32302,7 @@ function buildTitle(...paths) {
     return { title, path };
 }
 exports.buildTitle = buildTitle;
-function renderReportSummary(report, { commit, message, title, customInfo, reportUrl, iconStyle } = {}) {
+function renderReportSummary(report, { commit, commitUrl, message, title, customInfo, reportUrl, iconStyle, testCommand } = {}) {
     const { duration, failed, passed, flaky, skipped } = report;
     const icon = (symbol) => (0, icons_1.renderIcon)(symbol, { iconStyle });
     const paragraphs = [];
@@ -32308,12 +32318,14 @@ function renderReportSummary(report, { commit, message, title, customInfo, repor
     paragraphs.push(tests.filter(Boolean).join('  \n'));
     // Stats about test run
     paragraphs.push(`#### Details`);
+    const shortCommit = commit?.slice(0, 7);
+    const commitText = commitUrl ? `[${shortCommit}](${commitUrl})` : shortCommit;
     const stats = [
         reportUrl ? `${icon('report')}  [Open report ↗︎](${reportUrl})` : '',
         `${icon('stats')}  ${report.tests.length} ${(0, formatting_1.n)('test', report.tests.length)} across ${report.suites.length} ${(0, formatting_1.n)('suite', report.suites.length)}`,
         `${icon('duration')}  ${duration ? (0, formatting_1.formatDuration)(duration) : 'unknown'}`,
-        commit && message ? `${icon('commit')}  ${message} (${commit.slice(0, 7)})` : '',
-        commit && !message ? `${icon('commit')}  ${commit.slice(0, 7)}` : '',
+        commitText && message ? `${icon('commit')}  ${message} (${commitText})` : '',
+        commitText && !message ? `${icon('commit')}  ${commitText}` : '',
         customInfo ? `${icon('info')}  ${customInfo}` : ''
     ];
     paragraphs.push(stats.filter(Boolean).join('  \n'));
@@ -32323,9 +32335,9 @@ function renderReportSummary(report, { commit, message, title, customInfo, repor
         const tests = report[status];
         if (tests.length) {
             const summary = `${(0, formatting_1.upperCaseFirst)(status)} tests`;
-            const list = tests.map((test) => test.title).join('\n  ');
+            const content = renderTestList(tests, status !== 'skipped' ? testCommand : undefined);
             const open = status === 'failed';
-            return (0, formatting_1.renderAccordion)(summary, list, { open });
+            return (0, formatting_1.renderAccordion)(summary, content, { open });
         }
     });
     paragraphs.push(details
@@ -32338,6 +32350,15 @@ function renderReportSummary(report, { commit, message, title, customInfo, repor
         .join('\n\n');
 }
 exports.renderReportSummary = renderReportSummary;
+function renderTestList(tests, testCommand) {
+    const list = tests.map((test) => `  ${test.title}`).join('\n');
+    if (!testCommand) {
+        return list;
+    }
+    const testIds = tests.map((test) => `${test.file}:${test.line}`).join(' ');
+    const command = `${testCommand} ${testIds}`;
+    return `${list}\n\n${(0, formatting_1.renderCodeBlock)(command)}`;
+}
 function getTotalDuration(report, results) {
     let duration = 0;
     let started = new Date();
@@ -32356,6 +32377,10 @@ function getTotalDuration(report, results) {
     }
     return { duration, started };
 }
+function getCommitUrl(repoUrl, sha) {
+    return repoUrl ? `${repoUrl}/commit/${sha}` : undefined;
+}
+exports.getCommitUrl = getCommitUrl;
 
 
 /***/ }),

@@ -12,7 +12,7 @@ import {
 } from '@actions/core'
 import { context, getOctokit } from '@actions/github'
 import { fileExists, readFile } from './fs'
-import { parseReport, renderReportSummary } from './report'
+import { parseReport, renderReportSummary, getCommitUrl } from './report'
 import {
 	getIssueComments,
 	createIssueComment,
@@ -56,6 +56,7 @@ export async function report(): Promise<void> {
 	const customInfo = getInput('custom-info')
 	const iconStyle = getInput('icon-style') || 'octicons'
 	const jobSummary = getInput('job-summary') ? getBooleanInput('job-summary') : false
+	const testCommand = getInput('test-command')
 
 	debug(`Report file: ${reportFile}`)
 	debug(`Report url: ${reportUrl || '(none)'}`)
@@ -66,6 +67,7 @@ export async function report(): Promise<void> {
 	let ref: string = context.ref
 	let sha: string = context.sha
 	let pr: number | null = null
+	let commitUrl: string | undefined
 
 	const octokit = getOctokit(token)
 
@@ -73,6 +75,7 @@ export async function report(): Promise<void> {
 		case 'push':
 			ref = payload.ref
 			sha = payload.after
+			commitUrl = getCommitUrl(payload.repository?.html_url, sha)
 			console.log(`Commit pushed onto ${ref} (${sha})`)
 			break
 
@@ -81,6 +84,7 @@ export async function report(): Promise<void> {
 			ref = payload.pull_request?.base?.ref
 			sha = payload.pull_request?.head?.sha
 			pr = issueNumber
+			commitUrl = getCommitUrl(payload.repository?.html_url, sha)
 			console.log(`PR #${pr} targeting ${ref} (${sha})`)
 			break
 
@@ -116,10 +120,12 @@ export async function report(): Promise<void> {
 	const report = parseReport(data)
 	const summary = renderReportSummary(report, {
 		commit: sha,
+		commitUrl,
 		title: commentTitle,
 		customInfo,
 		reportUrl,
-		iconStyle
+		iconStyle,
+		testCommand
 	})
 
 	const prefix = `<!-- playwright-report-github-action -- ${reportTag} -->`

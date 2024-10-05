@@ -7,7 +7,7 @@ import {
 } from '@playwright/test/reporter'
 import { debug } from '@actions/core'
 
-import { formatDuration, n, renderAccordion, upperCaseFirst } from './formatting'
+import { formatDuration, n, renderAccordion, renderCodeBlock, upperCaseFirst } from './formatting'
 import { icons, renderIcon } from './icons'
 
 export interface ReportSummary {
@@ -69,11 +69,13 @@ interface TestResultSummary {
 
 interface ReportRenderOptions {
 	commit?: string
+	commitUrl?: string
 	message?: string
 	title?: string
 	customInfo?: string
 	reportUrl?: string
 	iconStyle?: keyof typeof icons
+	testCommand?: string
 }
 
 export function isValidReport(report: unknown): report is JSONReport {
@@ -183,7 +185,7 @@ export function buildTitle(...paths: string[]): { title: string; path: string[] 
 
 export function renderReportSummary(
 	report: ReportSummary,
-	{ commit, message, title, customInfo, reportUrl, iconStyle }: ReportRenderOptions = {}
+	{ commit, commitUrl, message, title, customInfo, reportUrl, iconStyle, testCommand }: ReportRenderOptions = {}
 ): string {
 	const { duration, failed, passed, flaky, skipped } = report
 	const icon = (symbol: string): string => renderIcon(symbol, { iconStyle })
@@ -207,6 +209,9 @@ export function renderReportSummary(
 
 	paragraphs.push(`#### Details`)
 
+	const shortCommit = commit?.slice(0, 7)
+	const commitText = commitUrl ? `[${shortCommit}](${commitUrl})` : shortCommit
+
 	const stats = [
 		reportUrl ? `${icon('report')}  [Open report ↗︎](${reportUrl})` : '',
 		`${icon('stats')}  ${report.tests.length} ${n('test', report.tests.length)} across ${report.suites.length} ${n(
@@ -214,8 +219,8 @@ export function renderReportSummary(
 			report.suites.length
 		)}`,
 		`${icon('duration')}  ${duration ? formatDuration(duration) : 'unknown'}`,
-		commit && message ? `${icon('commit')}  ${message} (${commit.slice(0, 7)})` : '',
-		commit && !message ? `${icon('commit')}  ${commit.slice(0, 7)}` : '',
+		commitText && message ? `${icon('commit')}  ${message} (${commitText})` : '',
+		commitText && !message ? `${icon('commit')}  ${commitText}` : '',
 		customInfo ? `${icon('info')}  ${customInfo}` : ''
 	]
 	paragraphs.push(stats.filter(Boolean).join('  \n'))
@@ -227,9 +232,9 @@ export function renderReportSummary(
 		const tests = report[status]
 		if (tests.length) {
 			const summary = `${upperCaseFirst(status)} tests`
-			const list = tests.map((test) => test.title).join('\n  ')
+			const content = renderTestList(tests, status !== 'skipped' ? testCommand : undefined)
 			const open = status === 'failed'
-			return renderAccordion(summary, list, { open })
+			return renderAccordion(summary, content, { open })
 		}
 	})
 	paragraphs.push(
@@ -243,6 +248,18 @@ export function renderReportSummary(
 		.map((p) => p.trim())
 		.filter(Boolean)
 		.join('\n\n')
+}
+
+function renderTestList(tests: TestSummary[], testCommand: string | undefined): string {
+	const list = tests.map((test) => `  ${test.title}`).join('\n')
+	if (!testCommand) {
+		return list
+	}
+
+	const testIds = tests.map((test) => `${test.file}:${test.line}`).join(' ')
+	const command = `${testCommand} ${testIds}`
+
+	return `${list}\n\n${renderCodeBlock(command)}`
 }
 
 function getTotalDuration(report: JSONReport, results: TestResultSummary[]): { duration: number; started: Date } {
@@ -261,4 +278,8 @@ function getTotalDuration(report: JSONReport, results: TestResultSummary[]): { d
 		}
 	}
 	return { duration, started }
+}
+
+export function getCommitUrl(repoUrl: string | undefined, sha: string): string | undefined {
+	return repoUrl ? `${repoUrl}/commit/${sha}` : undefined
 }

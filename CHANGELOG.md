@@ -1,5 +1,10 @@
 # Changelog
 
+## [3.6.0] - 2024-10-05
+
+- Add option to display npm command for re-running failed tests (@mskelton)
+- Render commit sha as clickable link to commit page (@mskelton)
+
 ## [3.5.2] - 2024-07-08
 
 - Update action input docs
@@ -73,6 +78,7 @@
 
 - Initial release
 
+[3.6.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.6.0
 [3.5.2]: https://github.com/daun/playwright-report-summary/releases/tag/v3.5.2
 [3.5.1]: https://github.com/daun/playwright-report-summary/releases/tag/v3.5.1
 [3.5.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.5.0

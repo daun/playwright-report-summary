@@ -36,7 +36,7 @@ jobs:
         with:
           node-version: 20
 
-      - run: PLAYWRIGHT_JSON_OUTPUT_NAME=results.json npx playwright test --reporter json
+      - run: PLAYWRIGHT_JSON_OUTPUT_NAME=results.json npx playwright test --reporter=json
 
       - uses: daun/playwright-report-summary@v3
         if: always()

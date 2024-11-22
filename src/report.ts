@@ -76,6 +76,7 @@ interface ReportRenderOptions {
 	reportUrl?: string
 	iconStyle?: keyof typeof icons
 	testCommand?: string
+	footer?: string
 }
 
 export function isValidReport(report: unknown): report is JSONReport {
@@ -185,7 +186,7 @@ export function buildTitle(...paths: string[]): { title: string; path: string[] 
 
 export function renderReportSummary(
 	report: ReportSummary,
-	{ commit, commitUrl, message, title, customInfo, reportUrl, iconStyle, testCommand }: ReportRenderOptions = {}
+	{ commit, commitUrl, message, title, customInfo, reportUrl, iconStyle, testCommand, footer }: ReportRenderOptions = {}
 ): string {
 	const { duration, failed, passed, flaky, skipped } = report
 	const icon = (symbol: string): string => renderIcon(symbol, { iconStyle })
@@ -243,6 +244,10 @@ export function renderReportSummary(
 			.map((md) => (md as string).trim())
 			.join('\n')
 	)
+
+	if (footer) {
+		paragraphs.push(footer)
+	}
 
 	return paragraphs
 		.map((p) => p.trim())

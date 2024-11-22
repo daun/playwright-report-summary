@@ -32063,6 +32063,7 @@ async function report() {
     const iconStyle = (0, core_1.getInput)('icon-style') || 'octicons';
     const jobSummary = (0, core_1.getInput)('job-summary') ? (0, core_1.getBooleanInput)('job-summary') : false;
     const testCommand = (0, core_1.getInput)('test-command');
+    const footer = (0, core_1.getInput)('footer');
     (0, core_1.debug)(`Report file: ${reportFile}`);
     (0, core_1.debug)(`Report url: ${reportUrl || '(none)'}`);
     (0, core_1.debug)(`Report tag: ${reportTag || '(none)'}`);
@@ -32120,7 +32121,8 @@ async function report() {
         customInfo,
         reportUrl,
         iconStyle,
-        testCommand
+        testCommand,
+        footer
     });
     const prefix = `<!-- playwright-report-github-action -- ${reportTag} -->`;
     const body = `${prefix}\n\n${summary}`;
@@ -32302,7 +32304,7 @@ function buildTitle(...paths) {
     return { title, path };
 }
 exports.buildTitle = buildTitle;
-function renderReportSummary(report, { commit, commitUrl, message, title, customInfo, reportUrl, iconStyle, testCommand } = {}) {
+function renderReportSummary(report, { commit, commitUrl, message, title, customInfo, reportUrl, iconStyle, testCommand, footer } = {}) {
     const { duration, failed, passed, flaky, skipped } = report;
     const icon = (symbol) => (0, icons_1.renderIcon)(symbol, { iconStyle });
     const paragraphs = [];
@@ -32344,6 +32346,9 @@ function renderReportSummary(report, { commit, commitUrl, message, title, custom
         .filter(Boolean)
         .map((md) => md.trim())
         .join('\n'));
+    if (footer) {
+        paragraphs.push(footer);
+    }
     return paragraphs
         .map((p) => p.trim())
         .filter(Boolean)

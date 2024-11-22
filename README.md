@@ -84,6 +84,10 @@ jobs:
     # flaky tests will be printed for each section.
     # Default: ''
     test-command: 'npm run test --'
+
+    # Additional content to add to the comment below the test report.
+    # Default: ''
+    footer: ''
 ```
 
 ## Output

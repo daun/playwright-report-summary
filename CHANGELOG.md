@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.7.0] - 2024-11-25
+
+- Add option to display a footer with additional content below the summary (@mskelton)
+
 ## [3.6.0] - 2024-10-05
 
 - Add option to display npm command for re-running failed tests (@mskelton)

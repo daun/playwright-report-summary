@@ -129,6 +129,7 @@ describe('action', () => {
 		expect(getInputMock).toHaveBeenCalledWith('icon-style')
 		expect(getInputMock).toHaveBeenCalledWith('job-summary')
 		expect(getInputMock).toHaveBeenCalledWith('test-command')
+		expect(getInputMock).toHaveBeenCalledWith('footer')
 	})
 
 	it('debugs its inputs', async () => {

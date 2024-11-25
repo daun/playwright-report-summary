@@ -30,7 +30,7 @@ inputs:
   job-summary:
     description: 'Create a job summary comment for the workflow run'
     required: false
-    default: false
+    default: 'false'
   icon-style:
     description: 'The icons to use: octicons or emoji'
     required: false
@@ -38,6 +38,10 @@ inputs:
   test-command:
     description: 'The command used to run the tests'
     required: false
+  footer:
+    description: 'Additional content to add to the comment below the test report'
+    required: false
+    default: ''
 
 outputs:
   summary:

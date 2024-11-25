@@ -57,6 +57,7 @@ export async function report(): Promise<void> {
 	const iconStyle = getInput('icon-style') || 'octicons'
 	const jobSummary = getInput('job-summary') ? getBooleanInput('job-summary') : false
 	const testCommand = getInput('test-command')
+	const footer = getInput('footer')
 
 	debug(`Report file: ${reportFile}`)
 	debug(`Report url: ${reportUrl || '(none)'}`)
@@ -125,7 +126,8 @@ export async function report(): Promise<void> {
 		customInfo,
 		reportUrl,
 		iconStyle,
-		testCommand
+		testCommand,
+		footer
 	})
 
 	const prefix = `<!-- playwright-report-github-action -- ${reportTag} -->`

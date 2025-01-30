@@ -20,6 +20,10 @@ inputs:
   report-url:
     description: 'URL to the generated html report, if uploaded'
     required: false
+  create-comment:
+    description: 'Create a pull request comment with the test result summary'
+    required: false
+    default: 'true'
   comment-title:
     description: 'Customize the title of the pull request comment'
     required: false

@@ -6,21 +6,23 @@
  * variables following the pattern `INPUT_<INPUT_NAME>`.
  */
 
-import * as core from '@actions/core'
-import * as github from '@actions/github'
+import { Context } from '@actions/github/lib/context'
+import * as actionsCore from '@actions/core'
+import * as actionsGitHub from '@actions/github'
+
 import * as index from '../src/index'
 import * as fs from '../src/fs'
 import * as report from '../src/report'
-import { Context } from '@actions/github/lib/context'
+import * as github from '../src/github'
 
 // Mock the GitHub Actions core library
-jest.spyOn(core, 'info').mockImplementation(jest.fn())
-jest.spyOn(core, 'warning').mockImplementation(jest.fn())
-jest.spyOn(core, 'error').mockImplementation(jest.fn())
-const debugMock = jest.spyOn(core, 'debug').mockImplementation(jest.fn())
-const getInputMock = jest.spyOn(core, 'getInput').mockImplementation((name: string) => inputs[name] || '')
-const setFailedMock = jest.spyOn(core, 'setFailed').mockImplementation(jest.fn())
-const setOutputMock = jest.spyOn(core, 'setOutput').mockImplementation(jest.fn())
+jest.spyOn(actionsCore, 'info').mockImplementation(jest.fn())
+jest.spyOn(actionsCore, 'warning').mockImplementation(jest.fn())
+jest.spyOn(actionsCore, 'error').mockImplementation(jest.fn())
+const debugMock = jest.spyOn(actionsCore, 'debug').mockImplementation(jest.fn())
+const getInputMock = jest.spyOn(actionsCore, 'getInput').mockImplementation((name: string) => inputs[name] || '')
+const setFailedMock = jest.spyOn(actionsCore, 'setFailed').mockImplementation(jest.fn())
+const setOutputMock = jest.spyOn(actionsCore, 'setOutput').mockImplementation(jest.fn())
 
 // Mock the fs module
 const readFileMock = jest.spyOn(fs, 'readFile')
@@ -29,11 +31,14 @@ const readFileMock = jest.spyOn(fs, 'readFile')
 const parseReportMock = jest.spyOn(report, 'parseReport')
 const renderReportSummaryMock = jest.spyOn(report, 'renderReportSummary')
 
+// Mock the github module
+const createIssueCommentMock = jest.spyOn(github, 'createIssueComment')
+
 // Mock the GitHub Actions context library
 // const contextMock = jest.spyOn(github, 'context')
 
 // Mock the GitHub Actions Octokit instance
-type Octokit = ReturnType<typeof github.getOctokit>
+type Octokit = ReturnType<typeof actionsGitHub.getOctokit>
 
 const octokitMock = {
 	rest: {
@@ -48,7 +53,7 @@ const octokitMock = {
 	}
 } as unknown as Octokit
 
-const getOctokitMock = jest.spyOn(github, 'getOctokit').mockImplementation(() => octokitMock)
+const getOctokitMock = jest.spyOn(actionsGitHub, 'getOctokit').mockImplementation(() => octokitMock)
 
 // Mock the action's entrypoint
 const runMock = jest.spyOn(index, 'run')
@@ -58,7 +63,7 @@ const runMock = jest.spyOn(index, 'run')
 
 // Shallow clone original @actions/github context
 // @ts-expect-error missing issue and repo keys
-const originalContext: Context = { issue: {}, ...github.context }
+const originalContext: Context = { issue: {}, ...actionsGitHub.context }
 
 const defaultContext = {
 	eventName: 'pull_request',
@@ -91,7 +96,7 @@ const defaultContext = {
 let inputs: Record<string, string> = {}
 
 function setContext(context: any): void {
-	Object.defineProperty(github, 'context', { value: context, writable: true })
+	Object.defineProperty(actionsGitHub, 'context', { value: context, writable: true })
 }
 
 describe('action', () => {
@@ -127,6 +132,7 @@ describe('action', () => {
 		expect(getInputMock).toHaveBeenCalledWith('report-tag')
 		expect(getInputMock).toHaveBeenCalledWith('comment-title')
 		expect(getInputMock).toHaveBeenCalledWith('icon-style')
+		expect(getInputMock).toHaveBeenCalledWith('create-comment')
 		expect(getInputMock).toHaveBeenCalledWith('job-summary')
 		expect(getInputMock).toHaveBeenCalledWith('test-command')
 		expect(getInputMock).toHaveBeenCalledWith('footer')
@@ -145,6 +151,8 @@ describe('action', () => {
 		expect(debugMock).toHaveBeenNthCalledWith(2, 'Report url: (none)')
 		expect(debugMock).toHaveBeenNthCalledWith(3, 'Report tag: (none)')
 		expect(debugMock).toHaveBeenNthCalledWith(4, 'Comment title: Custom comment title')
+		expect(debugMock).toHaveBeenNthCalledWith(5, 'Creating comment? yes')
+		expect(debugMock).toHaveBeenNthCalledWith(6, 'Creating job summary? no')
 	})
 
 	it('creates an Octokit instance', async () => {
@@ -194,15 +202,42 @@ describe('action', () => {
 
 	it('sets a summary and comment id output', async () => {
 		inputs = {
-			'report-file': '__tests__/__fixtures__/report-valid.json',
-			'comment-title': 'Custom comment title'
+			'report-file': '__tests__/__fixtures__/report-valid.json'
 		}
 
 		await index.run()
 
 		expect(runMock).toHaveReturned()
-		expect(setOutputMock).toHaveBeenNthCalledWith(1, 'summary', expect.anything())
+		expect(setOutputMock).toHaveBeenNthCalledWith(1, 'summary', expect.stringContaining('# Playwright test results'))
 		expect(setOutputMock).toHaveBeenNthCalledWith(2, 'comment-id', expect.anything())
+	})
+
+	it('creates a comment', async () => {
+		inputs = {
+			'report-file': '__tests__/__fixtures__/report-valid.json'
+		}
+
+		await index.run()
+
+		expect(runMock).toHaveReturned()
+		expect(createIssueCommentMock).toHaveBeenCalledWith(
+			expect.anything(),
+			expect.objectContaining({
+				body: expect.stringContaining('# Playwright test results')
+			})
+		)
+	})
+
+	it('can disable creating a comment', async () => {
+		inputs = {
+			'report-file': '__tests__/__fixtures__/report-valid.json',
+			'create-comment': 'false'
+		}
+
+		await index.run()
+
+		expect(runMock).toHaveReturned()
+		expect(createIssueCommentMock).not.toHaveBeenCalled()
 	})
 
 	it('sets a failed status', async () => {

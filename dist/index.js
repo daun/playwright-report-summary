@@ -32777,14 +32777,16 @@ async function report() {
     const commentTitle = (0, core_1.getInput)('comment-title') || 'Playwright test results';
     const customInfo = (0, core_1.getInput)('custom-info');
     const iconStyle = (0, core_1.getInput)('icon-style') || 'octicons';
-    const jobSummary = (0, core_1.getInput)('job-summary') ? (0, core_1.getBooleanInput)('job-summary') : false;
+    const createComment = (0, core_1.getInput)('create-comment') ? (0, core_1.getBooleanInput)('create-comment') : true;
+    const createJobSummary = (0, core_1.getInput)('job-summary') ? (0, core_1.getBooleanInput)('job-summary') : false;
     const testCommand = (0, core_1.getInput)('test-command');
     const footer = (0, core_1.getInput)('footer');
     (0, core_1.debug)(`Report file: ${reportFile}`);
     (0, core_1.debug)(`Report url: ${reportUrl || '(none)'}`);
     (0, core_1.debug)(`Report tag: ${reportTag || '(none)'}`);
     (0, core_1.debug)(`Comment title: ${commentTitle}`);
-    (0, core_1.debug)(`Custom info: ${customInfo || '(none)'}`);
+    (0, core_1.debug)(`Creating comment? ${createComment ? 'yes' : 'no'}`);
+    (0, core_1.debug)(`Creating job summary? ${createJobSummary ? 'yes' : 'no'}`);
     let ref = github_1.context.ref;
     let sha = github_1.context.sha;
     let pr = null;
@@ -32840,65 +32842,67 @@ async function report() {
         testCommand,
         footer
     });
-    const prefix = `<!-- playwright-report-github-action -- ${reportTag} -->`;
-    const body = `${prefix}\n\n${summary}`;
     let commentId = null;
-    if (!pr) {
-        console.log('No PR associated with this action run. Not posting a check or comment.');
-    }
-    else {
-        (0, core_1.startGroup)(`Commenting test report on PR`);
-        try {
-            const comments = await (0, github_2.getIssueComments)(octokit, { owner, repo, issue_number: pr });
-            const existingComment = comments.findLast((c) => c.body?.includes(prefix));
-            commentId = existingComment?.id || null;
+    if (createComment) {
+        const prefix = `<!-- playwright-report-github-action -- ${reportTag} -->`;
+        const body = `${prefix}\n\n${summary}`;
+        if (!pr) {
+            console.log('No PR associated with this action run. Not posting a check or comment.');
         }
-        catch (error) {
-            console.error(`Error fetching existing comments: ${error.message}`);
-        }
-        if (commentId) {
-            console.log(`Found previous comment #${commentId}`);
+        else {
+            (0, core_1.startGroup)(`Commenting test report on PR`);
             try {
-                await (0, github_2.updateIssueComment)(octokit, { owner, repo, comment_id: commentId, body });
-                console.log(`Updated previous comment #${commentId}`);
+                const comments = await (0, github_2.getIssueComments)(octokit, { owner, repo, issue_number: pr });
+                const existingComment = comments.findLast((c) => c.body?.includes(prefix));
+                commentId = existingComment?.id || null;
             }
             catch (error) {
-                console.error(`Error updating previous comment: ${error.message}`);
-                commentId = null;
+                console.error(`Error fetching existing comments: ${error.message}`);
             }
-        }
-        if (!commentId) {
-            console.log('Creating new comment');
-            try {
-                const newComment = await (0, github_2.createIssueComment)(octokit, { owner, repo, issue_number: pr, body });
-                commentId = newComment.id;
-                console.log(`Created new comment #${commentId}`);
-            }
-            catch (error) {
-                console.error(`Error creating comment: ${error.message}`);
-                console.log(`Submitting PR review comment instead...`);
+            if (commentId) {
+                console.log(`Found previous comment #${commentId}`);
                 try {
-                    const { issue } = github_1.context;
-                    const review = await (0, github_2.createPullRequestReview)(octokit, {
-                        owner,
-                        repo: issue.repo,
-                        pull_number: issue.number,
-                        body
-                    });
-                    console.log(`Created pull request review: #${review.id}`);
+                    await (0, github_2.updateIssueComment)(octokit, { owner, repo, comment_id: commentId, body });
+                    console.log(`Updated previous comment #${commentId}`);
                 }
                 catch (error) {
-                    console.error(`Error creating PR review: ${error.message}`);
+                    console.error(`Error updating previous comment: ${error.message}`);
+                    commentId = null;
                 }
             }
+            if (!commentId) {
+                console.log('Creating new comment');
+                try {
+                    const newComment = await (0, github_2.createIssueComment)(octokit, { owner, repo, issue_number: pr, body });
+                    commentId = newComment.id;
+                    console.log(`Created new comment #${commentId}`);
+                }
+                catch (error) {
+                    console.error(`Error creating comment: ${error.message}`);
+                    console.log(`Submitting PR review comment instead...`);
+                    try {
+                        const { issue } = github_1.context;
+                        const review = await (0, github_2.createPullRequestReview)(octokit, {
+                            owner,
+                            repo: issue.repo,
+                            pull_number: issue.number,
+                            body
+                        });
+                        console.log(`Created pull request review: #${review.id}`);
+                    }
+                    catch (error) {
+                        console.error(`Error creating PR review: ${error.message}`);
+                    }
+                }
+            }
+            (0, core_1.endGroup)();
         }
-        (0, core_1.endGroup)();
+        if (!commentId && pr) {
+            const intro = `Unable to comment on your PR — this can happen for PR's originating from a fork without write permissions. You can copy the test results directly into a comment using the markdown summary below:`;
+            (0, core_1.warning)(`${intro}\n\n${body}`, { title: 'Unable to comment on PR' });
+        }
     }
-    if (!commentId && pr) {
-        const intro = `Unable to comment on your PR — this can happen for PR's originating from a fork without write permissions. You can copy the test results directly into a comment using the markdown summary below:`;
-        (0, core_1.warning)(`${intro}\n\n${body}`, { title: 'Unable to comment on PR' });
-    }
-    if (jobSummary) {
+    if (createJobSummary) {
         core_1.summary.addRaw(summary).write();
     }
     (0, core_1.setOutput)('summary', summary);

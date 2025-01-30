@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.8.0] - 2025-01-30
+
+- Allow using a different action for creating and updating the comments
+
 ## [3.7.0] - 2024-11-25
 
 - Add option to display a footer with additional content below the summary (@mskelton)
@@ -82,6 +86,8 @@
 
 - Initial release
 
+[3.8.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.8.0
+[3.7.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.7.0
 [3.6.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.6.0
 [3.5.2]: https://github.com/daun/playwright-report-summary/releases/tag/v3.5.2
 [3.5.1]: https://github.com/daun/playwright-report-summary/releases/tag/v3.5.1

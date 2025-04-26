@@ -200,7 +200,7 @@ describe('action', () => {
 		)
 	})
 
-	it('sets a summary and comment id output', async () => {
+	it('sets a summary output', async () => {
 		inputs = {
 			'report-file': '__tests__/__fixtures__/report-valid.json'
 		}
@@ -209,7 +209,28 @@ describe('action', () => {
 
 		expect(runMock).toHaveReturned()
 		expect(setOutputMock).toHaveBeenNthCalledWith(1, 'summary', expect.stringContaining('# Playwright test results'))
+	})
+
+	it('sets a comment id output', async () => {
+		inputs = {
+			'report-file': '__tests__/__fixtures__/report-valid.json'
+		}
+
+		await index.run()
+
+		expect(runMock).toHaveReturned()
 		expect(setOutputMock).toHaveBeenNthCalledWith(2, 'comment-id', expect.anything())
+	})
+
+	it('sets a report data output', async () => {
+		inputs = {
+			'report-file': '__tests__/__fixtures__/report-valid.json'
+		}
+
+		await index.run()
+
+		expect(runMock).toHaveReturned()
+		expect(setOutputMock).toHaveBeenNthCalledWith(3, 'report-data', expect.stringContaining('"failed":['))
 	})
 
 	it('creates a comment', async () => {

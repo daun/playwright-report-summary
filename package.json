@@ -73,7 +73,7 @@
     "@actions/github": "^5.1.1"
   },
   "devDependencies": {
-    "@octokit/openapi-types": "^24.0.0",
+    "@octokit/openapi-types": "^25.0.0",
     "@playwright/test": "^1.50.1",
     "@types/jest": "^29.5.13",
     "@types/node": "^22.13.15",

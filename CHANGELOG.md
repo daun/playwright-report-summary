@@ -1,5 +1,26 @@
 # Changelog
 
+## [3.8.0] - 2025-01-30
+
+- Allow using a different action for creating and updating the comments
+
+## [3.7.0] - 2024-11-25
+
+- Add option to display a footer with additional content below the summary (@mskelton)
+
+## [3.6.0] - 2024-10-05
+
+- Add option to display npm command for re-running failed tests (@mskelton)
+- Render commit sha as clickable link to commit page (@mskelton)
+
+## [3.5.2] - 2024-07-08
+
+- Update action input docs
+
+## [3.5.1] - 2024-07-07
+
+- Display correct commit sha when triggered from pull request comment
+
 ## [3.5.0] - 2024-07-07
 
 - Support pull request comment as workflow trigger
@@ -65,6 +86,11 @@
 
 - Initial release
 
+[3.8.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.8.0
+[3.7.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.7.0
+[3.6.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.6.0
+[3.5.2]: https://github.com/daun/playwright-report-summary/releases/tag/v3.5.2
+[3.5.1]: https://github.com/daun/playwright-report-summary/releases/tag/v3.5.1
 [3.5.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.5.0
 [3.4.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.4.0
 [3.3.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.3.0

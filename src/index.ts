@@ -12,8 +12,14 @@ import {
 } from '@actions/core'
 import { context, getOctokit } from '@actions/github'
 import { fileExists, readFile } from './fs'
-import { parseReport, renderReportSummary } from './report'
-import { getIssueComments, createIssueComment, updateIssueComment, createPullRequestReview } from './github'
+import { parseReport, renderReportSummary, getCommitUrl } from './report'
+import {
+	getIssueComments,
+	createIssueComment,
+	updateIssueComment,
+	createPullRequestReview,
+	getPullRequestInfo
+} from './github'
 
 /**
  * The main function for the action.
@@ -34,8 +40,13 @@ export async function run(): Promise<void> {
 export async function report(): Promise<void> {
 	const cwd = process.cwd()
 
-	const { workflow, eventName, repo, payload } = context
-	const { owner, number: issueNumber } = context.issue || {}
+	const {
+		workflow,
+		eventName,
+		repo: { owner, repo },
+		payload
+	} = context
+	const { number: issueNumber } = context.issue || {}
 
 	const token = getInput('github-token')
 	const reportFile = getInput('report-file', { required: true })
@@ -44,17 +55,22 @@ export async function report(): Promise<void> {
 	const commentTitle = getInput('comment-title') || 'Playwright test results'
 	const customInfo = getInput('custom-info')
 	const iconStyle = getInput('icon-style') || 'octicons'
-	const jobSummary = getInput('job-summary') ? getBooleanInput('job-summary') : false
+	const createComment = getInput('create-comment') ? getBooleanInput('create-comment') : true
+	const createJobSummary = getInput('job-summary') ? getBooleanInput('job-summary') : false
+	const testCommand = getInput('test-command')
+	const footer = getInput('footer')
 
 	debug(`Report file: ${reportFile}`)
 	debug(`Report url: ${reportUrl || '(none)'}`)
 	debug(`Report tag: ${reportTag || '(none)'}`)
 	debug(`Comment title: ${commentTitle}`)
-	debug(`Custom info: ${customInfo || '(none)'}`)
+	debug(`Creating comment? ${createComment ? 'yes' : 'no'}`)
+	debug(`Creating job summary? ${createJobSummary ? 'yes' : 'no'}`)
 
 	let ref: string = context.ref
 	let sha: string = context.sha
 	let pr: number | null = null
+	let commitUrl: string | undefined
 
 	const octokit = getOctokit(token)
 
@@ -62,6 +78,7 @@ export async function report(): Promise<void> {
 		case 'push':
 			ref = payload.ref
 			sha = payload.after
+			commitUrl = getCommitUrl(payload.repository?.html_url, sha)
 			console.log(`Commit pushed onto ${ref} (${sha})`)
 			break
 
@@ -70,12 +87,14 @@ export async function report(): Promise<void> {
 			ref = payload.pull_request?.base?.ref
 			sha = payload.pull_request?.head?.sha
 			pr = issueNumber
+			commitUrl = getCommitUrl(payload.repository?.html_url, sha)
 			console.log(`PR #${pr} targeting ${ref} (${sha})`)
 			break
 
 		case 'issue_comment':
 			if (payload.issue?.pull_request) {
 				pr = issueNumber
+				;({ ref, sha } = await getPullRequestInfo(octokit, { owner, repo, pull_number: pr }))
 				console.log(`Comment on PR #${pr} targeting ${ref} (${sha})`)
 			} else {
 				console.log(`Comment on issue #${issueNumber}`)
@@ -104,71 +123,77 @@ export async function report(): Promise<void> {
 	const report = parseReport(data)
 	const summary = renderReportSummary(report, {
 		commit: sha,
+		commitUrl,
 		title: commentTitle,
 		customInfo,
 		reportUrl,
-		iconStyle
+		iconStyle,
+		testCommand,
+		footer
 	})
 
-	const prefix = `<!-- playwright-report-github-action -- ${reportTag} -->`
-	const body = `${prefix}\n\n${summary}`
 	let commentId = null
 
-	if (!pr) {
-		console.log('No PR associated with this action run. Not posting a check or comment.')
-	} else {
-		startGroup(`Commenting test report on PR`)
-		try {
-			const comments = await getIssueComments(octokit, { ...repo, issue_number: pr })
-			const existingComment = comments.findLast((c) => c.body?.includes(prefix))
-			commentId = existingComment?.id || null
-		} catch (error: unknown) {
-			console.error(`Error fetching existing comments: ${(error as Error).message}`)
-		}
+	if (createComment) {
+		const prefix = `<!-- playwright-report-github-action -- ${reportTag} -->`
+		const body = `${prefix}\n\n${summary}`
 
-		if (commentId) {
-			console.log(`Found previous comment #${commentId}`)
+		if (!pr) {
+			console.log('No PR associated with this action run. Not posting a check or comment.')
+		} else {
+			startGroup(`Commenting test report on PR`)
 			try {
-				await updateIssueComment(octokit, { ...repo, comment_id: commentId, body })
-				console.log(`Updated previous comment #${commentId}`)
+				const comments = await getIssueComments(octokit, { owner, repo, issue_number: pr })
+				const existingComment = comments.findLast((c) => c.body?.includes(prefix))
+				commentId = existingComment?.id || null
 			} catch (error: unknown) {
-				console.error(`Error updating previous comment: ${(error as Error).message}`)
-				commentId = null
+				console.error(`Error fetching existing comments: ${(error as Error).message}`)
 			}
-		}
 
-		if (!commentId) {
-			console.log('Creating new comment')
-			try {
-				const newComment = await createIssueComment(octokit, { ...repo, issue_number: pr, body })
-				commentId = newComment.id
-				console.log(`Created new comment #${commentId}`)
-			} catch (error: unknown) {
-				console.error(`Error creating comment: ${(error as Error).message}`)
-				console.log(`Submitting PR review comment instead...`)
+			if (commentId) {
+				console.log(`Found previous comment #${commentId}`)
 				try {
-					const { issue } = context
-					const review = await createPullRequestReview(octokit, {
-						owner,
-						repo: issue.repo,
-						pull_number: issue.number,
-						body
-					})
-					console.log(`Created pull request review: #${review.id}`)
+					await updateIssueComment(octokit, { owner, repo, comment_id: commentId, body })
+					console.log(`Updated previous comment #${commentId}`)
 				} catch (error: unknown) {
-					console.error(`Error creating PR review: ${(error as Error).message}`)
+					console.error(`Error updating previous comment: ${(error as Error).message}`)
+					commentId = null
 				}
 			}
+
+			if (!commentId) {
+				console.log('Creating new comment')
+				try {
+					const newComment = await createIssueComment(octokit, { owner, repo, issue_number: pr, body })
+					commentId = newComment.id
+					console.log(`Created new comment #${commentId}`)
+				} catch (error: unknown) {
+					console.error(`Error creating comment: ${(error as Error).message}`)
+					console.log(`Submitting PR review comment instead...`)
+					try {
+						const { issue } = context
+						const review = await createPullRequestReview(octokit, {
+							owner,
+							repo: issue.repo,
+							pull_number: issue.number,
+							body
+						})
+						console.log(`Created pull request review: #${review.id}`)
+					} catch (error: unknown) {
+						console.error(`Error creating PR review: ${(error as Error).message}`)
+					}
+				}
+			}
+			endGroup()
 		}
-		endGroup()
+
+		if (!commentId && pr) {
+			const intro = `Unable to comment on your PR — this can happen for PR's originating from a fork without write permissions. You can copy the test results directly into a comment using the markdown summary below:`
+			warning(`${intro}\n\n${body}`, { title: 'Unable to comment on PR' })
+		}
 	}
 
-	if (!commentId && pr) {
-		const intro = `Unable to comment on your PR — this can happen for PR's originating from a fork without write permissions. You can copy the test results directly into a comment using the markdown summary below:`
-		warning(`${intro}\n\n${body}`, { title: 'Unable to comment on PR' })
-	}
-
-	if (jobSummary) {
+	if (createJobSummary) {
 		setSummary.addRaw(summary).write()
 	}
 

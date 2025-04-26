@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.9.0] - 2025-04-26
+
+- Add output variable for raw report data (@seongminn)
+
 ## [3.8.0] - 2025-01-30
 
 - Allow using a different action for creating and updating the comments
@@ -86,6 +90,7 @@
 
 - Initial release
 
+[3.9.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.9.0
 [3.8.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.8.0
 [3.7.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.7.0
 [3.6.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.6.0

@@ -48,6 +48,8 @@ inputs:
     default: ''
 
 outputs:
+  raw-data:
+    description: 'The raw data of the test report'
   summary:
     description: 'The rendered markdown summary of the test report'
   comment-id:

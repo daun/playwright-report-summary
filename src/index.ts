@@ -197,9 +197,9 @@ export async function report(): Promise<void> {
 		setSummary.addRaw(summary).write()
 	}
 
-	setOutput('raw-data', JSON.stringify(report))
 	setOutput('summary', summary)
 	setOutput('comment-id', commentId)
+	setOutput('report-data', JSON.stringify(report))
 }
 
 if (process.env.GITHUB_ACTIONS === 'true') {

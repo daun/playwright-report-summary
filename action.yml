@@ -48,12 +48,12 @@ inputs:
     default: ''
 
 outputs:
-  raw-data:
-    description: 'The raw data of the test report'
   summary:
     description: 'The rendered markdown summary of the test report'
   comment-id:
     description: 'The ID of the comment that was created or updated'
+  report-data:
+    description: 'The raw data of the test report'
 
 runs:
   using: node20

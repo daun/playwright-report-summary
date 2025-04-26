@@ -131,6 +131,11 @@ The rendered markdown summary of the test report.
 
 The ID of the comment that was created or updated
 
-# License
+### report-data
+
+The raw data of the test report, as a JSON-encoded string. This is
+useful for creating custom summaries or debugging.
+
+## License
 
 [MIT](./LICENSE)

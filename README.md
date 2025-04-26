@@ -121,7 +121,7 @@ and [Create or Update Comment](https://github.com/marketplace/actions/create-or-
 
 ## Output
 
-The action creates two output variables:
+The action creates three output variables:
 
 ### summary
 
@@ -131,6 +131,12 @@ The rendered markdown summary of the test report.
 
 The ID of the comment that was created or updated
 
-# License
+### report-data
+
+The raw data of the test report, as a JSON-encoded string. This is
+useful for creating custom summaries or debugging. You can get an idea
+of the data structure by checking out the [ReportSummary interface](https://github.com/daun/playwright-report-summary/blob/main/src/report.ts#L13).
+
+## License
 
 [MIT](./LICENSE)

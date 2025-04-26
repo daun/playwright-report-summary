@@ -32907,6 +32907,7 @@ async function report() {
     }
     (0, core_1.setOutput)('summary', summary);
     (0, core_1.setOutput)('comment-id', commentId);
+    (0, core_1.setOutput)('report-data', JSON.stringify(report));
 }
 if (process.env.GITHUB_ACTIONS === 'true') {
     // eslint-disable-next-line @typescript-eslint/no-floating-promises

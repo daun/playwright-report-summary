@@ -59,6 +59,7 @@ export async function report(): Promise<void> {
 	const createJobSummary = getInput('job-summary') ? getBooleanInput('job-summary') : false
 	const testCommand = getInput('test-command')
 	const footer = getInput('footer')
+	const providedPR = parseInt(getInput("number", {required: false})) || null;
 
 	debug(`Report file: ${reportFile}`)
 	debug(`Report url: ${reportUrl || '(none)'}`)
@@ -69,7 +70,7 @@ export async function report(): Promise<void> {
 
 	let ref: string = context.ref
 	let sha: string = context.sha
-	let pr: number | null = null
+	let pr: number | null = providedPR
 	let commitUrl: string | undefined
 
 	const octokit = getOctokit(token)

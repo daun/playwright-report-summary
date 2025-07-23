@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.10.0] - 2025-07-23
+
+- Allow passing in a pull request number to comment on (@darmbrust)
+
 ## [3.9.0] - 2025-04-26
 
 - Add output variable for raw report data (@seongminn)
@@ -90,6 +94,7 @@
 
 - Initial release
 
+[3.10.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.10.0
 [3.9.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.9.0
 [3.8.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.8.0
 [3.7.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.7.0

@@ -88,6 +88,10 @@ and [Create or Update Comment](https://github.com/marketplace/actions/create-or-
     # Example pipeline: https://playwright.dev/docs/test-sharding#publishing-report-on-the-web
     report-url: 'https://user.github.io/repo/yyyy-mm-dd-id/'
 
+    # Number of the pull request to comment on. This is only required if the action
+    # is run outside a pull request context or needs to comment on another PR.
+    pr-number: 123
+
     # Whether the action should create the actual comment. Set to false to implement
     # your own commenting logic.
     # Default: true

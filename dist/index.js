@@ -32789,6 +32789,7 @@ async function report() {
     const createJobSummary = (0, core_1.getInput)('job-summary') ? (0, core_1.getBooleanInput)('job-summary') : false;
     const testCommand = (0, core_1.getInput)('test-command');
     const footer = (0, core_1.getInput)('footer');
+    const providedPR = parseInt((0, core_1.getInput)('pr-number', { required: false })) || null;
     (0, core_1.debug)(`Report file: ${reportFile}`);
     (0, core_1.debug)(`Report url: ${reportUrl || '(none)'}`);
     (0, core_1.debug)(`Report tag: ${reportTag || '(none)'}`);
@@ -32797,7 +32798,7 @@ async function report() {
     (0, core_1.debug)(`Creating job summary? ${createJobSummary ? 'yes' : 'no'}`);
     let ref = github_1.context.ref;
     let sha = github_1.context.sha;
-    let pr = null;
+    let pr = providedPR;
     let commitUrl;
     const octokit = (0, github_1.getOctokit)(token);
     switch (eventName) {

@@ -74,7 +74,7 @@
   },
   "devDependencies": {
     "@octokit/openapi-types": "^22.0.0",
-    "@playwright/test": "^1.53.2",
+    "@playwright/test": "^1.54.2",
     "@types/jest": "^29.5.13",
     "@types/node": "^24.0.13",
     "@typescript-eslint/eslint-plugin": "^7.14.1",

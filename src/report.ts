@@ -7,7 +7,7 @@ import {
 } from '@playwright/test/reporter'
 import { debug } from '@actions/core'
 
-import { formatDuration, n, renderAccordion, renderCodeBlock, upperCaseFirst } from './formatting'
+import { escapeForMarkdown, formatDuration, n, renderAccordion, renderCodeBlock, upperCaseFirst } from './formatting'
 import { icons, renderIcon } from './icons'
 
 export interface ReportSummary {
@@ -256,7 +256,7 @@ export function renderReportSummary(
 }
 
 function renderTestList(tests: TestSummary[], testCommand: string | undefined): string {
-	const list = tests.map((test) => `  ${test.title}`).join('\n')
+	const list = tests.map((test) => `  ${escapeForMarkdown(test.title)}`).join('\n')
 	if (!testCommand) {
 		return list
 	}

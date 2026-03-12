@@ -32789,6 +32789,7 @@ async function report() {
     const createJobSummary = (0, core_1.getInput)('job-summary') ? (0, core_1.getBooleanInput)('job-summary') : false;
     const testCommand = (0, core_1.getInput)('test-command');
     const footer = (0, core_1.getInput)('footer');
+    const expandFailedTests = (0, core_1.getInput)('expand-failed-tests') ? (0, core_1.getBooleanInput)('expand-failed-tests') : true;
     const providedPR = parseInt((0, core_1.getInput)('pr-number', { required: false })) || null;
     (0, core_1.debug)(`Report file: ${reportFile}`);
     (0, core_1.debug)(`Report url: ${reportUrl || '(none)'}`);
@@ -32849,7 +32850,8 @@ async function report() {
         reportUrl,
         iconStyle,
         testCommand,
-        footer
+        footer,
+        expandFailedTests
     });
     let commentId = null;
     if (createComment) {
@@ -33034,7 +33036,7 @@ function buildTitle(...paths) {
     const title = path.join(' › ');
     return { title, path };
 }
-function renderReportSummary(report, { commit, commitUrl, message, title, customInfo, reportUrl, iconStyle, testCommand, footer } = {}) {
+function renderReportSummary(report, { commit, commitUrl, message, title, customInfo, reportUrl, iconStyle, testCommand, footer, expandFailedTests } = {}) {
     const { duration, failed, passed, flaky, skipped } = report;
     const icon = (symbol) => (0, icons_1.renderIcon)(symbol, { iconStyle });
     const paragraphs = [];
@@ -33068,7 +33070,7 @@ function renderReportSummary(report, { commit, commitUrl, message, title, custom
         if (tests.length) {
             const summary = `${(0, formatting_1.upperCaseFirst)(status)} tests`;
             const content = renderTestList(tests, status !== 'skipped' ? testCommand : undefined);
-            const open = status === 'failed';
+            const open = status === 'failed' && expandFailedTests;
             return (0, formatting_1.renderAccordion)(summary, content, { open });
         }
     });

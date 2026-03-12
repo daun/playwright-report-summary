@@ -187,7 +187,18 @@ export function buildTitle(...paths: string[]): { title: string; path: string[] 
 
 export function renderReportSummary(
 	report: ReportSummary,
-	{ commit, commitUrl, message, title, customInfo, reportUrl, iconStyle, testCommand, footer, expandFailedTests }: ReportRenderOptions = {}
+	{
+		commit,
+		commitUrl,
+		message,
+		title,
+		customInfo,
+		reportUrl,
+		iconStyle,
+		testCommand,
+		footer,
+		expandFailedTests
+	}: ReportRenderOptions = {}
 ): string {
 	const { duration, failed, passed, flaky, skipped } = report
 	const icon = (symbol: string): string => renderIcon(symbol, { iconStyle })

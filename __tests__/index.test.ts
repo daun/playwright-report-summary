@@ -21,7 +21,7 @@ jest.spyOn(actionsCore, 'warning').mockImplementation(jest.fn())
 jest.spyOn(actionsCore, 'error').mockImplementation(jest.fn())
 const debugMock = jest.spyOn(actionsCore, 'debug').mockImplementation(jest.fn())
 const getInputMock = jest.spyOn(actionsCore, 'getInput').mockImplementation((name: string) => inputs[name] || '')
-const getBooleanInputMock = jest.spyOn(actionsCore, 'getBooleanInput').mockImplementation((name: string) => (inputs[name]?.toLowerCase() === 'true'))
+jest.spyOn(actionsCore, 'getBooleanInput').mockImplementation((name: string) => inputs[name]?.toLowerCase() === 'true')
 const setFailedMock = jest.spyOn(actionsCore, 'setFailed').mockImplementation(jest.fn())
 const setOutputMock = jest.spyOn(actionsCore, 'setOutput').mockImplementation(jest.fn())
 

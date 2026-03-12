@@ -77,6 +77,7 @@ interface ReportRenderOptions {
 	iconStyle?: keyof typeof icons
 	testCommand?: string
 	footer?: string
+	expandFailedTests?: boolean
 }
 
 export function isValidReport(report: unknown): report is JSONReport {
@@ -186,7 +187,7 @@ export function buildTitle(...paths: string[]): { title: string; path: string[] 
 
 export function renderReportSummary(
 	report: ReportSummary,
-	{ commit, commitUrl, message, title, customInfo, reportUrl, iconStyle, testCommand, footer }: ReportRenderOptions = {}
+	{ commit, commitUrl, message, title, customInfo, reportUrl, iconStyle, testCommand, footer, expandFailedTests }: ReportRenderOptions = {}
 ): string {
 	const { duration, failed, passed, flaky, skipped } = report
 	const icon = (symbol: string): string => renderIcon(symbol, { iconStyle })
@@ -234,7 +235,7 @@ export function renderReportSummary(
 		if (tests.length) {
 			const summary = `${upperCaseFirst(status)} tests`
 			const content = renderTestList(tests, status !== 'skipped' ? testCommand : undefined)
-			const open = status === 'failed'
+			const open = status === 'failed' && expandFailedTests
 			return renderAccordion(summary, content, { open })
 		}
 	})

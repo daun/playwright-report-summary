@@ -142,7 +142,8 @@ describe('renderReportSummary', () => {
 		title: 'Test Report',
 		reportUrl: 'https://example.com/report',
 		customInfo: 'For more information, see our [documentation](https://example.com/docs)',
-		commit: '1234567'
+		commit: '1234567',
+		expandFailedTests: true
 	}
 	const getReportSummary = async (): Promise<string> =>
 		renderReportSummary(parseReport(await getReport()), renderOptions)
@@ -153,5 +154,15 @@ describe('renderReportSummary', () => {
 	it('matches snapshot', async () => {
 		const summary = await getReportSummary()
 		expect(summary).toMatchSnapshot()
+	})
+	it('expands failed tests section when expandFailedTests is true', async () => {
+		const report = parseReport(await getReport())
+		const summary = renderReportSummary(report, { ...renderOptions, expandFailedTests: true })
+		expect(summary).toContain('<details open>')
+	})
+	it('collapses failed tests section when expandFailedTests is false', async () => {
+		const report = parseReport(await getReport())
+		const summary = renderReportSummary(report, { ...renderOptions, expandFailedTests: false })
+		expect(summary).not.toContain('<details open>')
 	})
 })

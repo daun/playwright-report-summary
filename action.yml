@@ -49,6 +49,10 @@ inputs:
     description: 'Additional content to add to the comment below the test report'
     required: false
     default: ''
+  expand-failed-tests:
+    description: 'Expand the failed tests section by default in the summary'
+    required: false
+    default: 'true'
 
 outputs:
   summary:

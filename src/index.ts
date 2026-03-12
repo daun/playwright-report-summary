@@ -59,6 +59,7 @@ export async function report(): Promise<void> {
 	const createJobSummary = getInput('job-summary') ? getBooleanInput('job-summary') : false
 	const testCommand = getInput('test-command')
 	const footer = getInput('footer')
+	const expandFailedTests = getInput('expand-failed-tests') ? getBooleanInput('expand-failed-tests') : true
 	const providedPR = parseInt(getInput('pr-number', { required: false })) || null
 
 	debug(`Report file: ${reportFile}`)
@@ -130,7 +131,8 @@ export async function report(): Promise<void> {
 		reportUrl,
 		iconStyle,
 		testCommand,
-		footer
+		footer,
+		expandFailedTests
 	})
 
 	let commentId = null

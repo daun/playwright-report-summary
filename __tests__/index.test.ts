@@ -21,6 +21,7 @@ jest.spyOn(actionsCore, 'warning').mockImplementation(jest.fn())
 jest.spyOn(actionsCore, 'error').mockImplementation(jest.fn())
 const debugMock = jest.spyOn(actionsCore, 'debug').mockImplementation(jest.fn())
 const getInputMock = jest.spyOn(actionsCore, 'getInput').mockImplementation((name: string) => inputs[name] || '')
+const getBooleanInputMock = jest.spyOn(actionsCore, 'getBooleanInput').mockImplementation((name: string) => (inputs[name]?.toLowerCase() === 'true'))
 const setFailedMock = jest.spyOn(actionsCore, 'setFailed').mockImplementation(jest.fn())
 const setOutputMock = jest.spyOn(actionsCore, 'setOutput').mockImplementation(jest.fn())
 
@@ -136,6 +137,7 @@ describe('action', () => {
 		expect(getInputMock).toHaveBeenCalledWith('job-summary')
 		expect(getInputMock).toHaveBeenCalledWith('test-command')
 		expect(getInputMock).toHaveBeenCalledWith('footer')
+		expect(getInputMock).toHaveBeenCalledWith('expand-failed-tests')
 	})
 
 	it('debugs its inputs', async () => {
@@ -196,6 +198,24 @@ describe('action', () => {
 				title: 'Playwright test results',
 				reportUrl: expect.any(String),
 				iconStyle: expect.any(String)
+			})
+		)
+	})
+
+	it('passes expandFailedTests: false when expand-failed-tests input is false', async () => {
+		inputs = {
+			'report-file': '__tests__/__fixtures__/report-valid.json',
+			'expand-failed-tests': 'false'
+		}
+
+		await index.run()
+		expect(runMock).toHaveReturned()
+
+		expect(renderReportSummaryMock).toHaveBeenNthCalledWith(
+			1,
+			expect.any(Object),
+			expect.objectContaining({
+				expandFailedTests: false
 			})
 		)
 	})

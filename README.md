@@ -121,6 +121,10 @@ and [Create or Update Comment](https://github.com/marketplace/actions/create-or-
     # Additional content to add to the comment below the test report.
     # Default: ''
     footer: ''
+
+    # Whether to expand the failed tests section by default in the summary.
+    # Default: true
+    expand-failed-tests: true
 ```
 
 ## Output

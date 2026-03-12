@@ -1,9 +1,5 @@
 export function escapeForMarkdown(text: string): string {
-	return text
-		.replace(/&/g, '&amp;')
-		.replace(/</g, '&lt;')
-		.replace(/>/g, '&gt;')
-		.replace(/\n/g, ' ')
+	return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, ' ')
 }
 
 export function renderMarkdownTable(rows: string[][], headers: string[] = []): string {

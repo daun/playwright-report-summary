@@ -15,4 +15,7 @@ describe('parseListInput', () => {
 	it('ignores empty items', async () => {
 		expect(parseListInput('a, , c')).toEqual(['a', 'c'])
 	})
+	it('allow filtering', async () => {
+		expect(parseListInput('a, b, c', ['b', 'c'])).toEqual(['b', 'c'])
+	})
 })

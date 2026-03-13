@@ -67,10 +67,15 @@ jobs:
     # Title/headline to use for the created pull request comment.
     # Default: Playwright test results
     comment-title: 'Test results'
-    
+
     # Additional information to include in the summary comment, markdown-formatted
     # Default: ''
     custom-info: 'For more information, [see our readme](http://link)'
+
+    # Configure order and visibility of test results (options: passed, failed, flaky, skipped)
+    # Prefix each status with a minus sign to collapse it by default, e.g. '-passed'
+    # Default: 'failed, -flaky, -skipped' (expand failed tests, collapse flaky and skipped tests, hide passed tests)
+    sections: 'failed, -flaky, -skipped'
 
     # Create a job summary comment for the workflow run
     # Default: false
@@ -93,6 +98,6 @@ The rendered markdown summary of the test report.
 
 The ID of the comment that was created or updated
 
-# License
+## License
 
 [MIT](./LICENSE)

@@ -12,6 +12,7 @@ import {
 } from '@actions/core'
 import { context, getOctokit } from '@actions/github'
 import { fileExists, readFile } from './fs'
+import { parseListInput } from './actions'
 import { parseReport, renderReportSummary } from './report'
 import {
 	getIssueComments,
@@ -56,6 +57,7 @@ export async function report(): Promise<void> {
 	const customInfo = getInput('custom-info')
 	const iconStyle = getInput('icon-style') || 'octicons'
 	const jobSummary = getInput('job-summary') ? getBooleanInput('job-summary') : false
+	const sections = parseListInput(getInput('sections') || 'failed, -flaky, -skipped', ['failed', 'passed', 'flaky', 'skipped', '-failed', '-passed', '-flaky', '-skipped'])
 
 	debug(`Report file: ${reportFile}`)
 	debug(`Report url: ${reportUrl || '(none)'}`)
@@ -117,6 +119,7 @@ export async function report(): Promise<void> {
 	const summary = renderReportSummary(report, {
 		commit: sha,
 		title: commentTitle,
+		sections,
 		customInfo,
 		reportUrl,
 		iconStyle

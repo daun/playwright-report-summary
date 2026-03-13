@@ -67,10 +67,14 @@ interface TestResultSummary {
 	started: Date
 }
 
+type ReportRenderSection = 'failed' | 'passed' | 'flaky' | 'skipped'
+type ReportRenderSectionState = ReportRenderSection | `-${ReportRenderSection}`
+
 interface ReportRenderOptions {
 	commit?: string
 	message?: string
 	title?: string
+	sections?: ReportRenderSectionState[]
 	customInfo?: string
 	reportUrl?: string
 	iconStyle?: keyof typeof icons
@@ -183,7 +187,7 @@ export function buildTitle(...paths: string[]): { title: string; path: string[] 
 
 export function renderReportSummary(
 	report: ReportSummary,
-	{ commit, message, title, customInfo, reportUrl, iconStyle }: ReportRenderOptions = {}
+	{ commit, message, title, sections, customInfo, reportUrl, iconStyle }: ReportRenderOptions = {}
 ): string {
 	const { duration, failed, passed, flaky, skipped } = report
 	const icon = (symbol: string): string => renderIcon(symbol, { iconStyle })

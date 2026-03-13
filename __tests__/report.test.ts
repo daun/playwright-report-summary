@@ -155,3 +155,77 @@ describe('renderReportSummary', () => {
 		expect(summary).toMatchSnapshot()
 	})
 })
+
+describe('renderReportSummary sections', () => {
+	const baseOptions = { title: 'Test' }
+	let report: ReportSummary
+
+	beforeAll(async () => {
+		report = parseReport(await getReport())
+	})
+
+	it('uses default sections when none are provided (failed open, flaky + skipped collapsed)', () => {
+		const summary = renderReportSummary(report, baseOptions)
+		expect(summary).toContain('<details open><summary><strong>Failed tests</strong></summary>')
+		expect(summary).toContain('<details ><summary><strong>Flaky tests</strong></summary>')
+		expect(summary).toContain('<details ><summary><strong>Skipped tests</strong></summary>')
+		expect(summary).not.toContain('<summary><strong>Passed tests</strong></summary>')
+	})
+
+	it('shows only the sections listed (omits the rest)', () => {
+		const summary = renderReportSummary(report, {
+			...baseOptions,
+			sections: ['failed', '-skipped']
+		})
+		expect(summary).toContain('<summary><strong>Failed tests</strong></summary>')
+		expect(summary).toContain('<summary><strong>Skipped tests</strong></summary>')
+		expect(summary).not.toContain('<summary><strong>Flaky tests</strong></summary>')
+		expect(summary).not.toContain('<summary><strong>Passed tests</strong></summary>')
+	})
+
+	it('leaves a section off entirely', () => {
+		const summary = renderReportSummary(report, {
+			...baseOptions,
+			sections: ['failed']
+		})
+		expect(summary).toContain('<summary><strong>Failed tests</strong></summary>')
+		expect(summary).not.toContain('<summary><strong>Flaky tests</strong></summary>')
+		expect(summary).not.toContain('<summary><strong>Skipped tests</strong></summary>')
+		expect(summary).not.toContain('<summary><strong>Passed tests</strong></summary>')
+	})
+
+	it('renders a section as open (no - prefix)', () => {
+		const summary = renderReportSummary(report, {
+			...baseOptions,
+			sections: ['flaky']
+		})
+		expect(summary).toContain('<details open><summary><strong>Flaky tests</strong></summary>')
+	})
+
+	it('renders a section as collapsed (- prefix)', () => {
+		const summary = renderReportSummary(report, {
+			...baseOptions,
+			sections: ['-failed']
+		})
+		expect(summary).toContain('<details ><summary><strong>Failed tests</strong></summary>')
+	})
+
+	it('adds passed section and includes passing test names', () => {
+		const summary = renderReportSummary(report, {
+			...baseOptions,
+			sections: ['passed']
+		})
+		expect(summary).toContain('<details open><summary><strong>Passed tests</strong></summary>')
+		expect(summary).toContain('add.spec.ts')
+	})
+
+	it('respects section order', () => {
+		const summary = renderReportSummary(report, {
+			...baseOptions,
+			sections: ['-skipped', 'failed']
+		})
+		const skippedPos = summary.indexOf('<summary><strong>Skipped tests</strong></summary>')
+		const failedPos = summary.indexOf('<summary><strong>Failed tests</strong></summary>')
+		expect(skippedPos).toBeLessThan(failedPos)
+	})
+})

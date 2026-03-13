@@ -67,11 +67,15 @@ interface TestResultSummary {
 	started: Date
 }
 
+type ReportRenderSection = 'failed' | 'passed' | 'flaky' | 'skipped'
+type ReportRenderSectionState = ReportRenderSection | `-${ReportRenderSection}`
+
 interface ReportRenderOptions {
 	commit?: string
 	commitUrl?: string
 	message?: string
 	title?: string
+	sections?: ReportRenderSectionState[]
 	customInfo?: string
 	reportUrl?: string
 	iconStyle?: keyof typeof icons
@@ -186,7 +190,18 @@ export function buildTitle(...paths: string[]): { title: string; path: string[] 
 
 export function renderReportSummary(
 	report: ReportSummary,
-	{ commit, commitUrl, message, title, customInfo, reportUrl, iconStyle, testCommand, footer }: ReportRenderOptions = {}
+	{
+		commit,
+		commitUrl,
+		message,
+		title,
+		sections,
+		customInfo,
+		reportUrl,
+		iconStyle,
+		testCommand,
+		footer
+	}: ReportRenderOptions = {}
 ): string {
 	const { duration, failed, passed, flaky, skipped } = report
 	const icon = (symbol: string): string => renderIcon(symbol, { iconStyle })
@@ -224,24 +239,29 @@ export function renderReportSummary(
 		commitText && !message ? `${icon('commit')}  ${commitText}` : '',
 		customInfo ? `${icon('info')}  ${customInfo}` : ''
 	]
+
 	paragraphs.push(stats.filter(Boolean).join('  \n'))
 
 	// Lists of failed/skipped tests
 
-	const listStatuses = ['failed', 'flaky', 'skipped'] as const
-	const details = listStatuses.map((status) => {
-		const tests = report[status]
-		if (tests.length) {
-			const summary = `${upperCaseFirst(status)} tests`
-			const content = renderTestList(tests, status !== 'skipped' ? testCommand : undefined)
-			const open = status === 'failed'
-			return renderAccordion(summary, content, { open })
-		}
+	const listSections = (sections ?? ['failed', '-flaky', '-skipped']).map((raw: string) => {
+		const open = !raw.startsWith('-')
+		const status = (open ? raw : raw.slice(1)) as ReportRenderSection
+		return { status, open }
 	})
+
+	const details = listSections.map(({ status, open }) => {
+		const tests = report[status]
+		if (!tests.length) return ''
+		const summary = `${upperCaseFirst(status)} tests`
+		const content = renderTestList(tests, status !== 'skipped' ? testCommand : undefined)
+		return renderAccordion(summary, content, { open })
+	})
+
 	paragraphs.push(
 		details
 			.filter(Boolean)
-			.map((md) => (md as string).trim())
+			.map((md) => md.trim())
 			.join('\n')
 	)
 

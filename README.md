@@ -101,9 +101,15 @@ and [Create or Update Comment](https://github.com/marketplace/actions/create-or-
     # Default: 'Playwright test results'
     comment-title: 'Test results'
 
+
     # Additional information to include in the summary comment, markdown-formatted
     # Default: ''
     custom-info: 'For more information, [see our readme](http://link)'
+
+    # Configure order and visibility of test results (options: passed, failed, flaky, skipped)
+    # Prefix each status with a minus sign to collapse it by default, e.g. '-passed'
+    # Default: 'failed, -flaky, -skipped' (expand failed tests, collapse flaky and skipped tests, hide passed tests)
+    sections: 'failed, -flaky, -skipped'
 
     # Create a job summary comment for the workflow run
     # Default: false

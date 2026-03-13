@@ -34,6 +34,9 @@ inputs:
   custom-info:
     description: 'Additional information to include in the summary comment, markdown-formatted'
     required: false
+  sections:
+    description: 'Configure the order and visibility of test results'
+    required: false
   job-summary:
     description: 'Create a job summary comment for the workflow run'
     required: false

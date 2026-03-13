@@ -15,7 +15,10 @@ describe('parseListInput', () => {
 	it('ignores empty items', async () => {
 		expect(parseListInput('a, , c')).toEqual(['a', 'c'])
 	})
-	it('allow filtering', async () => {
+	it('allows filtering', async () => {
 		expect(parseListInput('a, b, c', ['b', 'c'])).toEqual(['b', 'c'])
+	})
+	it('keeps prefixes', async () => {
+		expect(parseListInput('-a, -b, c', ['-a', 'b'])).toEqual(['-a'])
 	})
 })

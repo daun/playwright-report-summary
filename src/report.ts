@@ -7,7 +7,7 @@ import {
 } from '@playwright/test/reporter'
 import { debug } from '@actions/core'
 
-import { formatDuration, n, renderAccordion, upperCaseFirst } from './formatting'
+import { escapeForMarkdown, formatDuration, n, renderAccordion, renderCodeBlock, upperCaseFirst } from './formatting'
 import { icons, renderIcon } from './icons'
 
 export interface ReportSummary {
@@ -72,12 +72,15 @@ type ReportRenderSectionState = ReportRenderSection | `-${ReportRenderSection}`
 
 interface ReportRenderOptions {
 	commit?: string
+	commitUrl?: string
 	message?: string
 	title?: string
 	sections?: ReportRenderSectionState[]
 	customInfo?: string
 	reportUrl?: string
 	iconStyle?: keyof typeof icons
+	testCommand?: string
+	footer?: string
 }
 
 export function isValidReport(report: unknown): report is JSONReport {
@@ -187,7 +190,18 @@ export function buildTitle(...paths: string[]): { title: string; path: string[] 
 
 export function renderReportSummary(
 	report: ReportSummary,
-	{ commit, message, title, sections, customInfo, reportUrl, iconStyle }: ReportRenderOptions = {}
+	{
+		commit,
+		commitUrl,
+		message,
+		title,
+		sections,
+		customInfo,
+		reportUrl,
+		iconStyle,
+		testCommand,
+		footer
+	}: ReportRenderOptions = {}
 ): string {
 	const { duration, failed, passed, flaky, skipped } = report
 	const icon = (symbol: string): string => renderIcon(symbol, { iconStyle })
@@ -211,6 +225,9 @@ export function renderReportSummary(
 
 	paragraphs.push(`#### Details`)
 
+	const shortCommit = commit?.slice(0, 7)
+	const commitText = commitUrl ? `[${shortCommit}](${commitUrl})` : shortCommit
+
 	const stats = [
 		reportUrl ? `${icon('report')}  [Open report ↗︎](${reportUrl})` : '',
 		`${icon('stats')}  ${report.tests.length} ${n('test', report.tests.length)} across ${report.suites.length} ${n(
@@ -218,8 +235,8 @@ export function renderReportSummary(
 			report.suites.length
 		)}`,
 		`${icon('duration')}  ${duration ? formatDuration(duration) : 'unknown'}`,
-		commit && message ? `${icon('commit')}  ${message} (${commit.slice(0, 7)})` : '',
-		commit && !message ? `${icon('commit')}  ${commit.slice(0, 7)}` : '',
+		commitText && message ? `${icon('commit')}  ${message} (${commitText})` : '',
+		commitText && !message ? `${icon('commit')}  ${commitText}` : '',
 		customInfo ? `${icon('info')}  ${customInfo}` : ''
 	]
 
@@ -230,13 +247,15 @@ export function renderReportSummary(
 	const listSections = (sections ?? ['failed', '-flaky', '-skipped']).map((raw: string) => {
 		const open = !raw.startsWith('-')
 		const status = (open ? raw : raw.slice(1)) as ReportRenderSection
-		const summary = `${upperCaseFirst(status)} tests`
-		return { status, summary, open }
+		return { status, open }
 	})
 
-	const details = listSections.map(({ status, summary, open }) => {
+	const details = listSections.map(({ status, open }) => {
 		const tests = report[status]
-		return tests.length ? renderAccordion(summary, tests.map((test) => test.title).join('\n  '), { open }) : null
+		if (!tests.length) return ''
+		const summary = `${upperCaseFirst(status)} tests`
+		const content = renderTestList(tests, status !== 'skipped' ? testCommand : undefined)
+		return renderAccordion(summary, content, { open })
 	})
 
 	paragraphs.push(
@@ -246,10 +265,26 @@ export function renderReportSummary(
 			.join('\n')
 	)
 
+	if (footer) {
+		paragraphs.push(footer)
+	}
+
 	return paragraphs
 		.map((p) => p.trim())
 		.filter(Boolean)
 		.join('\n\n')
+}
+
+function renderTestList(tests: TestSummary[], testCommand: string | undefined): string {
+	const list = tests.map((test) => `  ${escapeForMarkdown(test.title)}`).join('\n')
+	if (!testCommand) {
+		return list
+	}
+
+	const testIds = tests.map((test) => `${test.file}:${test.line}`).join(' ')
+	const command = `${testCommand} ${testIds}`
+
+	return `${list}\n\n${renderCodeBlock(command)}`
 }
 
 function getTotalDuration(report: JSONReport, results: TestResultSummary[]): { duration: number; started: Date } {
@@ -268,4 +303,8 @@ function getTotalDuration(report: JSONReport, results: TestResultSummary[]): { d
 		}
 	}
 	return { duration, started }
+}
+
+export function getCommitUrl(repoUrl: string | undefined, sha: string): string | undefined {
+	return repoUrl ? `${repoUrl}/commit/${sha}` : undefined
 }

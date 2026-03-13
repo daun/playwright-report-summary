@@ -1,3 +1,7 @@
+export function escapeForMarkdown(text: string): string {
+	return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, ' ')
+}
+
 export function renderMarkdownTable(rows: string[][], headers: string[] = []): string {
 	if (!rows.length) {
 		return ''
@@ -11,6 +15,10 @@ export function renderAccordion(summary: string, content: string, { open = false
 	summary = `<summary><strong>${summary}</strong></summary>`
 	content = `\n\n${content.trim()}\n\n`
 	return `<details ${open ? 'open' : ''}>${summary}\n\n${content.trim()}\n\n</details>`
+}
+
+export function renderCodeBlock(code: string, lang = ''): string {
+	return `\`\`\`${lang}\n${code}\n\`\`\``
 }
 
 export function formatDuration(milliseconds: number): string {

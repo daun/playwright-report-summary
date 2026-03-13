@@ -1,8 +1,10 @@
 export function parseListInput(input?: string): string[]
+// eslint-disable-next-line no-redeclare
 export function parseListInput<const Allowed extends readonly string[]>(
 	input: string | undefined,
 	allowed: Allowed
 ): Allowed[number][]
+// eslint-disable-next-line no-redeclare
 export function parseListInput(input?: string, allowed: readonly string[] = []): string[] {
 	return (
 		input

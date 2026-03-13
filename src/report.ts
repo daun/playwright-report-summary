@@ -261,7 +261,7 @@ export function renderReportSummary(
 	paragraphs.push(
 		details
 			.filter(Boolean)
-			.map((md) => (md as string).trim())
+			.map((md) => md.trim())
 			.join('\n')
 	)
 

@@ -31825,6 +31825,25 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
+/***/ 7014:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.parseListInput = void 0;
+function parseListInput(input, allowed = []) {
+    return (input
+        ?.split(/[|,\s]+/)
+        .filter(Boolean)
+        .map((item) => item.trim())
+        .filter((item) => !allowed.length || allowed.includes(item)) || []);
+}
+exports.parseListInput = parseListInput;
+
+
+/***/ }),
+
 /***/ 9598:
 /***/ ((__unused_webpack_module, exports) => {
 
@@ -32035,6 +32054,7 @@ const path_1 = __importDefault(__nccwpck_require__(1017));
 const core_1 = __nccwpck_require__(2186);
 const github_1 = __nccwpck_require__(5438);
 const fs_1 = __nccwpck_require__(9219);
+const actions_1 = __nccwpck_require__(7014);
 const report_1 = __nccwpck_require__(9707);
 const github_2 = __nccwpck_require__(978);
 /**
@@ -32067,9 +32087,19 @@ async function report() {
     const iconStyle = (0, core_1.getInput)('icon-style') || 'octicons';
     const createComment = (0, core_1.getInput)('create-comment') ? (0, core_1.getBooleanInput)('create-comment') : true;
     const createJobSummary = (0, core_1.getInput)('job-summary') ? (0, core_1.getBooleanInput)('job-summary') : false;
+    const sections = (0, actions_1.parseListInput)((0, core_1.getInput)('sections') || 'failed, -flaky, -skipped', [
+        'failed',
+        'passed',
+        'flaky',
+        'skipped',
+        '-failed',
+        '-passed',
+        '-flaky',
+        '-skipped'
+    ]);
     const testCommand = (0, core_1.getInput)('test-command');
     const footer = (0, core_1.getInput)('footer');
-    const providedPR = parseInt((0, core_1.getInput)('pr-number', { required: false })) || null;
+    const providedPR = parseInt((0, core_1.getInput)('pr-number', { required: false }), 10) || null;
     (0, core_1.debug)(`Report file: ${reportFile}`);
     (0, core_1.debug)(`Report url: ${reportUrl || '(none)'}`);
     (0, core_1.debug)(`Report tag: ${reportTag || '(none)'}`);
@@ -32125,6 +32155,7 @@ async function report() {
         commit: sha,
         commitUrl,
         title: commentTitle,
+        sections,
         customInfo,
         reportUrl,
         iconStyle,
@@ -32314,7 +32345,7 @@ function buildTitle(...paths) {
     return { title, path };
 }
 exports.buildTitle = buildTitle;
-function renderReportSummary(report, { commit, commitUrl, message, title, customInfo, reportUrl, iconStyle, testCommand, footer } = {}) {
+function renderReportSummary(report, { commit, commitUrl, message, title, sections, customInfo, reportUrl, iconStyle, testCommand, footer } = {}) {
     const { duration, failed, passed, flaky, skipped } = report;
     const icon = (symbol) => (0, icons_1.renderIcon)(symbol, { iconStyle });
     const paragraphs = [];
@@ -32342,15 +32373,18 @@ function renderReportSummary(report, { commit, commitUrl, message, title, custom
     ];
     paragraphs.push(stats.filter(Boolean).join('  \n'));
     // Lists of failed/skipped tests
-    const listStatuses = ['failed', 'flaky', 'skipped'];
-    const details = listStatuses.map((status) => {
+    const listSections = (sections ?? ['failed', '-flaky', '-skipped']).map((raw) => {
+        const open = !raw.startsWith('-');
+        const status = (open ? raw : raw.slice(1));
+        return { status, open };
+    });
+    const details = listSections.map(({ status, open }) => {
         const tests = report[status];
-        if (tests.length) {
-            const summary = `${(0, formatting_1.upperCaseFirst)(status)} tests`;
-            const content = renderTestList(tests, status !== 'skipped' ? testCommand : undefined);
-            const open = status === 'failed';
-            return (0, formatting_1.renderAccordion)(summary, content, { open });
-        }
+        if (!tests.length)
+            return '';
+        const summary = `${(0, formatting_1.upperCaseFirst)(status)} tests`;
+        const content = renderTestList(tests, status !== 'skipped' ? testCommand : undefined);
+        return (0, formatting_1.renderAccordion)(summary, content, { open });
     });
     paragraphs.push(details
         .filter(Boolean)

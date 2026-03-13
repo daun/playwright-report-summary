@@ -57,7 +57,16 @@ export async function report(): Promise<void> {
 	const customInfo = getInput('custom-info')
 	const iconStyle = getInput('icon-style') || 'octicons'
 	const jobSummary = getInput('job-summary') ? getBooleanInput('job-summary') : false
-	const sections = parseListInput(getInput('sections') || 'failed, -flaky, -skipped', ['failed', 'passed', 'flaky', 'skipped', '-failed', '-passed', '-flaky', '-skipped'])
+	const sections = parseListInput(getInput('sections') || 'failed, -flaky, -skipped', [
+		'failed',
+		'passed',
+		'flaky',
+		'skipped',
+		'-failed',
+		'-passed',
+		'-flaky',
+		'-skipped'
+	])
 
 	debug(`Report file: ${reportFile}`)
 	debug(`Report url: ${reportUrl || '(none)'}`)

@@ -236,9 +236,7 @@ export function renderReportSummary(
 
 	const details = listSections.map(({ status, summary, open }) => {
 		const tests = report[status]
-		return tests.length
-			? renderAccordion(summary, tests.map((test) => test.title).join('\n  '), { open })
-			: null
+		return tests.length ? renderAccordion(summary, tests.map((test) => test.title).join('\n  '), { open }) : null
 	})
 
 	paragraphs.push(

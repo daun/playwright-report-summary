@@ -1,5 +1,9 @@
 # Changelog
 
+## [3.10.1] - 2026-03-13
+
+- Sanitize test titles to prevent html injection (@judeallred)
+
 ## [3.10.0] - 2025-07-23
 
 - Allow passing in a pull request number to comment on (@darmbrust)
@@ -94,6 +98,7 @@
 
 - Initial release
 
+[3.10.1]: https://github.com/daun/playwright-report-summary/releases/tag/v3.10.1
 [3.10.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.10.0
 [3.9.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.9.0
 [3.8.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.8.0

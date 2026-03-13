@@ -222,20 +222,25 @@ export function renderReportSummary(
 		commit && !message ? `${icon('commit')}  ${commit.slice(0, 7)}` : '',
 		customInfo ? `${icon('info')}  ${customInfo}` : ''
 	]
+
 	paragraphs.push(stats.filter(Boolean).join('  \n'))
 
 	// Lists of failed/skipped tests
 
-	const listStatuses = ['failed', 'flaky', 'skipped'] as const
-	const details = listStatuses.map((status) => {
-		const tests = report[status]
-		if (tests.length) {
-			const summary = `${upperCaseFirst(status)} tests`
-			const list = tests.map((test) => test.title).join('\n  ')
-			const open = status === 'failed'
-			return renderAccordion(summary, list, { open })
-		}
+	const listSections = (sections ?? ['failed', '-flaky', '-skipped']).map((raw: string) => {
+		const open = !raw.startsWith('-')
+		const status = (open ? raw : raw.slice(1)) as ReportRenderSection
+		const summary = `${upperCaseFirst(status)} tests`
+		return { status, summary, open }
 	})
+
+	const details = listSections.map(({ status, summary, open }) => {
+		const tests = report[status]
+		return tests.length
+			? renderAccordion(summary, tests.map((test) => test.title).join('\n  '), { open })
+			: null
+	})
+
 	paragraphs.push(
 		details
 			.filter(Boolean)

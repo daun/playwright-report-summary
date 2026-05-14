@@ -34,7 +34,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 24
 
       - run: PLAYWRIGHT_JSON_OUTPUT_NAME=results.json npx playwright test --reporter=json
 

@@ -24,7 +24,7 @@
     ".": "./dist/index.js"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=24"
   },
   "scripts": {
     "bundle": "npm run format:write && npm run package",

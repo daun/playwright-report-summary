@@ -28,7 +28,6 @@
   },
   "scripts": {
     "bundle": "npm run format:write && npm run package",
-    "ci-test": "jest",
     "format:write": "prettier --write '**/*.ts'",
     "format:check": "prettier --check '**/*.ts'",
     "lint": "npx eslint . -c ./.github/linters/.eslintrc.yml",

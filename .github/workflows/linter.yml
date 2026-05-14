@@ -17,17 +17,22 @@ jobs:
       contents: read
       packages: read
       statuses: write
+      issues: write
+      pull-requests: write
 
     steps:
       - name: Checkout
         id: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
 
       - name: Setup Node.js
         id: setup-node
         uses: actions/setup-node@v6
         with:
-          node-version: 18
+          node-version: 24
           cache: npm
 
       - name: Install Dependencies
@@ -36,7 +41,7 @@ jobs:
 
       - name: Lint Code Base
         id: super-linter
-        uses: super-linter/super-linter/slim@v5
+        uses: super-linter/super-linter@v8
         env:
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

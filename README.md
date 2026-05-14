@@ -31,14 +31,14 @@ jobs:
     name: Run playwright tests
     needs: install
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
           node-version: 24
 
       - run: PLAYWRIGHT_JSON_OUTPUT_NAME=results.json npx playwright test --reporter=json
 
-      - uses: daun/playwright-report-summary@v3
+      - uses: daun/playwright-report-summary@v4
         if: always()
         with:
           report-file: results.json
@@ -55,14 +55,14 @@ A few recommended actions are
 and [Create or Update Comment](https://github.com/marketplace/actions/create-or-update-comment).
 
 ```diff
-  - uses: daun/playwright-report-summary@v3
+  - uses: daun/playwright-report-summary@v4
     if: always()
     id: summary
     with:
       report-file: results.json
 +     create-comment: false
 
-+ - uses: marocchino/sticky-pull-request-comment@v2
++ - uses: marocchino/sticky-pull-request-comment@v3
 +   with:
 +     message: ${{ steps.summary.outputs.summary }}
 ```
@@ -70,7 +70,7 @@ and [Create or Update Comment](https://github.com/marketplace/actions/create-or-
 ## Options
 
 ```yaml
-- uses: daun/playwright-report-summary@v3
+- uses: daun/playwright-report-summary@v4
   if: always()
   with:
     # The GitHub access token to use for API requests

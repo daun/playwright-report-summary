@@ -4,24 +4,29 @@
 
 import { expect } from '@jest/globals'
 
+import * as actionsGitHub from '@actions/github'
 import { createIssueComment, createPullRequestReview, getIssueComments, updateIssueComment } from '../src/github'
 
+type Octokit = ReturnType<typeof actionsGitHub.getOctokit>
+
 describe('github', () => {
-	let octokit: any
+	let octokit: Octokit
 
 	beforeEach(() => {
 		octokit = {
 			rest: {
 				issues: {
 					listComments: jest.fn(async () => ({ data: [{ id: 1 }, { id: 2 }] })),
-					updateComment: jest.fn(async (data: any) => ({ data: { ...data, id: data.comment_id } })),
-					createComment: jest.fn(async (data: any) => ({ data: { ...data, id: 4 } }))
+					updateComment: jest.fn(async (data: Record<string, unknown>) => ({
+						data: { ...data, id: data.comment_id }
+					})),
+					createComment: jest.fn(async (data: Record<string, unknown>) => ({ data: { ...data, id: 4 } }))
 				},
 				pulls: {
 					createReview: jest.fn(async (data: object) => ({ data: { ...data, id: 5 } }))
 				}
 			}
-		}
+		} as unknown as Octokit
 		jest.clearAllMocks()
 	})
 

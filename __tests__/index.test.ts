@@ -44,8 +44,10 @@ const octokitMock = {
 	rest: {
 		issues: {
 			listComments: jest.fn(async () => ({ data: [{ id: 1 }, { id: 2 }] })),
-			updateComment: jest.fn(async (data: any) => ({ data: { ...data, id: data.comment_id } })),
-			createComment: jest.fn(async (data: any) => ({ data: { ...data, id: 4 } }))
+			updateComment: jest.fn(async (data: Record<string, unknown>) => ({
+				data: { ...data, id: data.comment_id }
+			})),
+			createComment: jest.fn(async (data: Record<string, unknown>) => ({ data: { ...data, id: 4 } }))
 		},
 		pulls: {
 			createReview: jest.fn(async (data: object) => ({ data: { ...data, id: 5 } }))
@@ -95,7 +97,7 @@ const defaultContext = {
 // Inputs for mock @actions/core
 let inputs: Record<string, string> = {}
 
-function setContext(context: any): void {
+function setContext(context: unknown): void {
 	Object.defineProperty(actionsGitHub, 'context', { value: context, writable: true })
 }
 

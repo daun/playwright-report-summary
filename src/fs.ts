@@ -4,7 +4,7 @@ export async function fileExists(filename: string): Promise<boolean> {
 	try {
 		await fs.access(filename, fs.constants.F_OK)
 		return true
-	} catch (e) {
+	} catch {
 		return false
 	}
 }

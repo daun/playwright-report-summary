@@ -59735,7 +59735,7 @@ async function fileExists(filename) {
         await fs.access(filename, fs.constants.F_OK);
         return true;
     }
-    catch (e) {
+    catch {
         return false;
     }
 }

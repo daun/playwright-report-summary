@@ -2,9 +2,11 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "target": "esnext",
-    "module": "nodenext",
+    "module": "ESNext",
     "rootDir": "./src",
-    "moduleResolution": "nodenext",
+    "moduleResolution": "Bundler",
+    "isolatedModules": true,
+    "ignoreDeprecations": "6.0",
     "sourceMap": true,
     "outDir": "./dist",
     "noImplicitAny": true,

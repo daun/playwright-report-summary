@@ -31,7 +31,7 @@
     "format:write": "prettier --write '**/*.ts'",
     "format:check": "prettier --check '**/*.ts'",
     "lint": "npx eslint . -c ./.github/linters/.eslintrc.yml",
-    "package": "ncc build src/index.ts --license licenses.txt",
+    "package": "rimraf ./dist && rollup --config rollup.config.ts --configPlugin @rollup/plugin-typescript",
     "package:watch": "npm run package -- --watch",
     "test": "jest",
     "test:update": "jest -u",
@@ -76,9 +76,11 @@
     "@playwright/test": "^1.58.2",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.10.1",
+    "@rollup/plugin-commonjs": "^29.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-typescript": "^12.3.0",
     "@typescript-eslint/eslint-plugin": "^8.59.3",
     "@typescript-eslint/parser": "^8.59.3",
-    "@vercel/ncc": "^0.38.0",
     "eslint": "^8.49.0",
     "eslint-plugin-github": "^5.1.8",
     "eslint-plugin-jest": "^28.8.3",
@@ -88,7 +90,10 @@
     "js-yaml": "^4.1.1",
     "prettier": "^3.8.1",
     "prettier-eslint": "^16.4.2",
+    "rimraf": "^6.1.3",
+    "rollup": "^4.59.0",
     "ts-jest": "^29.4.6",
+    "tslib": "^2.8.1",
     "typescript": "^6.0.3"
   }
 }

@@ -38,47 +38,18 @@
 		"all": "npm run format:write && npm run lint && npm run test && npm run package"
 	},
 	"license": "MIT",
-	"jest": {
-		"preset": "ts-jest",
-		"verbose": true,
-		"clearMocks": true,
-		"testEnvironment": "node",
-		"moduleFileExtensions": [
-			"js",
-			"ts"
-		],
-		"testMatch": [
-			"**/*.test.ts"
-		],
-		"testPathIgnorePatterns": [
-			"/node_modules/",
-			"/dist/"
-		],
-		"transform": {
-			"^.+\\.ts$": "ts-jest"
-		},
-		"coverageReporters": [
-			"json-summary",
-			"text",
-			"lcov"
-		],
-		"collectCoverage": true,
-		"collectCoverageFrom": [
-			"./src/**"
-		]
-	},
 	"dependencies": {
-		"@actions/core": "^2.0.3",
+		"@actions/core": "^3.0.1",
 		"@actions/github": "^6.0.1"
 	},
 	"devDependencies": {
 		"@octokit/openapi-types": "^22.0.0",
 		"@playwright/test": "^1.58.2",
-		"@types/jest": "^30.0.0",
-		"@types/node": "^24.10.1",
 		"@rollup/plugin-commonjs": "^29.0.2",
 		"@rollup/plugin-node-resolve": "^16.0.3",
 		"@rollup/plugin-typescript": "^12.3.0",
+		"@types/jest": "^30.0.0",
+		"@types/node": "^24.10.1",
 		"@typescript-eslint/eslint-plugin": "^8.59.3",
 		"@typescript-eslint/parser": "^8.59.3",
 		"eslint": "^8.49.0",

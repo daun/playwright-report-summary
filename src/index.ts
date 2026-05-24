@@ -216,6 +216,5 @@ export async function report(): Promise<void> {
 }
 
 if (process.env.GITHUB_ACTIONS === 'true') {
-	// eslint-disable-next-line @typescript-eslint/no-floating-promises
 	run()
 }

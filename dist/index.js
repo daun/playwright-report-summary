@@ -33454,7 +33454,6 @@ async function readFile(path) {
     return await fs$1.readFile(path, { encoding: 'utf8' });
 }
 
-// eslint-disable-next-line no-redeclare
 function parseListInput(input, allowed = []) {
     return (input
         ?.split(/[|,\s]+/)

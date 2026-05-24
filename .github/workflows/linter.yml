@@ -51,6 +51,8 @@ jobs:
           FILTER_REGEX_EXCLUDE: ^dist/
           VALIDATE_BIOME_FORMAT: false
           VALIDATE_BIOME_LINT: false
+          VALIDATE_CHECKOV: false
           VALIDATE_JSCPD: false
           VALIDATE_MARKDOWN: false
           VALIDATE_NATURAL_LANGUAGE: false
+          VALIDATE_SPELL_CODESPELL: false

@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace -- NBSP (U+00A0) used as visual spacing in rendered markdown */
 import {
 	JSONReport,
 	JSONReportSpec,

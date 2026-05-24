@@ -15,7 +15,9 @@ const config: Config = {
 		'^@actions/io$': '<rootDir>/node_modules/@actions/io/lib/io.js',
 		'^@actions/io/lib/(.*)$': '<rootDir>/node_modules/@actions/io/lib/$1.js',
 		'^@actions/http-client$': '<rootDir>/node_modules/@actions/http-client/lib/index.js',
-		'^@actions/http-client/lib/(.*)$': '<rootDir>/node_modules/@actions/http-client/lib/$1.js'
+		'^@actions/http-client/lib/(.*)$': '<rootDir>/node_modules/@actions/http-client/lib/$1.js',
+		'^@actions/github$': '<rootDir>/node_modules/@actions/github/lib/github.js',
+		'^@actions/github/lib/(.*)$': '<rootDir>/node_modules/@actions/github/lib/$1.js'
 	},
 	testMatch: ['**/*.test.ts'],
 	testPathIgnorePatterns: ['/node_modules/', '/dist/'],
@@ -24,12 +26,13 @@ const config: Config = {
 			'ts-jest',
 			{
 				diagnostics: false,
-				isolatedModules: true,
 				tsconfig: 'tsconfig.test.json'
 			}
 		]
 	},
-	transformIgnorePatterns: ['/node_modules/(?!@actions/(core|exec|io|http-client))'],
+	transformIgnorePatterns: [
+		'/node_modules/(?!(@actions/(core|exec|github|io|http-client)|@octokit/[^/]+|universal-user-agent|before-after-hook)/)'
+	],
 	coverageReporters: ['json-summary', 'text', 'lcov'],
 	collectCoverage: true,
 	collectCoverageFrom: ['./src/**']

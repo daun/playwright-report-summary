@@ -6,14 +6,15 @@
  * variables following the pattern `INPUT_<INPUT_NAME>`.
  */
 
-import { Context } from '@actions/github/lib/context'
 import * as actionsCore from '@actions/core'
 import * as actionsGitHub from '@actions/github'
 
-import * as index from '../src/index'
 import * as fs from '../src/fs'
-import * as report from '../src/report'
 import * as github from '../src/github'
+import * as index from '../src/index'
+import * as report from '../src/report'
+
+type Context = typeof actionsGitHub.context
 
 // Mock the GitHub Actions core library
 jest.spyOn(actionsCore, 'info').mockImplementation(jest.fn())

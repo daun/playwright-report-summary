@@ -3,7 +3,7 @@
  */
 
 import { expect } from '@jest/globals'
-import { formatDuration, upperCaseFirst, renderMarkdownTable } from '../src/formatting'
+import { escapeForMarkdown, formatDuration, upperCaseFirst, renderMarkdownTable } from '../src/formatting'
 
 describe('formatDuration', () => {
 	it('returns a string', async () => {
@@ -37,6 +37,54 @@ describe('formatDuration', () => {
 	})
 	it('formats singular days', async () => {
 		expect(formatDuration(86400000)).toBe('1 day')
+	})
+})
+
+describe('escapeForMarkdown', () => {
+	it('escapes HTML special characters', () => {
+		expect(escapeForMarkdown('<script>alert(1)</script>')).toBe('&lt;script&gt;alert\\(1\\)&lt;/script&gt;')
+		expect(escapeForMarkdown('a & b')).toBe('a &amp; b')
+	})
+
+	it('strips newlines to spaces', () => {
+		expect(escapeForMarkdown('line1\nline2')).toBe('line1 line2')
+	})
+
+	it('neutralizes markdown link injection', () => {
+		const out = escapeForMarkdown('[click here](https://evil.example)')
+		// every [ ] ( ) in the output must be preceded by a backslash
+		expect(out).not.toMatch(/(^|[^\\])[[\]()]/)
+		expect(out).toContain('https://evil.example') // url text preserved
+	})
+
+	it('neutralizes markdown image injection', () => {
+		const out = escapeForMarkdown('![tracker](https://evil.example/log)')
+		expect(out).not.toMatch(/(^|[^\\])!\[/)
+	})
+
+	it('neutralizes inline code spans', () => {
+		const out = escapeForMarkdown('text with `backticks` inside')
+		expect(out).not.toMatch(/(^|[^\\])`/)
+	})
+
+	it('neutralizes emphasis markers', () => {
+		expect(escapeForMarkdown('*bold*')).toBe('\\*bold\\*')
+		expect(escapeForMarkdown('__under__')).toBe('\\_\\_under\\_\\_')
+	})
+
+	it('neutralizes autolink-style references', () => {
+		// @mentions, #issues, GH autolinks rely on raw @ and # without escapes;
+		// escaping # is sufficient to neutralize line-leading headings and refs.
+		expect(escapeForMarkdown('#1234')).toBe('\\#1234')
+		expect(escapeForMarkdown('- list item')).toBe('\\- list item')
+	})
+
+	it('escapes backslashes so attacker cannot undo escaping downstream', () => {
+		expect(escapeForMarkdown('\\[x](y)')).toBe('\\\\\\[x\\]\\(y\\)')
+	})
+
+	it('leaves benign text unchanged', () => {
+		expect(escapeForMarkdown('should render a login form')).toBe('should render a login form')
 	})
 })
 

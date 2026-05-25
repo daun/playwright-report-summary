@@ -43,4 +43,80 @@ describe('renderReportSummary security', () => {
 		expect(output).toContain('harmless test')
 		expect(output).toContain('&lt;')
 	})
+
+	// Helper: build a minimal report containing a single failed test with the
+	// given title, so we can assert how that title renders in the summary.
+	function reportWithFailedTitle(title: string): ReportSummary {
+		const failedTest = {
+			passed: false,
+			failed: true,
+			flaky: false,
+			skipped: false,
+			file: 'test.spec.ts',
+			line: 1,
+			column: 1,
+			path: ['test.spec.ts', title],
+			title,
+			results: [{ duration: 100, started: new Date() }]
+		}
+		return {
+			version: '1.0.0',
+			started: new Date(),
+			duration: 1000,
+			workers: 1,
+			shards: 0,
+			projects: ['chromium'],
+			files: ['test.spec.ts'],
+			suites: [
+				{
+					file: 'test.spec.ts',
+					line: 0,
+					column: 0,
+					path: [],
+					title: 'test.spec.ts',
+					level: 0,
+					root: true,
+					specs: []
+				}
+			],
+			specs: [],
+			tests: [failedTest],
+			failed: [failedTest],
+			passed: [],
+			flaky: [],
+			skipped: [],
+			results: []
+		}
+	}
+
+	it('neutralizes markdown link injection in test titles', () => {
+		const report = reportWithFailedTitle('[Click here for free pizza](https://attacker.example)')
+		const output = renderReportSummary(report, { title: 'Test Report' })
+		// Attacker URL text may appear, but it must not be wrapped in an active link.
+		expect(output).not.toMatch(/\[Click here[^\]]*\]\(https:\/\/attacker\.example\)/)
+		expect(output).toContain('attacker.example') // shown as plain text
+	})
+
+	it('neutralizes markdown image injection in test titles', () => {
+		const report = reportWithFailedTitle('![pixel](https://attacker.example/log)')
+		const output = renderReportSummary(report, { title: 'Test Report' })
+		expect(output).not.toMatch(/(^|[^\\])!\[pixel\]\(https:\/\/attacker\.example/)
+	})
+
+	it('neutralizes inline code-span injection in test titles', () => {
+		const report = reportWithFailedTitle('uses `rm -rf /` in setup')
+		const output = renderReportSummary(report, { title: 'Test Report' })
+		// The title line should not contain an unescaped backtick pair
+		const titleLine = output.split('\n').find((l) => l.includes('rm -rf')) ?? ''
+		expect(titleLine).not.toMatch(/(^|[^\\])`/)
+	})
+
+	it('neutralizes emphasis and heading metacharacters in test titles', () => {
+		const report = reportWithFailedTitle('*bold* _under_ #heading')
+		const output = renderReportSummary(report, { title: 'Test Report' })
+		const titleLine = output.split('\n').find((l) => l.includes('bold')) ?? ''
+		expect(titleLine).toContain('\\*bold\\*')
+		expect(titleLine).toContain('\\_under\\_')
+		expect(titleLine).toContain('\\#heading')
+	})
 })

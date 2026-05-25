@@ -1,5 +1,16 @@
+// Inline markdown metacharacters that can change rendering when they appear
+// inside otherwise-plain text. Escaped with a leading backslash, which GitHub
+// Flavored Markdown recognizes as a literal-character escape.
+// Reference: https://github.github.com/gfm/#backslash-escapes
+const MARKDOWN_INLINE_METACHARACTERS = /[\\`*_{}[\]()#+!|~-]/g
+
 export function escapeForMarkdown(text: string): string {
-	return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, ' ')
+	return text
+		.replace(/&/g, '&amp;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;')
+		.replace(MARKDOWN_INLINE_METACHARACTERS, '\\$&')
+		.replace(/\n/g, ' ')
 }
 
 export function renderMarkdownTable(rows: string[][], headers: string[] = []): string {

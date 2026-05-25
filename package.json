@@ -53,7 +53,7 @@
 		"@types/node": "^24.10.1",
 		"@typescript-eslint/eslint-plugin": "^8.59.4",
 		"@typescript-eslint/parser": "^8.59.4",
-		"eslint": "^9.39.4",
+		"eslint": "^10.4.0",
 		"eslint-plugin-github": "^6.0.0",
 		"eslint-plugin-jest": "^29.15.2",
 		"eslint-plugin-jsonc": "^3.1.2",

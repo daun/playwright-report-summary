@@ -210,6 +210,12 @@ export async function report(): Promise<void> {
 		setSummary.addRaw(summary).write()
 	}
 
+	// Security note: `summary` and `report-data` may contain attacker-controlled
+	// substrings (test titles, file paths, error messages) when the report comes
+	// from PR-controlled code (e.g. pull_request_target or workflow_run flows).
+	// Consumers MUST NOT interpolate these outputs directly into `run:` scripts
+	// with `${{ ... }}` -- pass them as action inputs or through `env:` instead.
+	// See the "Security: using outputs safely" section of the README.
 	setOutput('summary', summary)
 	setOutput('comment-id', commentId)
 	setOutput('report-data', JSON.stringify(report))

@@ -201,6 +201,45 @@ See GitHub's guidance on
 [understanding the risk of script injections](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#understanding-the-risk-of-script-injections)
 for more.
 
+## Security: triggering from `issue_comment`
+
+The action supports being run from an `issue_comment` event so you can, for example, re-post the summary
+when someone comments `/retest` on a PR. **Be aware that in a public repository any GitHub user can
+comment on a PR**, so an unguarded `issue_comment` workflow lets arbitrary users trigger the action
+(and consume your minutes, and cause `github-actions[bot]` to post a comment in response to their input).
+
+If you wire the action to `issue_comment`, gate the job on the commenter's association with the
+repository. Examples:
+
+```yaml
+on: issue_comment
+
+jobs:
+  summary:
+    # Only run for comments authored by users with write access or above.
+    if: >-
+      github.event.issue.pull_request &&
+      contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'),
+               github.event.comment.author_association)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: daun/playwright-report-summary@v4
+        with:
+          report-file: results.json
+```
+
+Or restrict to an explicit actor allowlist:
+
+```yaml
+    if: github.event.issue.pull_request && github.actor == 'your-bot-user'
+```
+
+If your `issue_comment` job additionally **checks out the PR head** (e.g. to re-run tests), the same
+threat model as `pull_request_target` applies: treat the checked-out code as untrusted and never run it
+with repository secrets in scope. See GitHub's
+[keeping your GitHub Actions and workflows secure](https://securitylab.github.com/research/github-actions-preventing-pwn-requests/)
+for background.
+
 ## License
 
 [MIT](./LICENSE)

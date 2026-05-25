@@ -3,7 +3,13 @@
  */
 
 import { expect } from '@jest/globals'
-import { escapeForMarkdown, formatDuration, upperCaseFirst, renderMarkdownTable } from '../src/formatting'
+import {
+	escapeForMarkdown,
+	formatDuration,
+	renderCodeBlock,
+	renderMarkdownTable,
+	upperCaseFirst
+} from '../src/formatting'
 
 describe('formatDuration', () => {
 	it('returns a string', async () => {
@@ -94,6 +100,32 @@ describe('upperCaseFirst', () => {
 	})
 	it('uppercases the first letter', async () => {
 		expect(upperCaseFirst('lorem')).toBe('Lorem')
+	})
+})
+
+describe('renderCodeBlock', () => {
+	it('wraps code in a triple-backtick fence by default', () => {
+		expect(renderCodeBlock('hello')).toBe('```\nhello\n```')
+	})
+
+	it('uses an adaptive fence longer than any backtick run in the content', () => {
+		// Content closes its own ``` -> need a 4-tick fence
+		const content = 'foo ``` bar'
+		const out = renderCodeBlock(content)
+		expect(out.startsWith('````\n')).toBe(true)
+		expect(out.endsWith('\n````')).toBe(true)
+		expect(out).toContain(content)
+	})
+
+	it('grows the fence to defeat arbitrary attacker backtick runs', () => {
+		const content = '`````` evil ```'
+		const out = renderCodeBlock(content)
+		// Fence must be at least 7 backticks (longest run inside is 6)
+		expect(out.startsWith('```````\n')).toBe(true)
+	})
+
+	it('passes language hint through', () => {
+		expect(renderCodeBlock('echo 1', 'bash')).toBe('```bash\necho 1\n```')
 	})
 })
 

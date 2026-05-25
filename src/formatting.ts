@@ -29,7 +29,12 @@ export function renderAccordion(summary: string, content: string, { open = false
 }
 
 export function renderCodeBlock(code: string, lang = ''): string {
-	return `\`\`\`${lang}\n${code}\n\`\`\``
+	// Use a fence that is at least one backtick longer than the longest run of
+	// backticks inside `code`, so untrusted content cannot close the block early.
+	// Matches CommonMark fenced code block rules.
+	const longestRun = (code.match(/`+/g) ?? []).reduce((max, run) => Math.max(max, run.length), 0)
+	const fence = '`'.repeat(Math.max(3, longestRun + 1))
+	return `${fence}${lang}\n${code}\n${fence}`
 }
 
 export function formatDuration(milliseconds: number): string {

@@ -45,17 +45,18 @@ describe('renderReportSummary security', () => {
 	})
 
 	// Helper: build a minimal report containing a single failed test with the
-	// given title, so we can assert how that title renders in the summary.
-	function reportWithFailedTitle(title: string): ReportSummary {
+	// given title (and optional file path), so we can assert how those values
+	// render in the summary.
+	function reportWithFailedTitle(title: string, file = 'test.spec.ts'): ReportSummary {
 		const failedTest = {
 			passed: false,
 			failed: true,
 			flaky: false,
 			skipped: false,
-			file: 'test.spec.ts',
+			file,
 			line: 1,
 			column: 1,
-			path: ['test.spec.ts', title],
+			path: [file, title],
 			title,
 			results: [{ duration: 100, started: new Date() }]
 		}
@@ -118,5 +119,43 @@ describe('renderReportSummary security', () => {
 		expect(titleLine).toContain('\\*bold\\*')
 		expect(titleLine).toContain('\\_under\\_')
 		expect(titleLine).toContain('\\#heading')
+	})
+
+	it('prevents code-fence breakout via attacker-controlled test.file', () => {
+		// A file path crafted to close a ```-fence and inject a heading + link.
+		const maliciousFile = 'tests/a.spec.ts\n```\n## Pwned\n[click](https://attacker.example)\n```\nb.spec.ts'
+		const report = reportWithFailedTitle('a test', maliciousFile)
+		const output = renderReportSummary(report, {
+			title: 'Test Report',
+			testCommand: 'npx playwright test'
+		})
+
+		// All fence delimiters must pair up (even count) -> no premature break-out.
+		const fenceMatches = output.match(/^`{3,}/gm) ?? []
+		expect(fenceMatches.length % 2).toBe(0)
+
+		// Strip fenced code blocks; the attacker payload must not survive in the
+		// rendered (non-code) portion of the comment.
+		const outsideCode = output.replace(/^(`{3,})[^\n]*\n[\s\S]*?\n\1$/gm, '')
+		expect(outsideCode).not.toMatch(/^## Pwned/m)
+		expect(outsideCode).not.toMatch(/\[click\]\(https:\/\/attacker\.example\)/)
+	})
+
+	it('grows fence length when test.file legitimately contains backticks', () => {
+		// While unusual, backticks are valid in POSIX filenames. We must not break
+		// such paths, but we also must not let them break out of the code block.
+		const report = reportWithFailedTitle('a test', 'tests/weird```name.spec.ts')
+		const output = renderReportSummary(report, {
+			title: 'Test Report',
+			testCommand: 'npx playwright test'
+		})
+
+		expect(output).toContain('tests/weird```name.spec.ts:1')
+		const fenceMatches = output.match(/^`{3,}/gm) ?? []
+		expect(fenceMatches.length % 2).toBe(0)
+		// All fences in this output must be at least 4 backticks long
+		for (const f of fenceMatches) {
+			expect(f.length).toBeGreaterThanOrEqual(4)
+		}
 	})
 })

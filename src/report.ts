@@ -275,13 +275,22 @@ export function renderReportSummary(
 		.join('\n\n')
 }
 
+// Strip characters that can never appear in a real Playwright source file
+// path but that would corrupt the rendered single-line re-run command if
+// taken verbatim from an untrusted JSON report: newlines, tabs and other
+// ASCII control characters.
+function sanitizeTestFilePath(file: string): string {
+	// eslint-disable-next-line no-control-regex
+	return file.replace(/[\x00-\x1f\x7f]/g, '')
+}
+
 function renderTestList(tests: TestSummary[], testCommand: string | undefined): string {
 	const list = tests.map((test) => `  ${escapeForMarkdown(test.title)}`).join('\n')
 	if (!testCommand) {
 		return list
 	}
 
-	const testIds = tests.map((test) => `${test.file}:${test.line}`).join(' ')
+	const testIds = tests.map((test) => `${sanitizeTestFilePath(test.file)}:${test.line}`).join(' ')
 	const command = `${testCommand} ${testIds}`
 
 	return `${list}\n\n${renderCodeBlock(command)}`

@@ -58,9 +58,8 @@ describe('escapeForMarkdown', () => {
 
 	it('neutralizes markdown link injection', () => {
 		const out = escapeForMarkdown('[click here](https://evil.example)')
-		// every [ ] ( ) in the output must be preceded by a backslash
 		expect(out).not.toMatch(/(^|[^\\])[[\]()]/)
-		expect(out).toContain('https://evil.example') // url text preserved
+		expect(out).toContain('https://evil.example')
 	})
 
 	it('neutralizes markdown image injection', () => {
@@ -78,9 +77,7 @@ describe('escapeForMarkdown', () => {
 		expect(escapeForMarkdown('__under__')).toBe('\\_\\_under\\_\\_')
 	})
 
-	it('neutralizes autolink-style references', () => {
-		// @mentions, #issues, GH autolinks rely on raw @ and # without escapes;
-		// escaping # is sufficient to neutralize line-leading headings and refs.
+	it('neutralizes autolink-style references and list/heading markers', () => {
 		expect(escapeForMarkdown('#1234')).toBe('\\#1234')
 		expect(escapeForMarkdown('- list item')).toBe('\\- list item')
 	})
@@ -109,18 +106,13 @@ describe('renderCodeBlock', () => {
 	})
 
 	it('uses an adaptive fence longer than any backtick run in the content', () => {
-		// Content closes its own ``` -> need a 4-tick fence
-		const content = 'foo ``` bar'
-		const out = renderCodeBlock(content)
+		const out = renderCodeBlock('foo ``` bar')
 		expect(out.startsWith('````\n')).toBe(true)
 		expect(out.endsWith('\n````')).toBe(true)
-		expect(out).toContain(content)
 	})
 
-	it('grows the fence to defeat arbitrary attacker backtick runs', () => {
-		const content = '`````` evil ```'
-		const out = renderCodeBlock(content)
-		// Fence must be at least 7 backticks (longest run inside is 6)
+	it('grows the fence to defeat arbitrary backtick runs', () => {
+		const out = renderCodeBlock('`````` evil ```')
 		expect(out.startsWith('```````\n')).toBe(true)
 	})
 

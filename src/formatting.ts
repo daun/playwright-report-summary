@@ -1,8 +1,32 @@
-// Inline markdown metacharacters that can change rendering when they appear
-// inside otherwise-plain text. Escaped with a leading backslash, which GitHub
-// Flavored Markdown recognizes as a literal-character escape.
-// Reference: https://github.github.com/gfm/#backslash-escapes
+// Cap on rendered test titles. Keeps the comment well under GitHub's
+// 65535-char body limit even for catastrophic-failure runs.
+export const MAX_TITLE_LENGTH = 500
+
+// GFM inline metacharacters; backslash-escape neutralizes them as plain text.
 const MARKDOWN_INLINE_METACHARACTERS = /[\\`*_{}[\]()#+!|~-]/g
+
+// ANSI CSI / OSC / single-byte escape sequences. Stripped whole so the
+// leftover param bytes (e.g. `[31m`) don't survive as visible garbage.
+// eslint-disable-next-line no-control-regex
+const ANSI_ESCAPE_SEQUENCES = /\x1b(?:\[[0-?]*[ -/]*[@-~]|\][^\x07\x1b]*(?:\x07|\x1b\\)|[@-_])/g
+
+// C0 + DEL + C1 control characters. ESC is included, defeating any ANSI
+// sequence the regex above missed.
+// eslint-disable-next-line no-control-regex
+const CONTROL_CHARACTERS = /[\x00-\x1f\x7f-\x9f]/g
+
+export function stripControlCharacters(text: string): string {
+	return text.replace(ANSI_ESCAPE_SEQUENCES, '').replace(CONTROL_CHARACTERS, '')
+}
+
+export function sanitizeTestFilePath(file: string): string {
+	return stripControlCharacters(file)
+}
+
+export function sanitizeTestTitle(title: string): string {
+	const stripped = stripControlCharacters(title)
+	return stripped.length <= MAX_TITLE_LENGTH ? stripped : `${stripped.slice(0, MAX_TITLE_LENGTH)}\u2026`
+}
 
 export function escapeForMarkdown(text: string): string {
 	return text
@@ -29,9 +53,7 @@ export function renderAccordion(summary: string, content: string, { open = false
 }
 
 export function renderCodeBlock(code: string, lang = ''): string {
-	// Use a fence that is at least one backtick longer than the longest run of
-	// backticks inside `code`, so untrusted content cannot close the block early.
-	// Matches CommonMark fenced code block rules.
+	// Adaptive fence (CommonMark): one tick longer than any run inside `code`.
 	const longestRun = (code.match(/`+/g) ?? []).reduce((max, run) => Math.max(max, run.length), 0)
 	const fence = '`'.repeat(Math.max(3, longestRun + 1))
 	return `${fence}${lang}\n${code}\n${fence}`

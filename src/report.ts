@@ -7,7 +7,16 @@ import {
 } from '@playwright/test/reporter'
 import { debug } from '@actions/core'
 
-import { escapeForMarkdown, formatDuration, n, renderAccordion, renderCodeBlock, upperCaseFirst } from './formatting'
+import {
+	escapeForMarkdown,
+	formatDuration,
+	n,
+	renderAccordion,
+	renderCodeBlock,
+	sanitizeTestFilePath,
+	sanitizeTestTitle,
+	upperCaseFirst
+} from './formatting'
 import { icons, renderIcon } from './icons'
 
 export interface ReportSummary {
@@ -275,52 +284,9 @@ export function renderReportSummary(
 		.join('\n\n')
 }
 
-// Caps applied to rendered report fields. These bound the size of the
-// generated comment so that an oversized or hostile report cannot:
-//   - bloat the comment past GitHub's 65535-character body limit (which
-//     would cause the API call to fail and suppress the bot's comment
-//     entirely -- a denial-of-service against the legitimate maintainer);
-//   - dump thousands of failed-test lines that drown out useful content.
-// Values are deliberately conservative: real-world Playwright titles are
-// well under 200 chars and a section listing 100 tests is already large.
-export const MAX_TITLE_LENGTH = 500
+// Cap on tests rendered per section. Prevents a catastrophic-failure run
+// from drowning the comment in thousands of lines.
 export const MAX_TESTS_PER_SECTION = 100
-
-// ANSI escape sequences commonly emitted by Playwright (e.g. red/green
-// styling on test status). Stripping the entire sequence -- not just the
-// leading ESC byte -- keeps the visible output clean. CSI: ESC [ params final.
-// OSC: ESC ] payload BEL-or-ST. Plus a catch-all for single-byte ESC seqs.
-// eslint-disable-next-line no-control-regex
-const ANSI_ESCAPE_SEQUENCES = /\x1b(?:\[[0-?]*[ -/]*[@-~]|\][^\x07\x1b]*(?:\x07|\x1b\\)|[@-_])/g
-
-// Matches ASCII C0 controls (incl. ESC, used by ANSI CSI/OSC sequences),
-// DEL, and C1 controls. Stripping these prevents terminal-escape smuggling
-// in any non-HTML consumer of the rendered comment (e.g. `gh pr view`).
-// eslint-disable-next-line no-control-regex
-const CONTROL_CHARACTERS = /[\x00-\x1f\x7f-\x9f]/g
-
-function stripControlCharacters(text: string): string {
-	return text.replace(ANSI_ESCAPE_SEQUENCES, '').replace(CONTROL_CHARACTERS, '')
-}
-
-// Strip characters that can never appear in a real Playwright source file
-// path but that would corrupt the rendered single-line re-run command if
-// taken verbatim from an untrusted JSON report.
-function sanitizeTestFilePath(file: string): string {
-	return stripControlCharacters(file)
-}
-
-// Strip control characters and truncate to a fixed maximum length so a
-// pathological title cannot blow up the comment size. Truncation is
-// applied to the raw character count, before markdown escaping, so the
-// visible length is what the user actually sees in the rendered comment.
-function sanitizeTestTitle(title: string): string {
-	const stripped = stripControlCharacters(title)
-	if (stripped.length <= MAX_TITLE_LENGTH) {
-		return stripped
-	}
-	return `${stripped.slice(0, MAX_TITLE_LENGTH)}\u2026`
-}
 
 function renderTestList(tests: TestSummary[], testCommand: string | undefined): string {
 	const shown = tests.slice(0, MAX_TESTS_PER_SECTION)

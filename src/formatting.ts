@@ -1,17 +1,14 @@
-// Cap on rendered test titles. Keeps the comment well under GitHub's
-// 65535-char body limit even for catastrophic-failure runs.
+// Cap on rendered test titles to avoid GitHub's 65535-char body limit
 export const MAX_TITLE_LENGTH = 500
 
-// GFM inline metacharacters; backslash-escape neutralizes them as plain text.
+// GFM inline metacharacters; backslash-escape neutralizes them as plain text
 const MARKDOWN_INLINE_METACHARACTERS = /[\\`*_{}[\]()#+!|~-]/g
 
-// ANSI CSI / OSC / single-byte escape sequences. Stripped whole so the
-// leftover param bytes (e.g. `[31m`) don't survive as visible garbage.
+// ANSI  escape sequences stripped whole s leftover bytes (`[31m`) don't survive as visible garbage
 // eslint-disable-next-line no-control-regex
 const ANSI_ESCAPE_SEQUENCES = /\x1b(?:\[[0-?]*[ -/]*[@-~]|\][^\x07\x1b]*(?:\x07|\x1b\\)|[@-_])/g
 
-// C0 + DEL + C1 control characters. ESC is included, defeating any ANSI
-// sequence the regex above missed.
+// C0 + DEL + C1 control characters + ESC for defeating any ANSI sequence the regex above missed
 // eslint-disable-next-line no-control-regex
 const CONTROL_CHARACTERS = /[\x00-\x1f\x7f-\x9f]/g
 

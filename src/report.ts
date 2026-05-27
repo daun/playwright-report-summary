@@ -1,11 +1,11 @@
-import {
+import { debug } from '@actions/core'
+import type {
 	JSONReport,
 	JSONReportSpec,
 	JSONReportSuite,
 	JSONReportTest,
 	JSONReportTestResult
 } from '@playwright/test/reporter'
-import { debug } from '@actions/core'
 
 import {
 	escapeForMarkdown,
@@ -17,7 +17,7 @@ import {
 	sanitizeTestTitle,
 	upperCaseFirst
 } from './formatting'
-import { icons, renderIcon } from './icons'
+import { type icons, renderIcon } from './icons'
 
 export interface ReportSummary {
 	version: string
@@ -91,6 +91,9 @@ interface ReportRenderOptions {
 	testCommand?: string
 	footer?: string
 }
+
+// Cap on tests rendered per section to prevent comment flooding on catastrophic-failure runs
+export const MAX_TESTS_PER_SECTION = 100
 
 export function isValidReport(report: unknown): report is JSONReport {
 	return report !== null && typeof report === 'object' && 'config' in report && 'errors' in report && 'suites' in report
@@ -283,10 +286,6 @@ export function renderReportSummary(
 		.filter(Boolean)
 		.join('\n\n')
 }
-
-// Cap on tests rendered per section. Prevents a catastrophic-failure run
-// from drowning the comment in thousands of lines.
-export const MAX_TESTS_PER_SECTION = 100
 
 function renderTestList(tests: TestSummary[], testCommand: string | undefined): string {
 	const shown = tests.slice(0, MAX_TESTS_PER_SECTION)

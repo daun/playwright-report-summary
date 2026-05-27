@@ -1,7 +1,7 @@
-import { getOctokit } from '@actions/github'
+import type { getOctokit } from '@actions/github'
 
 // eslint-disable-next-line import/no-unresolved
-import { components } from '@octokit/openapi-types'
+import type { components } from '@octokit/openapi-types'
 
 type IssueComment = components['schemas']['issue-comment']
 type PullRequestReview = components['schemas']['pull-request-review']

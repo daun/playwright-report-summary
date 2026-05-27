@@ -3,7 +3,13 @@
  */
 
 import { expect } from '@jest/globals'
-import { formatDuration, upperCaseFirst, renderMarkdownTable } from '../src/formatting'
+import {
+	escapeForMarkdown,
+	formatDuration,
+	renderCodeBlock,
+	renderMarkdownTable,
+	upperCaseFirst
+} from '../src/formatting'
 
 describe('formatDuration', () => {
 	it('returns a string', async () => {
@@ -40,12 +46,78 @@ describe('formatDuration', () => {
 	})
 })
 
+describe('escapeForMarkdown', () => {
+	it('escapes HTML special characters', () => {
+		expect(escapeForMarkdown('<script>alert(1)</script>')).toBe('&lt;script&gt;alert\\(1\\)&lt;/script&gt;')
+		expect(escapeForMarkdown('a & b')).toBe('a &amp; b')
+	})
+
+	it('strips newlines to spaces', () => {
+		expect(escapeForMarkdown('line1\nline2')).toBe('line1 line2')
+	})
+
+	it('neutralizes markdown link injection', () => {
+		const out = escapeForMarkdown('[click here](https://evil.example)')
+		expect(out).not.toMatch(/(^|[^\\])[[\]()]/)
+		expect(out).toContain('https://evil.example')
+	})
+
+	it('neutralizes markdown image injection', () => {
+		const out = escapeForMarkdown('![tracker](https://evil.example/log)')
+		expect(out).not.toMatch(/(^|[^\\])!\[/)
+	})
+
+	it('neutralizes inline code spans', () => {
+		const out = escapeForMarkdown('text with `backticks` inside')
+		expect(out).not.toMatch(/(^|[^\\])`/)
+	})
+
+	it('neutralizes emphasis markers', () => {
+		expect(escapeForMarkdown('*bold*')).toBe('\\*bold\\*')
+		expect(escapeForMarkdown('__under__')).toBe('\\_\\_under\\_\\_')
+	})
+
+	it('neutralizes autolink-style references and list/heading markers', () => {
+		expect(escapeForMarkdown('#1234')).toBe('\\#1234')
+		expect(escapeForMarkdown('- list item')).toBe('\\- list item')
+	})
+
+	it('escapes backslashes so attacker cannot undo escaping downstream', () => {
+		expect(escapeForMarkdown('\\[x](y)')).toBe('\\\\\\[x\\]\\(y\\)')
+	})
+
+	it('leaves benign text unchanged', () => {
+		expect(escapeForMarkdown('should render a login form')).toBe('should render a login form')
+	})
+})
+
 describe('upperCaseFirst', () => {
 	it('returns a string', async () => {
 		expect(typeof upperCaseFirst('lorem') === 'string').toBe(true)
 	})
 	it('uppercases the first letter', async () => {
 		expect(upperCaseFirst('lorem')).toBe('Lorem')
+	})
+})
+
+describe('renderCodeBlock', () => {
+	it('wraps code in a triple-backtick fence by default', () => {
+		expect(renderCodeBlock('hello')).toBe('```\nhello\n```')
+	})
+
+	it('uses an adaptive fence longer than any backtick run in the content', () => {
+		const out = renderCodeBlock('foo ``` bar')
+		expect(out.startsWith('````\n')).toBe(true)
+		expect(out.endsWith('\n````')).toBe(true)
+	})
+
+	it('grows the fence to defeat arbitrary backtick runs', () => {
+		const out = renderCodeBlock('`````` evil ```')
+		expect(out.startsWith('```````\n')).toBe(true)
+	})
+
+	it('passes language hint through', () => {
+		expect(renderCodeBlock('echo 1', 'bash')).toBe('```bash\necho 1\n```')
 	})
 })
 

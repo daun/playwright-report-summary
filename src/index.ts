@@ -210,6 +210,8 @@ export async function report(): Promise<void> {
 		setSummary.addRaw(summary).write()
 	}
 
+	// Untrusted content: never interpolate directly into `run:` scripts.
+	// See README "Security: using outputs safely".
 	setOutput('summary', summary)
 	setOutput('comment-id', commentId)
 	setOutput('report-data', JSON.stringify(report))

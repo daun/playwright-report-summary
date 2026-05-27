@@ -1,5 +1,37 @@
+// Cap on rendered test titles to avoid GitHub's 65535-char body limit
+export const MAX_TITLE_LENGTH = 500
+
+// GFM inline metacharacters; backslash-escape neutralizes them as plain text
+const MARKDOWN_INLINE_METACHARACTERS = /[\\`*_{}[\]()#+!|~-]/g
+
+// ANSI  escape sequences stripped whole s leftover bytes (`[31m`) don't survive as visible garbage
+// eslint-disable-next-line no-control-regex
+const ANSI_ESCAPE_SEQUENCES = /\x1b(?:\[[0-?]*[ -/]*[@-~]|\][^\x07\x1b]*(?:\x07|\x1b\\)|[@-_])/g
+
+// C0 + DEL + C1 control characters + ESC for defeating any ANSI sequence the regex above missed
+// eslint-disable-next-line no-control-regex
+const CONTROL_CHARACTERS = /[\x00-\x1f\x7f-\x9f]/g
+
+export function stripControlCharacters(text: string): string {
+	return text.replace(ANSI_ESCAPE_SEQUENCES, '').replace(CONTROL_CHARACTERS, '')
+}
+
+export function sanitizeTestFilePath(file: string): string {
+	return stripControlCharacters(file)
+}
+
+export function sanitizeTestTitle(title: string): string {
+	const stripped = stripControlCharacters(title)
+	return stripped.length <= MAX_TITLE_LENGTH ? stripped : `${stripped.slice(0, MAX_TITLE_LENGTH)}\u2026`
+}
+
 export function escapeForMarkdown(text: string): string {
-	return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, ' ')
+	return text
+		.replace(/&/g, '&amp;')
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;')
+		.replace(MARKDOWN_INLINE_METACHARACTERS, '\\$&')
+		.replace(/\n/g, ' ')
 }
 
 export function renderMarkdownTable(rows: string[][], headers: string[] = []): string {
@@ -18,7 +50,10 @@ export function renderAccordion(summary: string, content: string, { open = false
 }
 
 export function renderCodeBlock(code: string, lang = ''): string {
-	return `\`\`\`${lang}\n${code}\n\`\`\``
+	// Adaptive fence (CommonMark): one tick longer than any run inside `code`.
+	const longestRun = (code.match(/`+/g) ?? []).reduce((max, run) => Math.max(max, run.length), 0)
+	const fence = '`'.repeat(Math.max(3, longestRun + 1))
+	return `${fence}${lang}\n${code}\n${fence}`
 }
 
 export function formatDuration(milliseconds: number): string {

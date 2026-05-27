@@ -33462,8 +33462,33 @@ function parseListInput(input, allowed = []) {
         .filter((item) => !allowed.length || allowed.includes(item)) || []);
 }
 
+// Cap on rendered test titles to avoid GitHub's 65535-char body limit
+const MAX_TITLE_LENGTH = 500;
+// GFM inline metacharacters; backslash-escape neutralizes them as plain text
+const MARKDOWN_INLINE_METACHARACTERS = /[\\`*_{}[\]()#+!|~-]/g;
+// ANSI  escape sequences stripped whole s leftover bytes (`[31m`) don't survive as visible garbage
+// eslint-disable-next-line no-control-regex
+const ANSI_ESCAPE_SEQUENCES = /\x1b(?:\[[0-?]*[ -/]*[@-~]|\][^\x07\x1b]*(?:\x07|\x1b\\)|[@-_])/g;
+// C0 + DEL + C1 control characters + ESC for defeating any ANSI sequence the regex above missed
+// eslint-disable-next-line no-control-regex
+const CONTROL_CHARACTERS = /[\x00-\x1f\x7f-\x9f]/g;
+function stripControlCharacters(text) {
+    return text.replace(ANSI_ESCAPE_SEQUENCES, '').replace(CONTROL_CHARACTERS, '');
+}
+function sanitizeTestFilePath(file) {
+    return stripControlCharacters(file);
+}
+function sanitizeTestTitle(title) {
+    const stripped = stripControlCharacters(title);
+    return stripped.length <= MAX_TITLE_LENGTH ? stripped : `${stripped.slice(0, MAX_TITLE_LENGTH)}\u2026`;
+}
 function escapeForMarkdown(text) {
-    return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, ' ');
+    return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(MARKDOWN_INLINE_METACHARACTERS, '\\$&')
+        .replace(/\n/g, ' ');
 }
 function renderAccordion(summary, content, { open = false } = {}) {
     summary = `<summary><strong>${summary}</strong></summary>`;
@@ -33471,7 +33496,10 @@ function renderAccordion(summary, content, { open = false } = {}) {
     return `<details ${open ? 'open' : ''}>${summary}\n\n${content.trim()}\n\n</details>`;
 }
 function renderCodeBlock(code, lang = '') {
-    return `\`\`\`${lang}\n${code}\n\`\`\``;
+    // Adaptive fence (CommonMark): one tick longer than any run inside `code`.
+    const longestRun = (code.match(/`+/g) ?? []).reduce((max, run) => Math.max(max, run.length), 0);
+    const fence = '`'.repeat(Math.max(3, longestRun + 1));
+    return `${fence}${lang}\n${code}\n${fence}`;
 }
 function formatDuration(milliseconds) {
     const SECOND = 1000;
@@ -33555,6 +33583,8 @@ function createOcticonUrl(icon, { label = 'icon', color = iconColors.icon, size 
     }
 }
 
+// Cap on tests rendered per section to prevent comment flooding on catastrophic-failure runs
+const MAX_TESTS_PER_SECTION = 100;
 function isValidReport(report) {
     return report !== null && typeof report === 'object' && 'config' in report && 'errors' in report && 'suites' in report;
 }
@@ -33700,11 +33730,17 @@ function renderReportSummary(report, { commit, commitUrl, message, title, sectio
         .join('\n\n');
 }
 function renderTestList(tests, testCommand) {
-    const list = tests.map((test) => `  ${escapeForMarkdown(test.title)}`).join('\n');
+    const shown = tests.slice(0, MAX_TESTS_PER_SECTION);
+    const overflow = tests.length - shown.length;
+    const lines = shown.map((test) => `  ${escapeForMarkdown(sanitizeTestTitle(test.title))}`);
+    if (overflow > 0) {
+        lines.push(`  … and ${overflow} more`);
+    }
+    const list = lines.join('\n');
     if (!testCommand) {
         return list;
     }
-    const testIds = tests.map((test) => `${test.file}:${test.line}`).join(' ');
+    const testIds = shown.map((test) => `${sanitizeTestFilePath(test.file)}:${test.line}`).join(' ');
     const command = `${testCommand} ${testIds}`;
     return `${list}\n\n${renderCodeBlock(command)}`;
 }
@@ -33920,6 +33956,8 @@ async function report() {
     if (createJobSummary) {
         summary.addRaw(summary$1).write();
     }
+    // Untrusted content: never interpolate directly into `run:` scripts.
+    // See README "Security: using outputs safely".
     setOutput('summary', summary$1);
     setOutput('comment-id', commentId);
     setOutput('report-data', JSON.stringify(report));

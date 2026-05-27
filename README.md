@@ -1,7 +1,8 @@
 # ![report](https://icongr.am/octicons/comment-discussion.svg?size=22&color=abb4bf)   Playwright Report Summary
 
-[![GitHub Super-Linter](https://github.com/actions/typescript-action/actions/workflows/linter.yml/badge.svg)](https://github.com/super-linter/super-linter)
-![CI](https://github.com/actions/typescript-action/actions/workflows/ci.yml/badge.svg)
+[![CI](https://github.com/daun/playwright-report-summary/actions/workflows/ci.yml/badge.svg)](https://github.com/daun/playwright-report-summary/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/daun/playwright-report-summary/actions/workflows/codeql.yml/badge.svg)](https://github.com/daun/playwright-report-summary/actions/workflows/codeql.yml)
+[![Linter](https://github.com/daun/playwright-report-summary/actions/workflows/linter.yml/badge.svg)](https://github.com/daun/playwright-report-summary/actions/workflows/linter.yml)
 
 A GitHub action to report Playwright test results as a pull request comment.
 

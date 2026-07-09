@@ -24,6 +24,7 @@ const debugMock = jest.spyOn(actionsCore, 'debug').mockImplementation(jest.fn())
 const getInputMock = jest.spyOn(actionsCore, 'getInput').mockImplementation((name: string) => inputs[name] || '')
 const setFailedMock = jest.spyOn(actionsCore, 'setFailed').mockImplementation(jest.fn())
 const setOutputMock = jest.spyOn(actionsCore, 'setOutput').mockImplementation(jest.fn())
+const consoleWarnMock = jest.spyOn(console, 'warn').mockImplementation(jest.fn())
 
 // Mock the fs module
 const readFileMock = jest.spyOn(fs, 'readFile')
@@ -70,6 +71,8 @@ const originalContext: Context = { issue: {}, ...actionsGitHub.context }
 
 const defaultContext = {
 	eventName: 'pull_request',
+	ref: 'refs/pull/12345/merge',
+	sha: 'default-sha',
 	repo: {
 		owner: 'some-owner',
 		repo: 'some-repo'
@@ -106,6 +109,8 @@ describe('action', () => {
 	beforeAll(() => {})
 
 	beforeEach(() => {
+		inputs = {}
+		delete process.env['INPUT_CREATE-COMMENT']
 		setContext(defaultContext)
 		jest.clearAllMocks()
 	})
@@ -262,6 +267,68 @@ describe('action', () => {
 
 		expect(runMock).toHaveReturned()
 		expect(createIssueCommentMock).not.toHaveBeenCalled()
+	})
+
+	it('supports deployment_status events', async () => {
+		inputs = {
+			'report-file': '__tests__/__fixtures__/report-valid.json'
+		}
+		setContext({
+			...defaultContext,
+			eventName: 'deployment_status',
+			ref: 'refs/heads/context-branch',
+			sha: 'context-sha',
+			payload: {
+				repository: {
+					html_url: 'https://github.com/some-owner/some-repo'
+				},
+				deployment: {
+					ref: 'deployment-branch',
+					sha: 'deployment-sha'
+				}
+			}
+		})
+
+		await index.run()
+
+		expect(runMock).toHaveReturned()
+		expect(consoleWarnMock).not.toHaveBeenCalledWith('Unsupported event type: deployment_status')
+		expect(renderReportSummaryMock).toHaveBeenNthCalledWith(
+			1,
+			expect.any(Object),
+			expect.objectContaining({
+				commit: 'deployment-sha',
+				commitUrl: 'https://github.com/some-owner/some-repo/commit/deployment-sha'
+			})
+		)
+	})
+
+	it('does not require a pull request for deployment_status when comments are disabled', async () => {
+		process.env['INPUT_CREATE-COMMENT'] = 'false'
+		inputs = {
+			'report-file': '__tests__/__fixtures__/report-valid.json',
+			'create-comment': 'false'
+		}
+		setContext({
+			...defaultContext,
+			eventName: 'deployment_status',
+			issue: {},
+			ref: 'refs/heads/context-branch',
+			sha: 'context-sha',
+			payload: {
+				deployment: {
+					ref: 'deployment-branch',
+					sha: 'deployment-sha'
+				}
+			}
+		})
+
+		await index.run()
+
+		expect(runMock).toHaveReturned()
+		expect(setFailedMock).not.toHaveBeenCalled()
+		expect(createIssueCommentMock).not.toHaveBeenCalled()
+		expect(setOutputMock).toHaveBeenCalledWith('summary', expect.stringContaining('# Playwright test results'))
 	})
 
 	it('sets a failed status', async () => {

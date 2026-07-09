@@ -34007,6 +34007,12 @@ async function report() {
         case 'workflow_dispatch':
             console.log(`Workflow dispatched on ${ref} (${sha})`);
             break;
+        case 'deployment_status':
+            ref = payload.deployment?.ref || ref;
+            sha = payload.deployment?.sha || sha;
+            commitUrl = getCommitUrl(payload.repository?.html_url, sha);
+            console.log(`Deployment status on ${ref} (${sha})`);
+            break;
         default:
             console.warn(`Unsupported event type: ${eventName}`);
             break;

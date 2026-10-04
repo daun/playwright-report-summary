@@ -3,18 +3,18 @@
 exports[`renderReportSummary matches snapshot 1`] = `
 "### Test Report
 
-![failed](https://icongr.am/octicons/stop.svg?size=14&color=da3633)  **2 failed**  
-![passed](https://icongr.am/octicons/check-circle.svg?size=14&color=3fb950)  **10 passed**    
-![flaky](https://icongr.am/octicons/alert.svg?size=14&color=d29922)  **1 flaky**    
-![skipped](https://icongr.am/octicons/skip.svg?size=14&color=0967d9)  **1 skipped**
+![failed](https://api.iconify.design/octicon/stop-16.svg?height=14&color=%23da3633)  **2 failed**  
+![passed](https://api.iconify.design/octicon/check-circle-16.svg?height=14&color=%233fb950)  **10 passed**    
+![flaky](https://api.iconify.design/octicon/alert-16.svg?height=14&color=%23d29922)  **1 flaky**    
+![skipped](https://api.iconify.design/octicon/skip-16.svg?height=14&color=%230967d9)  **1 skipped**
 
 #### Details
 
-![report](https://icongr.am/octicons/package.svg?size=14&color=abb4bf)  [Open report ↗︎](https://example.com/report)  
-![stats](https://icongr.am/octicons/pulse.svg?size=14&color=abb4bf)  14 tests across 4 suites  
-![duration](https://icongr.am/octicons/clock.svg?size=14&color=abb4bf)  1.1 seconds  
-![commit](https://icongr.am/octicons/git-pull-request.svg?size=14&color=abb4bf)  1234567  
-![info](https://icongr.am/octicons/info.svg?size=14&color=abb4bf)  For more information, see our [documentation](https://example.com/docs)
+![report](https://api.iconify.design/octicon/package-16.svg?height=14&color=%23abb4bf)  [Open report ↗︎](https://example.com/report)  
+![stats](https://api.iconify.design/octicon/pulse-16.svg?height=14&color=%23abb4bf)  14 tests across 4 suites  
+![duration](https://api.iconify.design/octicon/clock-16.svg?height=14&color=%23abb4bf)  1.1 seconds  
+![commit](https://api.iconify.design/octicon/git-pull-request-16.svg?height=14&color=%23abb4bf)  1234567  
+![info](https://api.iconify.design/octicon/info-16.svg?height=14&color=%23abb4bf)  For more information, see our [documentation](https://example.com/docs)
 
 <details open><summary><strong>Failed tests</strong></summary>
 

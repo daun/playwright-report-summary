@@ -33713,7 +33713,7 @@ function renderIcon(status, { iconStyle = defaultIconStyle } = {}) {
 }
 function createOcticonUrl(icon, { label = 'icon', color = iconColors.icon, size = iconSize } = {}) {
     if (icon) {
-        return `![${label}](https://icongr.am/octicons/${icon}.svg?size=${size}&color=${color})`;
+        return `![${label}](https://api.iconify.design/octicon/${icon}-16.svg?height=${size}&color=%23${color})`;
     }
     else {
         return '';

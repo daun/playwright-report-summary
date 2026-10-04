@@ -1,5 +1,9 @@
 # Changelog
 
+## [4.1.1] - 2026-10-04
+
+- Switch icon CDN to fix icons not loading
+
 ## [4.1.0] - 2026-07-09
 
 - Support deployment_status events (@chen-anders)
@@ -115,6 +119,7 @@
 
 - Initial release
 
+[4.1.1]: https://github.com/daun/playwright-report-summary/releases/tag/v4.1.1
 [4.1.0]: https://github.com/daun/playwright-report-summary/releases/tag/v4.1.0
 [4.0.0]: https://github.com/daun/playwright-report-summary/releases/tag/v4.0.0
 [3.11.0]: https://github.com/daun/playwright-report-summary/releases/tag/v3.11.0

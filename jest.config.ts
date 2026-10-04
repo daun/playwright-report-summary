@@ -31,7 +31,7 @@ const config: Config = {
 		]
 	},
 	transformIgnorePatterns: [
-		'/node_modules/(?!(@actions/(core|exec|github|io|http-client)|@octokit/[^/]+|universal-user-agent|before-after-hook)/)'
+		'/node_modules/(?!(@actions/(core|exec|github|io|http-client)|@octokit/[^/]+|universal-user-agent|before-after-hook|content-type)/)'
 	],
 	coverageReporters: ['json-summary', 'text', 'lcov'],
 	collectCoverage: true,
